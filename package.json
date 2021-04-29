@@ -10,7 +10,6 @@
     "@nestjs/core": "*",
     "@nestjs/platform-express": "*",
     "redis": "*",
-    "reflect-metadata": "*",
     "typeorm": "*"
   },
   "dependencies": {
@@ -29,6 +28,7 @@
     "ow": "^0.23.0",
     "redis": "^3.1.2",
     "redlock": "^4.2.0",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.7",
     "shortid": "^2.2.16",
     "typeorm": "^0.2.32",
