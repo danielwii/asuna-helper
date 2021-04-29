@@ -1,4 +1,5 @@
 import { Promise } from 'bluebird';
+import { exec } from 'child_process';
 import _ from 'lodash';
 
 export function promisify<T extends (...args: any[]) => R, R>(
@@ -18,3 +19,12 @@ export const fnResolve = <T>(fn: FutureResolveType<T>): ((...args: any[]) => Pro
   ...args
 ): Promise<T> =>
   _.isFunction(fn) ? (isPromiseAlike(fn) ? fn(...args) : Promise.resolve(fn(...args))) : Promise.resolve(fn);
+
+export function execAsync(command: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) reject(error);
+      else resolve(stdout ?? stderr);
+    });
+  });
+}
