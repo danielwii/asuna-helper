@@ -48,11 +48,11 @@ export class Uploader {
 
     const limit = process.env.APP_PAYLOAD_LIMIT ?? '100mb';
     const stat = await fs.stat(path);
-    const maxContentLength = 1000 * 1000 * Number(limit.slice(0, -2));
-    logger.log(`upload: ${r({ endpoint, path, bucket, prefix, filename, stat, maxContentLength })}`);
+    const maxBodyLength = 1000 * 1000 * Number(limit.slice(0, -2));
+    logger.log(`upload: ${r({ endpoint, path, bucket, prefix, filename, stat, maxBodyLength })}`);
 
-    if (stat.size > maxContentLength) {
-      throw new Error(`file size is ${stat.size} large than maxContentLength ${maxContentLength}`);
+    if (stat.size > maxBodyLength) {
+      throw new Error(`file size is ${stat.size} large than maxBodyLength ${maxBodyLength}`);
     }
 
     const readable = fs.createReadStream(path);
@@ -60,7 +60,7 @@ export class Uploader {
     return axios
       .post(`${endpoint}?${querystring.stringify({ bucket, prefix, filename })}`, readable, {
         headers: { 'content-type': 'multipart/form-data' },
-        maxContentLength,
+        maxBodyLength,
       })
       .catch((error) => handleAxiosResponseError(endpoint, error));
   }
