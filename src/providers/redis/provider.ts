@@ -1,6 +1,6 @@
 import { Promise } from 'bluebird';
 import { Expose, plainToClass, Transform } from 'class-transformer';
-import * as redis from 'redis';
+import { ClientOpts, createClient, RedisClient } from 'redis';
 
 import { LoggerFactory } from '../../logger';
 import { LifecycleRegister } from '../../register';
@@ -12,11 +12,11 @@ const logger = LoggerFactory.getLogger('RedisProvider');
 export class RedisClientObject {
   @Expose({ name: 'created-client', toPlainOnly: true })
   @Transform(({ value }) => !!value, { toPlainOnly: true })
-  public client: redis.RedisClient | undefined;
+  public client: RedisClient | undefined;
 
   public isEnabled: boolean | undefined;
   public isHealthy: boolean | undefined;
-  public redisOptions: redis.ClientOpts | undefined;
+  public redisOptions: ClientOpts | undefined;
 }
 
 export class RedisProvider {
@@ -54,9 +54,7 @@ export class RedisProvider {
       return redisClientObject;
     }
 
-    // https://github.com/NodeRedis/node_redis#bluebird-promises
-    Promise.promisifyAll(redis);
-    const client = redis.createClient(redisOptions);
+    const client = createClient(redisOptions);
     redisClientObject.client = client;
     client.on('connect', () => {
       redisClientObject.isHealthy = true;

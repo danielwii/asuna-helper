@@ -1,6 +1,6 @@
 import { Promise } from 'bluebird';
 import _ from 'lodash';
-import * as redis from 'redis';
+import { RedisClient } from 'redis';
 import RedLock from 'redlock';
 
 import { AppEnv } from '../../app.env';
@@ -14,7 +14,7 @@ import { RedisProvider } from './provider';
 const logger = LoggerFactory.getLogger('RedisLockProvider');
 
 export class RedisLockProvider {
-  public readonly client: redis.RedisClient | undefined;
+  public readonly client: RedisClient | undefined;
   public readonly redLock: RedLock | undefined;
 
   public static locks: Record<string, RedLock.Lock> = {};
