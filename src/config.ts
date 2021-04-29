@@ -19,3 +19,18 @@ export class AbstractConfigLoader<Config> {
     return this as any;
   }
 }
+
+export enum YamlConfigKeys {
+  graphql = 'graphql',
+  sentry = 'sentry',
+  features = 'features',
+  app = 'app',
+  tracing = 'tracing',
+  mq = 'mq',
+  email = 'email',
+  live = 'live',
+  sms = 'sms',
+  uploader = 'uploader',
+  redis = 'redis',
+  storage = 'storage',
+}

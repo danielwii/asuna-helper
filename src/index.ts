@@ -1,5 +1,7 @@
 export * from './logger';
+export * from './providers';
 export * from './axios';
+export * from './app.env';
 export * from './config';
 export * from './db';
 export * from './downloader';
@@ -8,6 +10,7 @@ export * from './interface';
 export * from './normal';
 export * from './path';
 export * from './promise';
+export * from './register';
 export * from './serializer';
 export * from './time';
 export * from './ua';

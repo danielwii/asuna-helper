@@ -28,3 +28,13 @@ export function execAsync(command: string): Promise<string> {
     });
   });
 }
+
+export async function waitUtil<T>(fn: () => Promise<T>): Promise<T> {
+  const exists = await fn();
+  if (exists) {
+    // logger.debug(`found wait ${r(exists)}, waiting 1s...`);
+    await Promise.delay(1000);
+    return waitUtil(fn);
+  }
+  return exists;
+}
