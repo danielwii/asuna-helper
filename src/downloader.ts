@@ -26,7 +26,7 @@ export async function download(url: string, to: string): Promise<AxiosResponse> 
 
 export function fetchFile(url: string, to: string): Promise<string | AxiosResponse> {
   // const host = AppConfigObject.load().masterAddress;
-  const host = process.env.MASTER_ADDRESS;
+  const host = process.env.APP_MASTER_ADDRESS;
   let endpoint = url;
   if (!url.startsWith('http')) {
     const fixedPath = join('/', url).replace(/^\/+/, '/');
