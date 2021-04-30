@@ -13,6 +13,7 @@ export * from './path';
 export * from './promise';
 export * from './random';
 export * from './register';
+export * from './req';
 export * from './serializer';
 export * from './time';
 export * from './ua';
