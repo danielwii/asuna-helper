@@ -2,8 +2,7 @@ import BullQueue from 'bull';
 import { validate } from 'class-validator';
 import _ from 'lodash';
 import ow from 'ow';
-import { defer, Observable, of, Subject, throwError } from 'rxjs';
-import { fromPromise } from 'rxjs/internal-compatibility';
+import { defer, Observable, of, Subject, throwError, from } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
 
 import { AppEnv } from '../app.env';
@@ -196,7 +195,7 @@ export class Hermes {
             const isPromise = typeof result.then === 'function';
             logger.log(`job(${jobId}) call func in defer ... result is ${r(result)} ${typeof result}`);
             if (isPromise) {
-              return fromPromise<any>(result.then((value) => ({ result: value, jobId, data })));
+              return from<any>(result.then((value) => ({ result: value, jobId, data })));
             }
             return result instanceof Observable ? of({ jobId, data, result }) : of(result);
           });
