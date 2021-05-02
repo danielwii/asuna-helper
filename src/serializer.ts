@@ -1,7 +1,7 @@
 import { classToPlain } from 'class-transformer';
-import { inspect } from 'util';
 import * as JSON5 from 'json5';
 import _ from 'lodash';
+import util from 'util';
 
 import { isProductionEnv } from './utils';
 
@@ -30,4 +30,10 @@ export function r(
   }
   const value = transform || stringify ? classToPlain(o) : o;
   return isProductionEnv || stringify ? safeStringify(value, 0) : inspect(value, { colors: true, depth: depth ?? 5 });
+}
+
+export function inspect(o: any, options: util.InspectOptions = {}): string {
+  return isProductionEnv
+    ? util.inspect(o, { breakLength: Infinity, colors: true, ...options })
+    : util.inspect(o, { colors: true, ...options });
 }
