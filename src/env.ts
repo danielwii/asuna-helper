@@ -1,29 +1,42 @@
 export const isProd = process.env.NODE_ENV === 'production';
 
-export class Endpoints {
-  public static get api(): string {
-    if (process.env.PROXY_MODE) {
-      return typeof window === 'undefined' ? `${process.env.INTERNAL_DOMAIN ?? process.env.DOMAIN}/proxy` : '/proxy';
+export class EndpointsUtil {
+  public static api(isProxyMode?: boolean, isServerSide?: boolean) {
+    if (isServerSide) {
+      if (!process.env.API_ENDPOINT) throw new Error('API_ENDPOINT is required for server side request.');
+      return `${process.env.API_ENDPOINT}/api`;
     }
-    return typeof window === 'undefined'
-      ? `${process.env.API_ENDPOINT}/api`
-      : `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api`;
+
+    if (!isProxyMode) {
+      if (!process.env.NEXT_PUBLIC_API_ENDPOINT && !process.env.API_ENDPOINT)
+        throw new Error('NEXT_PUBLIC_API_ENDPOINT/API_ENDPOINT is required for client side request.');
+      return `${process.env.NEXT_PUBLIC_API_ENDPOINT || process.env.API_ENDPOINT}/api`;
+    }
+    return `/proxy`;
   }
 
-  public static resolvePath(path = '/api'): string {
+  public static resolvePath(isProxyMode?: boolean, isServerSide?: boolean, path = '/api'): string {
     const endpoint = Endpoints.api;
-    if (process.env.PROXY_MODE) {
-      return endpoint + path;
+
+    if (isServerSide || !isProxyMode) {
+      return new URL(path, endpoint).href;
     }
-    return new URL(path, endpoint).href;
+
+    return '/proxy' + path;
+  }
+}
+
+export class Endpoints {
+  public static get api(): string {
+    return EndpointsUtil.api(!!process.env.PROXY_MODE, typeof window === 'undefined');
+  }
+
+  public static resolvePath(path = ''): string {
+    return EndpointsUtil.resolvePath(!!process.env.PROXY_MODE, typeof window === 'undefined', path);
   }
 
   public static get graphql(): string {
-    return process.env.PROXY_MODE
-      ? typeof window === 'undefined'
-        ? `${process.env.INTERNAL_DOMAIN ?? process.env.DOMAIN}/graphql`
-        : '/graphql'
-      : `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql`;
+    return EndpointsUtil.resolvePath(!!process.env.PROXY_MODE, typeof window === 'undefined', '/graphql');
   }
 
   public static get ws() {
