@@ -13,6 +13,7 @@ __metadata:
     "@nestjs/platform-express": ^7.6.15
     "@types/bluebird": ^3
     "@types/bull": ^3
+    "@types/cli-table": ^0
     "@types/fs-extra": ^9
     "@types/lodash": ^4
     "@types/node": ^14
@@ -24,14 +25,16 @@ __metadata:
     bull: ^3.22.4
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
-    date-fns: ^2.21.1
+    cli-table: ^0.3.6
+    consola: ^2.15.3
+    date-fns: ^2.21.3
     fs-extra: ^10.0.0
     ismobilejs: ^1.1.1
     json5: ^2.2.0
     lodash: ^4.17.21
-    node-buffs: ^0.8.12
+    node-buffs: ^0.8.13
     ow: ^0.23.0
-    prettier: ^2.2.1
+    prettier: ^2
     redis: ^3.1.2
     redlock: ^4.2.0
     reflect-metadata: ^0.1.13
@@ -117,6 +120,13 @@ __metadata:
   dependencies:
     "@types/ioredis": "*"
   checksum: 6746e39a64137196b45a6b181cd797290786577d5da779c228fe706309a5ce76a2144709501830b89b87f53a4b720ec6fe8d2d4f4ef74a9457974070670c742a
+  languageName: node
+  linkType: hard
+
+"@types/cli-table@npm:^0":
+  version: 0.3.0
+  resolution: "@types/cli-table@npm:0.3.0"
+  checksum: 27c29c1ddbb5d89496e95b172718461fff7e8045c66a07f728e62b0fd6460f88c5f52dfe62e75ff62ce38907885186408c9df7693b396a73cea798c9123541e4
   languageName: node
   linkType: hard
 
@@ -464,6 +474,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cli-table@npm:^0.3.6":
+  version: 0.3.6
+  resolution: "cli-table@npm:0.3.6"
+  dependencies:
+    colors: 1.0.3
+  checksum: 58a2449d55a3b5390b2578ef63f0591b56d034c3753b1fe47339b18e11ebc3134d234f49004b256cb60243219137328026cb60200fb5e1e19fe9c96967c5df7f
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^7.0.2":
   version: 7.0.4
   resolution: "cliui@npm:7.0.4"
@@ -498,6 +517,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colors@npm:1.0.3":
+  version: 1.0.3
+  resolution: "colors@npm:1.0.3"
+  checksum: d5b1f35612744af0c24b1f80ec3bb8dccfb4a8441a1883d470295ac81ae8aef6f437ae05662595c1e0c98af27e1ad4e90ccd87f1a124cfc2b7953524f55fc951
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -514,6 +540,13 @@ __metadata:
     readable-stream: ^2.2.2
     typedarray: ^0.0.6
   checksum: 7a97b7a7d0938e36800bdb6f5caf938bac8c523a6ec15df1f2ac41d3785541be30a6671c9f4c0d1ac9609e6ab29dcab8f54d1c84035e3e3b7b24f9336da68ab0
+  languageName: node
+  linkType: hard
+
+"consola@npm:^2.15.3":
+  version: 2.15.3
+  resolution: "consola@npm:2.15.3"
+  checksum: 914e2b0b24605a41f1a83ae29a0238558d01a01c40ada5817db81b2dd1543a540d59e38e81e736d05360246379a18013e6930b32231650898dfc4adb52a93523
   languageName: node
   linkType: hard
 
@@ -574,10 +607,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.21.1":
-  version: 2.21.1
-  resolution: "date-fns@npm:2.21.1"
-  checksum: 00a2ddea1047c4ce6eaadda76a0ee0782d1cfe65061641bbff94f7a70d2d6ab12dac89e027b39d49710bdb2cf264bc1a4e096b0324c7de79699296a4c19f4a40
+"date-fns@npm:^2.21.3":
+  version: 2.21.3
+  resolution: "date-fns@npm:2.21.3"
+  checksum: a88c9da180cde3a3426c09cacf3f6bffb615e31d73e458da90e9d5304432eea2e0b360f40ee4fd5ca187659e8a7f8f667db902a3eb033e8d2d1522b1cc1b9e32
   languageName: node
   linkType: hard
 
@@ -662,6 +695,13 @@ __metadata:
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "dotenv@npm:9.0.1"
+  checksum: d269ad03ed91e8f44a77fbf04ac6f67678b22a7ca2094f3033e1197d5d4756be29ad1ea3951a335149a2363889144a6b171dc91fda88a60114c5dd388a6e17d3
   languageName: node
   linkType: hard
 
@@ -1172,7 +1212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.0.0":
+"js-yaml@npm:^4.0.0, js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
   dependencies:
@@ -1411,15 +1451,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-buffs@npm:^0.8.12":
-  version: 0.8.12
-  resolution: "node-buffs@npm:0.8.12"
+"node-buffs@npm:^0.8.13":
+  version: 0.8.13
+  resolution: "node-buffs@npm:0.8.13"
   dependencies:
-    dotenv: ^8.2.0
-    js-yaml: ^4.0.0
+    dotenv: ^9.0.1
+    js-yaml: ^4.1.0
   peerDependencies:
     lodash: ">=4.17.0"
-  checksum: 1f9fc012e3d9a1f9b0d8522c53ab4286fc1ff9779ff5d88cfc425dea2fcf276d988ce17fdcf649a30b0c74cf75389747fa971da5b57ab9e944dbc2419e667175
+  checksum: 7fd8e260dffe4966e206374d9793fffe75e17f8684e732297f46f9bca583ebd8182e86e2afeb835e21cae931c1f7652dc2b70e5005ae7f45a57c054e92b6b1f7
   languageName: node
   linkType: hard
 
@@ -1573,12 +1613,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "prettier@npm:2.2.1"
+"prettier@npm:^2":
+  version: 2.3.0
+  resolution: "prettier@npm:2.3.0"
   bin:
     prettier: bin-prettier.js
-  checksum: 92c6c9f4b87eba1f28466edee57dd18c80d00b858edda77d46d1950d20e6e302b68ee255fc91133ba931e63c4577b5ae30da194d9626a8f3c0177778b91bf056
+  checksum: 652640cc8b71bc5277cfb8bf6f161783ca588efcf683c3d630837b39da8d57fef35c9e00ae5855a8e3c75136c42274046c913cc2b2d2968558315f31c6a26981
   languageName: node
   linkType: hard
 
