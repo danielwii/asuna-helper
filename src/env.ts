@@ -10,7 +10,7 @@ export class EndpointsUtil {
     if (!isProxyMode) {
       if (!process.env.NEXT_PUBLIC_API_ENDPOINT && !process.env.API_ENDPOINT)
         throw new Error('NEXT_PUBLIC_API_ENDPOINT/API_ENDPOINT is required for client side request.');
-      return `${process.env.NEXT_PUBLIC_API_ENDPOINT || process.env.API_ENDPOINT}/api`;
+      return new URL('/api', `${process.env.NEXT_PUBLIC_API_ENDPOINT || process.env.API_ENDPOINT}`).href;
     }
     return `/proxy`;
   }
