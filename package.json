@@ -16,7 +16,7 @@
     "@nestjs/common": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "bluebird": "^3.7.2",
-    "bull": "^3.22.4",
+    "bull": "^3.22.5",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "cli-table": "^0.3.6",

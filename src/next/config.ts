@@ -3,9 +3,9 @@ import consola from 'consola';
 import { compact, flow, isNaN, isNumber, last, omit, split, uniq } from 'lodash';
 import fp from 'lodash/fp';
 import { URL } from 'url';
+import { inspect } from 'util';
 
 import { Endpoints, EndpointsUtil } from '../env';
-import { inspect } from '../serializer';
 
 const logger = consola.withScope('next');
 
@@ -181,11 +181,11 @@ export const createNextConfig = (
     },
   });
 
-  logger.success(inspect(omit(configs, 'redirects', 'rewrites', 'headers')));
+  logger.success(omit(configs, 'redirects', 'rewrites', 'headers'));
   (async () => {
-    if (configs.headers) logger.success('headers', inspect(await configs.headers()));
-    if (configs.redirects) logger.success('redirects', inspect(await configs.redirects()));
-    if (configs.rewrites) logger.success('rewrites', inspect(await configs.rewrites()));
+    if (configs.headers) logger.success('headers', inspect(await configs.headers(), { colors: true, depth: 5 }));
+    if (configs.redirects) logger.success('redirects', inspect(await configs.redirects(), { colors: true, depth: 5 }));
+    if (configs.rewrites) logger.success('rewrites', inspect(await configs.rewrites(), { colors: true, depth: 5 }));
   })();
   return configs;
 };
