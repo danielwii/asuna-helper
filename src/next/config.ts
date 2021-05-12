@@ -163,6 +163,9 @@ export const createNextConfig = (
             ? { source: '/proxy/rest/:slug*', destination: new URL('/rest/:slug*', apiEndpoint).href }
             : undefined,
           apiEndpoint && enableAdmin
+            ? { source: '/proxy/graphql/:slug*', destination: new URL('/graphql/:slug*', apiEndpoint).href }
+            : undefined,
+          apiEndpoint && enableAdmin
             ? { source: '/proxy/admin/:slug*', destination: new URL('/admin/:slug*', apiEndpoint).href }
             : undefined,
           apiEndpoint
