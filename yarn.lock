@@ -22,7 +22,7 @@ __metadata:
     "@types/shortid": ^0
     "@types/ua-parser-js": ^0
     bluebird: ^3.7.2
-    bull: ^3.22.4
+    bull: ^3.22.5
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
     cli-table: ^0.3.6
@@ -32,13 +32,13 @@ __metadata:
     ismobilejs: ^1.1.1
     json5: ^2.2.0
     lodash: ^4.17.21
-    node-buffs: ^0.8.13
+    node-buffs: ^0.8.15
     ow: ^0.23.0
     prettier: ^2
     redis: ^3.1.2
     redlock: ^4.2.0
     reflect-metadata: ^0.1.13
-    rxjs: ^7.0.0
+    rxjs: ^7.0.1
     shortid: ^2.2.16
     typeorm: ^0.2.32
     typescript: ^4.2.4
@@ -365,9 +365,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:^3.22.4":
-  version: 3.22.4
-  resolution: "bull@npm:3.22.4"
+"bull@npm:^3.22.5":
+  version: 3.22.5
+  resolution: "bull@npm:3.22.5"
   dependencies:
     cron-parser: ^2.13.0
     debuglog: ^1.0.0
@@ -379,7 +379,7 @@ __metadata:
     semver: ^7.3.2
     util.promisify: ^1.0.1
     uuid: ^8.3.0
-  checksum: 5d3121334c482aae3d5690927981e1982f4d08658d09c9f8a5903b5089e6a52933b92e0223176998d435e8012738c1731118aeefe07b6e332a0639f946677cb4
+  checksum: 179ab35a4a0130524e98d8075e27cebb8386f2a979729e8a33673066450c2b2b916939bc276a7c7aaff95e7cefcfd3c686c382763a934bcf2a28711bb6b4ea3d
   languageName: node
   linkType: hard
 
@@ -698,10 +698,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "dotenv@npm:9.0.1"
-  checksum: d269ad03ed91e8f44a77fbf04ac6f67678b22a7ca2094f3033e1197d5d4756be29ad1ea3951a335149a2363889144a6b171dc91fda88a60114c5dd388a6e17d3
+"dotenv@npm:^9":
+  version: 9.0.2
+  resolution: "dotenv@npm:9.0.2"
+  checksum: 062a31a2fd024a8a7efee4f2d3972d488a1485e0545b97ab3c338f59f17689a2ae84b6e8ddb9ebca2902cc9b4926e7b672a476f5e326c6902648312fc3da54d9
   languageName: node
   linkType: hard
 
@@ -1212,7 +1212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.0.0, js-yaml@npm:^4.1.0":
+"js-yaml@npm:^4, js-yaml@npm:^4.0.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
   dependencies:
@@ -1451,15 +1451,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-buffs@npm:^0.8.13":
-  version: 0.8.13
-  resolution: "node-buffs@npm:0.8.13"
+"node-buffs@npm:^0.8.15":
+  version: 0.8.15
+  resolution: "node-buffs@npm:0.8.15"
   dependencies:
-    dotenv: ^9.0.1
-    js-yaml: ^4.1.0
+    dotenv: ^9
+    js-yaml: ^4
   peerDependencies:
     lodash: ">=4.17.0"
-  checksum: 7fd8e260dffe4966e206374d9793fffe75e17f8684e732297f46f9bca583ebd8182e86e2afeb835e21cae931c1f7652dc2b70e5005ae7f45a57c054e92b6b1f7
+  checksum: df0ab14098503b95caf7cb9684d6dd89ca3a83855c3c5202460f885d919e47beb799718aacf4f2a123ab95ec52a8d76fcfbfe099a00ba4977e3f2b1962dc173b
   languageName: node
   linkType: hard
 
@@ -1761,12 +1761,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "rxjs@npm:7.0.0"
+"rxjs@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "rxjs@npm:7.0.1"
   dependencies:
     tslib: ~2.1.0
-  checksum: e0d08420f94474c73a14e57b7a1bcbf7010791817e06e5a16a998a8e151b89bd0b4a4883203cb86906a81b0e052cb99cfe3d96b652de4c744282f4d60a51d73e
+  checksum: 5268539238140320c8217a4548199a4e5b6b4d6e683e1a6cf4c83f31dd36f05accb65c740d91947505693b78e2b8e3b21eb7726421b1ba64f4e161f60d2499a8
   languageName: node
   linkType: hard
 
