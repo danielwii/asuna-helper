@@ -71,7 +71,7 @@ export const createNextConfig = (
     NEXT_PUBLIC_API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT,
     NEXT_PUBLIC_WS_ENDPOINT: process.env.NEXT_PUBLIC_WS_ENDPOINT,
     NEXT_PUBLIC_STATIC_ENDPOINT: process.env.NEXT_PUBLIC_STATIC_ENDPOINT,
-    NEXT_PUBLIC_ENABLE_MOBILE_COMPATIBILITY: process.env.NEXT_PUBLIC_ENABLE_MOBILE_COMPATIBILITY,
+    ENABLE_MOBILE_COMPATIBILITY: process.env.ENABLE_MOBILE_COMPATIBILITY,
     HOST_MAPPINGS: process.env.HOST_MAPPINGS,
     // 可供识别的 assets 地址，用于生成缩略图
     EXTRA_DOMAINS: process.env.EXTRA_DOMAINS,
@@ -117,6 +117,7 @@ export const createNextConfig = (
     },
     publicRuntimeConfig: {
       STATIC_ENDPOINT: process.env.STATIC_ENDPOINT,
+      ENABLE_MOBILE_COMPATIBILITY: process.env.ENABLE_MOBILE_COMPATIBILITY,
     },
     async headers() {
       return compact([
