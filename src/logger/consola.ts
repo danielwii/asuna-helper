@@ -1,12 +1,16 @@
-import consola, { ConsolaLogObject } from 'consola';
-import { isProd } from "../env";
+import consola, { Consola, ConsolaLogObject } from 'consola';
+
+import { isProd } from '../env';
 
 export class ConsolaLogger {
-  private logger: typeof consola;
+  private logger: Consola;
   public constructor(private readonly scope?: string) {
     this.logger = scope ? consola.withScope(scope) : consola;
   }
 
+  // public withScope(tag: string): Consola {
+  //   return this.logger.withScope(tag);
+  // }
   public log(message: ConsolaLogObject | any, ...args: any[]): void {
     !isProd && this.logger.log(message, ...args);
   }
@@ -15,6 +19,9 @@ export class ConsolaLogger {
   }
   public success(message: ConsolaLogObject | any, ...args: any[]): void {
     !isProd && this.logger.success(message, ...args);
+  }
+  public warn(message: ConsolaLogObject | any, ...args: any[]): void {
+    !isProd && this.logger.warn(message, ...args);
   }
   public error(message: ConsolaLogObject | any, ...args: any[]): void {
     !isProd && this.logger.error(message, ...args);
