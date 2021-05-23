@@ -1,10 +1,10 @@
 import { Logger } from '@nestjs/common';
+
 import _ from 'lodash';
 import * as fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
 
 const root = dirname(require.main?.filename ?? '.');
-const { packageDir } = global as any;
 
 export class LoggerFactory {
   static getLogger(name: string): Logger {
@@ -22,11 +22,11 @@ export class LoggerFactory {
     }
 
     const flows = [];
-    if (!_.isEmpty(packageDir)) {
+    if (!_.isEmpty(root)) {
       flows.push(
-        fp.replace(resolve(packageDir, '../dist'), ''),
-        fp.replace(resolve(packageDir, '../src'), ''),
-        fp.replace(packageDir, ''),
+        fp.replace(resolve(root, '../dist'), ''),
+        fp.replace(resolve(root, '../src'), ''),
+        fp.replace(root, ''),
       );
     }
     if (callerPath) {

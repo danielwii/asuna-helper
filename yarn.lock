@@ -14,6 +14,7 @@ __metadata:
     "@types/bluebird": ^3
     "@types/bull": ^3
     "@types/cli-table": ^0
+    "@types/common-tags": ^1.8.0
     "@types/fs-extra": ^9
     "@types/lodash": ^4
     "@types/node": ^14
@@ -25,7 +26,9 @@ __metadata:
     bull: ^3
     class-transformer: ^0
     class-validator: ^0
+    classnames: ^2
     cli-table: ^0
+    common-tags: ^1
     consola: ^2
     date-fns: ^2
     fs-extra: ^10
@@ -127,6 +130,13 @@ __metadata:
   version: 0.3.0
   resolution: "@types/cli-table@npm:0.3.0"
   checksum: 27c29c1ddbb5d89496e95b172718461fff7e8045c66a07f728e62b0fd6460f88c5f52dfe62e75ff62ce38907885186408c9df7693b396a73cea798c9123541e4
+  languageName: node
+  linkType: hard
+
+"@types/common-tags@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@types/common-tags@npm:1.8.0"
+  checksum: d6dce803763646d3746a64373c3960b69c528bd67f6937e4c39747c97ecad9e633c92a78dd2b47f4668b81a2e5a8792fb4fe02ca5f3d42106acd555e794c788a
   languageName: node
   linkType: hard
 
@@ -458,6 +468,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"classnames@npm:^2":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 57d536edede609f81425d24b062d8d720a466565faf1e38d32c881e883920baa71519ac70c7b565e9cd39201fb1c1ff9bdf8aabf8e26544bac481e7924867c83
+  languageName: node
+  linkType: hard
+
 "cli-highlight@npm:^2.1.10":
   version: 2.1.11
   resolution: "cli-highlight@npm:2.1.11"
@@ -521,6 +538,13 @@ __metadata:
   version: 1.0.3
   resolution: "colors@npm:1.0.3"
   checksum: d5b1f35612744af0c24b1f80ec3bb8dccfb4a8441a1883d470295ac81ae8aef6f437ae05662595c1e0c98af27e1ad4e90ccd87f1a124cfc2b7953524f55fc951
+  languageName: node
+  linkType: hard
+
+"common-tags@npm:^1":
+  version: 1.8.0
+  resolution: "common-tags@npm:1.8.0"
+  checksum: f37a868d868929cf345fe49c4122efde693f9b06bf5764df36c3bdf5d3c271a24bb3fb6fbfaeec1f29768e60ad648cc11a4092c91bac05a8bde90ddbf5aae1a8
   languageName: node
   linkType: hard
 
