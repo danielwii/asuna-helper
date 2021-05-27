@@ -179,7 +179,7 @@ export const createNextConfig = (
           apiEndpoint
             ? { source: '/graphql/:slug*', destination: new URL('/graphql/:slug*', apiEndpoint).href }
             : undefined,
-          ...(requestPipes.rewrites?.beforeFiles ?? []),
+          ...(requestPipes?.rewrites?.beforeFiles ?? []),
         ]),
       };
     },
