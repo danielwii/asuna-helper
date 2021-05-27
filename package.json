@@ -3,7 +3,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc"
   },
   "peerDependencies": {
     "@nestjs/common": "*",

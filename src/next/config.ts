@@ -13,8 +13,8 @@ type Redirects = { source: string; destination: string; permanent?: boolean }[];
 type Rewrites = { beforeFiles?: { source: string; destination: string }[] };
 
 export interface RequestPipes {
-  headers: any[];
-  rewrites: Rewrites;
+  headers?: any[];
+  rewrites?: Rewrites;
   redirects?: Redirects;
 }
 
@@ -24,7 +24,7 @@ export interface NextConfigProps {
 
 export const createNextConfig = (
   config: NextConfigProps,
-  requestPipes: RequestPipes = { headers: [], rewrites: {} },
+  requestPipes: RequestPipes,
   preprocessors = [],
   { enableAdmin }: { enableAdmin?: boolean } = {},
 ): void => {
@@ -135,7 +135,7 @@ export const createNextConfig = (
             { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600' },
           ],
         },
-        ...requestPipes.headers,
+        ...requestPipes?.headers ?? [],
       ]);
     },
     async redirects(): Promise<Redirects> {
@@ -152,7 +152,7 @@ export const createNextConfig = (
     },
     async rewrites(): Promise<Rewrites> {
       const apiEndpoint = process.env.API_ENDPOINT || process.env.NEXT_PUBLIC_API_ENDPOINT;
-      const staticEndpoint = process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT;
+      // const staticEndpoint = process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT;
       return {
         beforeFiles: compact([
           !uploadsRequestMode.redirect
