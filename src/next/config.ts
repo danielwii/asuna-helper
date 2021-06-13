@@ -1,4 +1,3 @@
-import Table from 'cli-table';
 import consola from 'consola';
 import { compact, flow, isNaN, isNumber, last, omit, split, uniq } from 'lodash';
 import fp from 'lodash/fp';
@@ -139,7 +138,6 @@ export const createNextConfig = (
       ]);
     },
     async redirects(): Promise<Redirects> {
-      const staticEndpoint = process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT;
       return compact([
         uploadsRequestMode.redirect
           ? {
@@ -152,7 +150,6 @@ export const createNextConfig = (
     },
     async rewrites(): Promise<Rewrites> {
       const apiEndpoint = process.env.API_ENDPOINT || process.env.NEXT_PUBLIC_API_ENDPOINT;
-      // const staticEndpoint = process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT;
       return {
         beforeFiles: compact([
           !uploadsRequestMode.redirect
@@ -200,39 +197,29 @@ const detectUploadsRequestMode = () => {
 
   const redirect = !follow;
 
-  const table = new Table({ head: ['Mode', 'Request', 'Endpoint'] });
-  table.push(['Server - Follow - Internal', 'rewrite', EndpointsUtil.resolvePath(false, true, '/uploads')]);
-  table.push([
-    'Server - Follow - External',
+  logger.info('Server/Follow/Internal', 'rewrite', EndpointsUtil.resolvePath(false, true, '/uploads'));
+  logger.info(
+    'Server/Follow/External',
     'rewrite',
     process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT,
-  ]);
-  table.push(['Server - Direct - Internal', '301', EndpointsUtil.resolvePath(false, true, '/uploads')]);
-  table.push([
-    'Server - Direct - External',
-    '301',
-    process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT,
-  ]);
-  table.push(['Client - Follow - Internal', 'rewrite', '/uploads']);
-  table.push([
-    'Client - Follow - External',
+  );
+  logger.info('Server/Direct/Internal', '301', EndpointsUtil.resolvePath(false, true, '/uploads'));
+  logger.info('Server/Direct/External', '301', process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT);
+  logger.info('Client/Follow/Internal', 'rewrite', '/uploads');
+  logger.info(
+    'Client/Follow/External',
     'rewrite',
     process.env.NEXT_PUBLIC_STATIC_ENDPOINT || process.env.STATIC_ENDPOINT,
-  ]);
-  table.push(['Client - Direct - Internal', '301', '/uploads']);
-  table.push([
-    'Client - Direct - External',
-    '301',
-    process.env.NEXT_PUBLIC_STATIC_ENDPOINT || process.env.STATIC_ENDPOINT,
-  ]);
-  logger.log(table.toString());
+  );
+  logger.info('Client/Direct/Internal', '301', '/uploads');
+  logger.info('Client/Direct/External', '301', process.env.NEXT_PUBLIC_STATIC_ENDPOINT || process.env.STATIC_ENDPOINT);
 
   return {
     endpoint:
       typeof window === 'undefined'
         ? internal
           ? EndpointsUtil.resolvePath(false, true, '/uploads')
-          : process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT
+          : process.env.STATIC_ENDPOINT || process.env.NEXT_PUBLIC_STATIC_ENDPOINT || process.env.API_ENDPOINT
         : internal
         ? '/uploads'
         : process.env.NEXT_PUBLIC_STATIC_ENDPOINT || process.env.STATIC_ENDPOINT,
@@ -241,21 +228,15 @@ const detectUploadsRequestMode = () => {
 };
 
 const printEndpoints = () => {
-  const endpointsTable = new Table({ head: ['Name', 'Endpoint'] });
-  endpointsTable.push(['api', Endpoints.api], ['graphql', Endpoints.graphql], ['ws', Endpoints.ws]);
-  logger.log(endpointsTable.toString());
-  const endpointsTable2 = new Table({ head: ['Name', 'From Server', 'From Client Direct', 'From Client Proxy'] });
-  endpointsTable2.push([
-    'Api',
-    EndpointsUtil.api(false, true),
-    EndpointsUtil.api(false, false),
-    EndpointsUtil.api(true, false),
-  ]);
-  endpointsTable2.push([
-    'GraphQL',
-    EndpointsUtil.resolvePath(false, true, '/graphql'),
-    EndpointsUtil.resolvePath(false, false, '/graphql'),
-    EndpointsUtil.resolvePath(true, false, '/graphql'),
-  ]);
-  logger.log(endpointsTable2.toString());
+  logger.info({ api: Endpoints.api, graphql: Endpoints.graphql, ws: Endpoints.ws });
+  logger.info('Api', {
+    serverProxy: EndpointsUtil.api(false, true),
+    clientProxy: EndpointsUtil.api(false, false),
+    clientDirect: EndpointsUtil.api(true, false),
+  });
+  logger.info('GraphQL', {
+    serverProxy: EndpointsUtil.resolvePath(false, true, '/graphql'),
+    clientProxy: EndpointsUtil.resolvePath(false, false, '/graphql'),
+    clientDirect: EndpointsUtil.resolvePath(true, false, '/graphql'),
+  });
 };
