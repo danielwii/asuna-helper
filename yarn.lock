@@ -13,7 +13,6 @@ __metadata:
     "@nestjs/platform-express": ^7
     "@types/bluebird": ^3
     "@types/bull": ^3
-    "@types/cli-table": ^0
     "@types/common-tags": ^1
     "@types/fs-extra": ^9
     "@types/lodash": ^4
@@ -27,7 +26,6 @@ __metadata:
     class-transformer: ^0
     class-validator: ^0
     classnames: ^2
-    cli-table: ^0
     common-tags: ^1
     consola: ^2
     date-fns: ^2
@@ -123,13 +121,6 @@ __metadata:
   dependencies:
     "@types/ioredis": "*"
   checksum: 6746e39a64137196b45a6b181cd797290786577d5da779c228fe706309a5ce76a2144709501830b89b87f53a4b720ec6fe8d2d4f4ef74a9457974070670c742a
-  languageName: node
-  linkType: hard
-
-"@types/cli-table@npm:^0":
-  version: 0.3.0
-  resolution: "@types/cli-table@npm:0.3.0"
-  checksum: 27c29c1ddbb5d89496e95b172718461fff7e8045c66a07f728e62b0fd6460f88c5f52dfe62e75ff62ce38907885186408c9df7693b396a73cea798c9123541e4
   languageName: node
   linkType: hard
 
@@ -491,15 +482,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-table@npm:^0":
-  version: 0.3.6
-  resolution: "cli-table@npm:0.3.6"
-  dependencies:
-    colors: 1.0.3
-  checksum: 58a2449d55a3b5390b2578ef63f0591b56d034c3753b1fe47339b18e11ebc3134d234f49004b256cb60243219137328026cb60200fb5e1e19fe9c96967c5df7f
-  languageName: node
-  linkType: hard
-
 "cliui@npm:^7.0.2":
   version: 7.0.4
   resolution: "cliui@npm:7.0.4"
@@ -531,13 +513,6 @@ __metadata:
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: 3e1c9a4dee12eada307436f61614dd11fe300469db2b83f80c8b7a7cd8a1015f0f18dd13403f018927b249003777ff60baba4a03c65f12e6bddc0dfd9642021f
-  languageName: node
-  linkType: hard
-
-"colors@npm:1.0.3":
-  version: 1.0.3
-  resolution: "colors@npm:1.0.3"
-  checksum: d5b1f35612744af0c24b1f80ec3bb8dccfb4a8441a1883d470295ac81ae8aef6f437ae05662595c1e0c98af27e1ad4e90ccd87f1a124cfc2b7953524f55fc951
   languageName: node
   linkType: hard
 
