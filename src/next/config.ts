@@ -24,9 +24,11 @@ export interface NextConfigProps {
 export const createNextConfig = (
   config: NextConfigProps,
   requestPipes: RequestPipes,
-  preprocessors = [],
+  preprocessors: any[] = [],
   { enableAdmin }: { enableAdmin?: boolean } = {},
 ): void => {
+  consola.info(`Using next: ${require('next/package.json').version}`);
+
   if (process.env.PROXY_API)
     logger.error(
       'deprecated configs',
@@ -86,7 +88,9 @@ export const createNextConfig = (
     fp.merge(config),
   )({
     env: { PROXY_MODE: process.env.PROXY_MODE },
-    future: { webpack5: true },
+    // next11 enabled webpack5 by default
+    // webpack5: true,
+    // future: { webpack5: true },
     // @ts-ignore
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       if (!isServer) {
@@ -134,7 +138,7 @@ export const createNextConfig = (
             { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600' },
           ],
         },
-        ...requestPipes?.headers ?? [],
+        ...(requestPipes?.headers ?? []),
       ]);
     },
     async redirects(): Promise<Redirects> {
