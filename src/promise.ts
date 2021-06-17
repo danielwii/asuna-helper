@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Promise } from 'bluebird';
 import { exec } from 'child_process';
 import _ from 'lodash';

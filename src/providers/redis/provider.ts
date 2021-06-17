@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Promise } from 'bluebird';
 import { Expose, plainToClass, Transform } from 'class-transformer';
 import { ClientOpts, createClient, RedisClient } from 'redis';

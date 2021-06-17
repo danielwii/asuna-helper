@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Promise } from 'bluebird';
 import _ from 'lodash';
 import { RedisClient } from 'redis';

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+// @ts-ignore
 import { Promise } from 'bluebird';
 import * as fs from 'fs-extra';
 import path, { join } from 'path';
