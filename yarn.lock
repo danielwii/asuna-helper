@@ -11,6 +11,7 @@ __metadata:
   dependencies:
     "@nestjs/common": ^7
     "@nestjs/platform-express": ^7
+    "@tsconfig/recommended": ^1
     "@types/bluebird": ^3
     "@types/bull": ^3
     "@types/common-tags": ^1
@@ -42,7 +43,7 @@ __metadata:
     rxjs: ^7
     shortid: ^2
     typeorm: ^0
-    typescript: ^4.3.2
+    typescript: ^4
     ua-parser-js: ^0
   peerDependencies:
     "@nestjs/common": "*"
@@ -108,10 +109,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tsconfig/recommended@npm:^1":
+  version: 1.0.1
+  resolution: "@tsconfig/recommended@npm:1.0.1"
+  checksum: 5510ca13427372ca0bea427a18cd70e5e9cab65e6b99bf238613869c447d80db9a05991353db47885e9cfc8a7ce81094d44a1abdff60cf833467187fe8bb863d
+  languageName: node
+  linkType: hard
+
 "@types/bluebird@npm:*, @types/bluebird@npm:^3":
-  version: 3.5.33
-  resolution: "@types/bluebird@npm:3.5.33"
-  checksum: 45f7adeec6e656501f5b2127d5cc1538d3ae497d06bfa00d8d7f51eb2aa482267b3b4868ac1c75fc84acfad86d2c0d4de8af535cf725156f222d679df9694aff
+  version: 3.5.35
+  resolution: "@types/bluebird@npm:3.5.35"
+  checksum: cfad2f2de7f3bbd0dd93f991de8d1b128778b5dc82ceb64158a83d159a5d14f5a4e592f75c7b196c714920e5063dc3d2d1bfd7e2dd1404698edad5ce2d5d7b8c
   languageName: node
   linkType: hard
 
@@ -2061,23 +2069,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@^4.3.2:
-  version: 4.3.2
-  resolution: "typescript@npm:4.3.2"
+typescript@^4:
+  version: 4.3.4
+  resolution: "typescript@npm:4.3.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 21e1285402e32fd240f6ad3f97b6fea81b90d2591f412677d01b570a8bd93151d1e08460d58f43689fc758671a5baaebb16fa93d3c8260181612c8e619bd24f7
+  checksum: 9791c5fe98db6cb70ec0efad8d3d2eb957b9643ee600b90bff49267de69768d0d5f59c41a8fd731cfd63df1ccfb2cb25505a2015d7b39ac10ea51f605a058e16
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.3.2#builtin<compat/typescript>":
-  version: 4.3.2
-  resolution: "typescript@patch:typescript@npm%3A4.3.2#builtin<compat/typescript>::version=4.3.2&hash=ddfc1b"
+"typescript@patch:typescript@^4#builtin<compat/typescript>":
+  version: 4.3.4
+  resolution: "typescript@patch:typescript@npm%3A4.3.4#builtin<compat/typescript>::version=4.3.4&hash=ddfc1b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 68d48dc86dacfeab59a22414ff061c976c46b679a9717a3a710051ea7bab779fd23f4edb856434da8155e8e8646c90b3912e342cc0010dfd15ed321a42cb0578
+  checksum: c8766e84a4f71e925cc059af8286cc7f41819fe821d433b90c83e9b36729cbda7a8e4be3292d8a1433cd717d529c93217d58d173418f43862290b206bd88b284
   languageName: node
   linkType: hard
 

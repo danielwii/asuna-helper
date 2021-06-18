@@ -3,7 +3,6 @@ import {
   validate,
   validateSync,
   ValidationArguments,
-  ValidationError,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';

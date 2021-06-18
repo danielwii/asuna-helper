@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-// @ts-ignore
-import { Promise } from 'bluebird';
+// target es5 for ie11 support
+import * as Bluebird from 'bluebird';
 import * as fs from 'fs-extra';
 import path, { join } from 'path';
 
@@ -19,7 +19,7 @@ export async function download(url: string, to: string): Promise<AxiosResponse> 
   const response = await axios({ url, method: 'GET', responseType: 'stream', timeout: 60000 });
 
   response.data.pipe(writer);
-  return new Promise((resolve, reject) => {
+  return new Bluebird.Promise((resolve, reject) => {
     writer.on('finish', resolve);
     writer.on('error', reject);
   });

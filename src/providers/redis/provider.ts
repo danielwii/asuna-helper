@@ -1,5 +1,5 @@
-// @ts-ignore
-import { Promise } from 'bluebird';
+// target es5 for ie11 support
+import * as Bluebird from 'bluebird';
 import { Expose, plainToClass, Transform } from 'class-transformer';
 import { ClientOpts, createClient, RedisClient } from 'redis';
 
@@ -70,7 +70,7 @@ export class RedisProvider {
     LifecycleRegister.regExitProcessor(
       `Redis(${key})`,
       async () =>
-        new Promise((resolve) => {
+        new Bluebird.Promise((resolve) => {
           client.quit((err, reply) => {
             redisClientObject.isHealthy = false;
             logger.log(`signal: SIGINT. Redis ${key} connection disconnected ${r({ err, reply })}`);

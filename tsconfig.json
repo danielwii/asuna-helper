@@ -1,40 +1,11 @@
 {
+  "extends": "@tsconfig/recommended/tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "moduleResolution": "Node",
-
-    /* Basic Options */
     "target": "ES5",
-    "module": "CommonJS",
-    "jsx": "react",
+    "experimentalDecorators": true,
     "declaration": true,
-
-    /* Strict Type-Checking Options */
-    "strict": false,
-    "skipLibCheck": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-
-    /* Additional Checks */
-
-    /* Module Resolution Options */
-    /* List of root folders whose combined content represents the structure of the project at runtime. */
-    "rootDirs": ["src"],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-
-    /* Source Map Options */
-    "sourceRoot": "src",
-    "sourceMap": true,
-    //    "inlineSourceMap": true,
-    //    "inlineSources": true,
-
-    /* Experimental Options */
-    "incremental": false,
-
-    /* Advanced Options */
-    "outDir": "dist",
-    "declarationDir": "dist"
+    "outDir": "dist"
   },
-  "include": ["src/**/*.ts*"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

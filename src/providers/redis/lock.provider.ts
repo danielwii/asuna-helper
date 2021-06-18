@@ -1,5 +1,5 @@
-// @ts-ignore
-import { Promise } from 'bluebird';
+// target es5 for ie11 support
+import * as Bluebird from 'bluebird';
 import _ from 'lodash';
 import { RedisClient } from 'redis';
 import RedLock from 'redlock';
@@ -54,7 +54,7 @@ export class RedisLockProvider {
 
       LifecycleRegister.regExitProcessor('RedisLock', async () => {
         logger.log(`signal: SIGINT. Release locks ${r(_.keys(RedisLockProvider.locks))}`);
-        await Promise.all(
+        await Bluebird.Promise.all(
           _.map(RedisLockProvider.locks, (lock, resource) =>
             lock
               .unlock()

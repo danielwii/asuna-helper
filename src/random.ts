@@ -1,4 +1,4 @@
-import * as shortid from 'shortid';
+import shortid from 'shortid';
 
 export function random(length = 9): string {
   return new Array(Math.ceil(length / 9))
