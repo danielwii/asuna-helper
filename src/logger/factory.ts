@@ -29,16 +29,23 @@ export class LoggerFactory {
         fp.replace(root, ''),
       );
     }
-    if (callerPath) {
-      flows.push(fp.replace(resolve(callerPath, '../..'), ''));
+    if (callerPath && require.main?.path) {
+      // flows.push(fp.replace(resolve(callerPath, '../..'), ''));
+      flows.push(fp.replace(resolve(require.main.path, '../../..'), ''));
     }
 
+    /*
+    path: /xxx/packages/asuna-node-server/src/modules/cache/CacheUtils
+    main: /xxx/modules/server/src
+    caller: /xxx/packages/asuna-node-server/src/modules/cache/
+     */
+    const path = join(callerPath ?? '.', name);
     const context = _.flow(
       ...flows,
       fp.replace(root, ''),
       (path) => join('/', path).slice(1), // //a/b/c -> a/b/c
       fp.replace(/\//g, '.'), // a/b/c -> a.b.c
-    )(join(callerPath ?? '.', name));
+    )(path);
 
     return new Logger(context);
   }
