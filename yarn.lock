@@ -9,8 +9,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@danielwii/asuna-helper@workspace:."
   dependencies:
-    "@nestjs/common": ^8.0.1
-    "@nestjs/platform-express": ^8.0.1
+    "@nestjs/common": ^8.0.4
+    "@nestjs/platform-express": ^8.0.4
     "@tsconfig/recommended": ^1.0.1
     "@types/bluebird": ^3
     "@types/bull": ^3
@@ -23,7 +23,7 @@ __metadata:
     "@types/shortid": ^0
     "@types/ua-parser-js": ^0
     bluebird: ^3.7.2
-    bull: ^3.22.11
+    bull: ^3.26.0
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
     classnames: ^2.3.1
@@ -35,7 +35,7 @@ __metadata:
     json5: ^2.2.0
     lodash: ^4.17.21
     node-buffs: ^0.8.17
-    ow: ^0.26.0
+    ow: ^0.27.0
     prettier: ^2.3.2
     redis: ^3.1.2
     redlock: ^4.2.0
@@ -54,9 +54,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nestjs/common@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@nestjs/common@npm:8.0.1"
+"@nestjs/common@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "@nestjs/common@npm:8.0.4"
   dependencies:
     axios: 0.21.1
     iterare: 1.2.1
@@ -75,13 +75,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 371cb9043b5fb0fa411ce6d7b22d489a4a6178b2eddba816dcb9f50a10b130b8b72c8d42222aaecdd196cd50a309f27aec35b1ef576aa3906e7a7bb7466c7251
+  checksum: 4599d08df93c1276989fd292bd3a86fa8f022513b2f08b98285f4bd8d76cf37b1b6571f384574f9e4c5996fe2fc6e7cef2ef0ce71b2302939f75e5efd44583b0
   languageName: node
   linkType: hard
 
-"@nestjs/platform-express@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "@nestjs/platform-express@npm:8.0.1"
+"@nestjs/platform-express@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "@nestjs/platform-express@npm:8.0.4"
   dependencies:
     body-parser: 1.19.0
     cors: 2.8.5
@@ -91,7 +91,7 @@ __metadata:
   peerDependencies:
     "@nestjs/common": ^8.0.0
     "@nestjs/core": ^8.0.0
-  checksum: 414d02a2b492b0fecef427292dfe452dfcab0d40a10b5c1e78471fd1638bc6121c9f5d1bb2b79069310fc36e6241c6f2bfe299a26d3fca48aa86918cf06aa528
+  checksum: f95d89afe0567fd184e31fdff50ea23c16b438c5669952de1a073eb9a7b4f54bf6d436f7e286585f72cc63972c8bf7cd31d5d7f6dae99b2249d19bab0c77cd32
   languageName: node
   linkType: hard
 
@@ -374,9 +374,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:^3.22.11":
-  version: 3.22.11
-  resolution: "bull@npm:3.22.11"
+"bull@npm:^3.26.0":
+  version: 3.26.0
+  resolution: "bull@npm:3.26.0"
   dependencies:
     cron-parser: ^2.13.0
     debuglog: ^1.0.0
@@ -388,7 +388,7 @@ __metadata:
     semver: ^7.3.2
     util.promisify: ^1.0.1
     uuid: ^8.3.0
-  checksum: 46c8c4806290790b42c1463fa003f6297a4b0f7d5e500af37418d9f8735ae9cc136e338adc71537d7fcd36c541bbdadbb10609c32c1cbc9d1f86d016b6c19a7a
+  checksum: d8c0ec592fd8ac24a76aa70d0a9b92eee1b7327ab2730ad0a856c51b71fe333d0203efe11ada28f5bb175b7956f3dd39769bf89debb27f38a41059b0934f6e87
   languageName: node
   linkType: hard
 
@@ -1532,9 +1532,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ow@npm:^0.26.0":
-  version: 0.26.0
-  resolution: "ow@npm:0.26.0"
+"ow@npm:^0.27.0":
+  version: 0.27.0
+  resolution: "ow@npm:0.27.0"
   dependencies:
     "@sindresorhus/is": ^4.0.1
     callsites: ^3.1.0
@@ -1542,7 +1542,7 @@ __metadata:
     lodash.isequal: ^4.5.0
     type-fest: ^1.2.1
     vali-date: ^1.0.0
-  checksum: 1639b9da98dd751eef6a0bfd87315353bdc26766161d8a391cd6b181f99d83f2d39a54365741235cd875c4a8daabe46a0157d63308e2ed6eaec133eb3ccbb7aa
+  checksum: d09dddb7bd9b7a26d6efa9422a71142b8d5c50cb3f7bcc332850ffd53e77710cc0f6f748fa3e2175b2f631c62e942f6cd3d9191bcf856533d8f84127e23b8882
   languageName: node
   linkType: hard
 

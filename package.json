@@ -14,10 +14,10 @@
     "typeorm": "*"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.2",
-    "@nestjs/platform-express": "^8.0.2",
+    "@nestjs/common": "^8.0.4",
+    "@nestjs/platform-express": "^8.0.4",
     "bluebird": "^3.7.2",
-    "bull": "^3.22.11",
+    "bull": "^3.26.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "classnames": "^2.3.1",
@@ -29,7 +29,7 @@
     "json5": "^2.2.0",
     "lodash": "^4.17.21",
     "node-buffs": "^0.8.17",
-    "ow": "^0.26.0",
+    "ow": "^0.27.0",
     "redis": "^3.1.2",
     "redlock": "^4.2.0",
     "reflect-metadata": "^0.1.13",
