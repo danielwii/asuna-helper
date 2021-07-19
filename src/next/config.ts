@@ -119,6 +119,7 @@ export const createNextConfig = (
       ),
     },
     publicRuntimeConfig: {
+      API_ENDPOINT: process.env.API_ENDPOINT,
       STATIC_ENDPOINT: process.env.STATIC_ENDPOINT,
       ENABLE_MOBILE_COMPATIBILITY: process.env.ENABLE_MOBILE_COMPATIBILITY,
     },

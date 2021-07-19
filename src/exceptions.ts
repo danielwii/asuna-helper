@@ -25,15 +25,21 @@ const logger = LoggerFactory.getLogger('exceptions');
 export const AsunaErrorCode = {
   InvalidParameter: new NameValue('Invalid Parameter', 400),
   BadRequest: new NameValue('Bad Request', 400),
+
   InvalidCredentials: new NameValue('Invalid Credentials', 401),
+
   InsufficientPermissions: new NameValue('Insufficient Permissions', 403),
   InvalidCsrfToken: new NameValue('Invalid CSRF Token', 403),
   // InvalidVerifyToken: new NameValue('Invalid Verify Token', 403),
   InvalidToken: new NameValue('Invalid Token', 403),
+
   NotFound: new NameValue('Not Found', 404),
+
   Conflict: new NameValue('Conflict', 409),
   Duplicate: new NameValue('Duplicate', 409),
+
   TooManyRequests: new NameValue('Too Many Requests', 429),
+
   Unprocessable: new NameValue('Unprocessable', 422),
   FeatureDisabled: new NameValue('FeatureDisabled', 422),
 
