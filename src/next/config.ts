@@ -156,6 +156,7 @@ export const createNextConfig = (
     },
     async rewrites(): Promise<Rewrites> {
       const apiEndpoint = process.env.API_ENDPOINT || process.env.NEXT_PUBLIC_API_ENDPOINT;
+      const wsEndpoint = process.env.WS_ENDPOINT || process.env.NEXT_PUBLIC_WS_ENDPOINT;
       return {
         beforeFiles: compact([
           !uploadsRequestMode.redirect
@@ -176,8 +177,11 @@ export const createNextConfig = (
             ? { source: '/proxy/api/:slug*', destination: new URL('/api/:slug*', apiEndpoint).href }
             : undefined,
           apiEndpoint ? { source: '/proxy/:slug*', destination: new URL('/api/:slug*', apiEndpoint).href } : undefined,
-          apiEndpoint
-            ? { source: '/socket.io/:slug*', destination: new URL('/socket.io/:slug*', apiEndpoint).href }
+          wsEndpoint
+            ? { source: '/socket.io/:slug*', destination: new URL('/socket.io/:slug*', wsEndpoint).href }
+            : undefined,
+          wsEndpoint
+            ? { source: '/ws/:slug*', destination: new URL('/ws/:slug*', wsEndpoint).href }
             : undefined,
           apiEndpoint
             ? { source: '/graphql/:slug*', destination: new URL('/graphql/:slug*', apiEndpoint).href }
