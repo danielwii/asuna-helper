@@ -3,8 +3,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "yarn clean && tsc --build"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "build": "yarn clean && tsc"
   },
   "peerDependencies": {
     "@nestjs/common": "*",
@@ -14,10 +14,10 @@
     "typeorm": "*"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.5",
-    "@nestjs/platform-express": "^8.0.5",
+    "@nestjs/common": "^8.0.6",
+    "@nestjs/platform-express": "^8.0.6",
     "bluebird": "^3.7.2",
-    "bull": "^3.27.0",
+    "bull": "^3.28.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "classnames": "^2.3.1",
