@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { ConsoleLogger } from '@nestjs/common';
 
 import _ from 'lodash';
 import * as fp from 'lodash/fp';
@@ -7,7 +7,7 @@ import { dirname, join, resolve } from 'path';
 const root = dirname(require.main?.filename ?? '.');
 
 export class LoggerFactory {
-  static getLogger(name: string): Logger {
+  public static getLogger(name: string): ConsoleLogger {
     // --------------------------------------------------------------
     // get caller function from stack
     // --------------------------------------------------------------
@@ -47,6 +47,6 @@ export class LoggerFactory {
       fp.replace(/\//g, '.'), // a/b/c -> a.b.c
     )(path);
 
-    return new Logger(context);
+    return new ConsoleLogger(context);
   }
 }

@@ -5,9 +5,7 @@
     "experimentalDecorators": true,
     "declaration": true,
     "rootDir": "src",
-    "outDir": "dist",
-    "incremental": true,
-    "composite": true
+    "outDir": "dist"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

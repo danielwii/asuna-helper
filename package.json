@@ -17,7 +17,7 @@
     "@nestjs/common": "^8.0.6",
     "@nestjs/platform-express": "^8.0.6",
     "bluebird": "^3.7.2",
-    "bull": "^3.28.0",
+    "bull": "^3.28.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "classnames": "^2.3.1",
@@ -35,7 +35,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.3.0",
     "shortid": "^2.2.16",
-    "typeorm": "^0.2.36",
+    "typeorm": "^0.2.37",
     "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {

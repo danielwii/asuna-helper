@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
 import _ from 'lodash';
-import * as querystring from 'querystring';
+import querystring from 'query-string';
 
 import { handleAxiosResponseError } from './axios';
 import { Hermes, InMemoryAsunaQueue } from './hermes';
