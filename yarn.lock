@@ -9,8 +9,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@danielwii/asuna-helper@workspace:."
   dependencies:
-    "@nestjs/common": ^8.0.5
-    "@nestjs/platform-express": ^8.0.5
+    "@nestjs/common": ^8.0.6
+    "@nestjs/platform-express": ^8.0.6
     "@tsconfig/recommended": ^1.0.1
     "@types/bluebird": ^3
     "@types/bull": ^3
@@ -23,7 +23,7 @@ __metadata:
     "@types/shortid": ^0
     "@types/ua-parser-js": ^0
     bluebird: ^3.7.2
-    bull: ^3.27.0
+    bull: ^3.28.1
     class-transformer: ^0.4.0
     class-validator: ^0.13.1
     classnames: ^2.3.1
@@ -37,12 +37,13 @@ __metadata:
     node-buffs: ^0.8.17
     ow: ^0.27.0
     prettier: ^2.3.2
+    query-string: ^7.0.1
     redis: ^3.1.2
     redlock: ^4.2.0
     reflect-metadata: ^0.1.13
     rxjs: ^7.3.0
     shortid: ^2.2.16
-    typeorm: ^0.2.36
+    typeorm: ^0.2.37
     typescript: ^4.3.5
     ua-parser-js: ^0.7.28
   peerDependencies:
@@ -54,9 +55,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@nestjs/common@npm:^8.0.5":
-  version: 8.0.5
-  resolution: "@nestjs/common@npm:8.0.5"
+"@nestjs/common@npm:^8.0.6":
+  version: 8.0.6
+  resolution: "@nestjs/common@npm:8.0.6"
   dependencies:
     axios: 0.21.1
     iterare: 1.2.1
@@ -75,13 +76,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: cfbb263b8dddef28bd835b0407292958d168f9f07d0470ea19a40ec046913f8ca2cf99b566c373341feebbe637ff5d908d4223efc4dcd95cd2da51cd31cbf7fd
+  checksum: 8e87f9eb40fc24ffffb9cc2b5d851509a42e042741500c63be405f7088415f9e20778b4a554c23c1b65ef35d39efb63516735d28b3fcf4ea4a5b12c6134234e8
   languageName: node
   linkType: hard
 
-"@nestjs/platform-express@npm:^8.0.5":
-  version: 8.0.5
-  resolution: "@nestjs/platform-express@npm:8.0.5"
+"@nestjs/platform-express@npm:^8.0.6":
+  version: 8.0.6
+  resolution: "@nestjs/platform-express@npm:8.0.6"
   dependencies:
     body-parser: 1.19.0
     cors: 2.8.5
@@ -91,7 +92,7 @@ __metadata:
   peerDependencies:
     "@nestjs/common": ^8.0.0
     "@nestjs/core": ^8.0.0
-  checksum: 44efee7eb63981f0029ac9ec4295929d7a5d270b8d6e2144e003301b264dcdde1ba550d02d6495fc684faaa1d99f772c8637c6fc289fc604210c468c95e23c09
+  checksum: c1db29163a5aa125b9dd98bff8e9500c69dabb6794b0e24b5495272e5bfe968c1e0d674e381ffbc7a6ccf56e5740d2671df00b60e8e45306aa2fa150d75c2b06
   languageName: node
   linkType: hard
 
@@ -374,9 +375,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:^3.27.0":
-  version: 3.27.0
-  resolution: "bull@npm:3.27.0"
+"bull@npm:^3.28.1":
+  version: 3.28.1
+  resolution: "bull@npm:3.28.1"
   dependencies:
     cron-parser: ^2.13.0
     debuglog: ^1.0.0
@@ -388,7 +389,7 @@ __metadata:
     semver: ^7.3.2
     util.promisify: ^1.0.1
     uuid: ^8.3.0
-  checksum: c1740dec56bb43d8ceb85fb7573ea7345a2ec2d1754ca59bc7c680caa5c5c5c498c176f70386bb48dbb4e18f42a11e7349d528e8e2a56d9b32a7dce24ecfcac7
+  checksum: e9958fb1ffccc6307294491727c670309ad51284a764569bd4728e8a7c14ae198773e409887934efa84e120b9f37e7e5199c50e5459a96b56a6842043e239408
   languageName: node
   linkType: hard
 
@@ -649,6 +650,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"decode-uri-component@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "decode-uri-component@npm:0.2.0"
+  checksum: f3749344ab9305ffcfe4bfe300e2dbb61fc6359e2b736812100a3b1b6db0a5668cba31a05e4b45d4d63dbf1a18dfa354cd3ca5bb3ededddabb8cd293f4404f94
+  languageName: node
+  linkType: hard
+
 "define-properties@npm:^1.1.3":
   version: 1.1.3
   resolution: "define-properties@npm:1.1.3"
@@ -838,6 +846,13 @@ __metadata:
   version: 1.5.0
   resolution: "figlet@npm:1.5.0"
   checksum: 89641163b38f6f76e798d878cc6ba04cf978f6962c54f52521bc6630fd6cfb4d2cbc2cb97465a8049bf0e84a22a47159da3264590dfd307d45e39f23bc4087df
+  languageName: node
+  linkType: hard
+
+"filter-obj@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "filter-obj@npm:1.1.0"
+  checksum: cf2104a7c45ff48e7f505b78a3991c8f7f30f28bd8106ef582721f321f1c6277f7751aacd5d83026cb079d9d5091082f588d14a72e7c5d720ece79118fa61e10
   languageName: node
   linkType: hard
 
@@ -1664,6 +1679,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"query-string@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "query-string@npm:7.0.1"
+  dependencies:
+    decode-uri-component: ^0.2.0
+    filter-obj: ^1.1.0
+    split-on-first: ^1.0.0
+    strict-uri-encode: ^2.0.0
+  checksum: 2eb990c0eaa80998d074aac2ad5bcc7f21fa2e53a7d129d19883abe724a2eedb987ca81b731755307431914b0f958767bfe7c5f7433d0974a1650b5d313e5618
+  languageName: node
+  linkType: hard
+
 "range-parser@npm:~1.2.1":
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
@@ -1877,6 +1904,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"split-on-first@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "split-on-first@npm:1.1.0"
+  checksum: 16ff85b54ddcf17f9147210a4022529b343edbcbea4ce977c8f30e38408b8d6e0f25f92cd35b86a524d4797f455e29ab89eb8db787f3c10708e0b47ebf528d30
+  languageName: node
+  linkType: hard
+
 "standard-as-callback@npm:^2.1.0":
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
@@ -1895,6 +1929,13 @@ __metadata:
   version: 0.1.2
   resolution: "streamsearch@npm:0.1.2"
   checksum: d2db57cbfbf7947ab9c75a7b4c80a8ef8d24850cf0a1a24258bb6956c97317ce1eab7dbcbf9c5aba3e6198611af1053b02411057bbedb99bf9c64b8275248997
+  languageName: node
+  linkType: hard
+
+"strict-uri-encode@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "strict-uri-encode@npm:2.0.0"
+  checksum: eaac4cf978b6fbd480f1092cab8b233c9b949bcabfc9b598dd79a758f7243c28765ef7639c876fa72940dac687181b35486ea01ff7df3e65ce3848c64822c581
   languageName: node
   linkType: hard
 
@@ -2042,9 +2083,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typeorm@npm:^0.2.36":
-  version: 0.2.36
-  resolution: "typeorm@npm:0.2.36"
+"typeorm@npm:^0.2.37":
+  version: 0.2.37
+  resolution: "typeorm@npm:0.2.37"
   dependencies:
     "@sqltools/formatter": ^1.2.2
     app-root-path: ^3.0.0
@@ -2112,7 +2153,7 @@ __metadata:
       optional: true
   bin:
     typeorm: cli.js
-  checksum: 61ce1262082e229ab53e25456f4240c5c0c465ac049b30a8115d68a1d6201928237a7140c39bba25d4345b1be5da0d9533bd1d6caf0a9761f98f12cfc62390d9
+  checksum: 881839ff3a6a99992d6de477556e17aa8375b11ba2aaec1cd30791a7f86120f919ac020cd186e0b59806af7de7c4294b23d8ddef031541d48621a60965f4d941
   languageName: node
   linkType: hard
 
