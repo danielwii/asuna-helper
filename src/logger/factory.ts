@@ -1,8 +1,8 @@
-import { ConsoleLogger } from '@nestjs/common';
-
 import _ from 'lodash';
 import * as fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
+
+import type { ConsoleLogger } from '@nestjs/common';
 
 const root = dirname(require.main?.filename ?? '.');
 
@@ -47,6 +47,7 @@ export class LoggerFactory {
       fp.replace(/\//g, '.'), // a/b/c -> a.b.c
     )(path);
 
+    const ConsoleLogger = require('@nestjs/common').ConsoleLogger;
     return new ConsoleLogger(context);
   }
 }

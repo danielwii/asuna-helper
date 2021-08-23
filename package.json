@@ -1,10 +1,12 @@
 {
   "name": "@danielwii/asuna-helper",
   "main": "dist/index.js",
+  "module": "dist/es/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "build": "yarn clean && tsc"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo .tsbuildinfo",
+    "build:legacy": "yarn clean && tsc",
+    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && tsc --emitDeclarationOnly --declarationDir dist/es && swc src -d dist -C module.type=commonjs -s && swc src -d dist/es -C module.type=es6 -s"
   },
   "peerDependencies": {
     "@nestjs/common": "*",
@@ -40,6 +42,8 @@
     "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
+    "@swc/cli": "^0.1.49",
+    "@swc/core": "^1.2.80",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",
     "@types/bull": "^3",
