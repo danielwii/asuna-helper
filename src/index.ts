@@ -19,6 +19,7 @@ export * from './register';
 export * from './req';
 export * from './serializer';
 export * from './time';
+export * from './types';
 export * from './ua';
 export * from './uploader';
 export * from './utils';

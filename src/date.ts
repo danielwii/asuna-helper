@@ -16,3 +16,6 @@ export const formatRelativeFrom = (timestamp: number | string | Date): string =>
         locale,
       })
     : '';
+
+export const formatDateFrom = (timestamp: number | string | Date): string =>
+  timestamp ? `${formatDistanceFrom(timestamp)}, ${formatRelativeFrom(timestamp)}` : '';
