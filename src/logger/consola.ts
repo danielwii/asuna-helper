@@ -1,10 +1,19 @@
-import consola, { Consola, ConsolaLogObject } from 'consola';
+import { noop } from 'react-use/lib/misc/util';
 
-import { isProd } from '../env';
+import type { Consola, ConsolaLogObject } from 'consola';
+
+export const getLogger = (scope: string) => {
+  if (process.env.NODE_ENV === 'production') {
+    return { log: noop, info: noop, warn: noop, success: noop, error: console.error.bind(console) };
+  } else {
+    return new ConsolaLogger(scope);
+  }
+};
 
 export class ConsolaLogger {
   private logger: Consola;
-  public constructor(private readonly scope?: string) {
+  public constructor(scope?: string) {
+    const consola = require('consola');
     this.logger = scope ? consola.withScope(scope) : consola;
   }
 
@@ -12,18 +21,18 @@ export class ConsolaLogger {
   //   return this.logger.withScope(tag);
   // }
   public log(message: ConsolaLogObject | any, ...args: any[]): void {
-    !isProd && this.logger.log(message, ...args);
+    this.logger.log(message, ...args);
   }
   public info(message: ConsolaLogObject | any, ...args: any[]): void {
-    !isProd && this.logger.info(message, ...args);
+    this.logger.info(message, ...args);
   }
   public success(message: ConsolaLogObject | any, ...args: any[]): void {
-    !isProd && this.logger.success(message, ...args);
+    this.logger.success(message, ...args);
   }
   public warn(message: ConsolaLogObject | any, ...args: any[]): void {
-    !isProd && this.logger.warn(message, ...args);
+    this.logger.warn(message, ...args);
   }
   public error(message: ConsolaLogObject | any, ...args: any[]): void {
-    !isProd && this.logger.error(message, ...args);
+    this.logger.error(message, ...args);
   }
 }

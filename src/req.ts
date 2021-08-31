@@ -1,5 +1,5 @@
-import net from 'net';
 import _ from 'lodash';
+import net from 'net';
 
 function getClientIpFromXForwardedFor(value: string): string {
   const addresses = _.split(value, ',').map(_.trim);
@@ -12,6 +12,12 @@ export function getClientIp(req: any): string | undefined {
     // Standard headers used by Amazon EC2, Heroku, and others.
     if (net.isIP(req.headers['x-client-ip'])) {
       return req.headers['x-client-ip'];
+    }
+
+    // CloudFlare
+    const cfIp = req.headers['cf-connecting-ip'];
+    if (net.isIP(cfIp)) {
+      return cfIp;
     }
 
     // k8s ingress
