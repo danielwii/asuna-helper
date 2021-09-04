@@ -2,15 +2,22 @@
   "name": "@danielwii/asuna-helper",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "module": "dist/es/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
+  "files": [
+    "src",
+    "dist",
+    "package.json"
+  ],
   "scripts": {
+    "rename": "find dist -depth -name \"*.js\" -exec sh -c 'mv \"$1\" \"${1%.js}.mjs\"' _ \\{\\} \\; && find dist -depth -name \"*.js.map\" -exec sh -c 'mv \"$1\" \"${1%.js.map}.mjs.map\"' _ \\{\\} \\;",
     "clean": "rm -rf dist tsconfig.tsbuildinfo .tsbuildinfo",
     "build:legacy": "yarn clean && tsc",
-    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && tsc --emitDeclarationOnly --declarationDir dist/es && swc src -d dist -C module.type=commonjs -s && swc src -d dist/es -C module.type=es6 -s",
+    "build:2": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && tsc --emitDeclarationOnly --declarationDir dist/es && swc src -d dist -C module.type=commonjs -s && swc src -d dist/es -C module.type=es6 -s --extensions mjs",
+    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && swc src -d dist -C module.type=es6 && yarn rename && swc src -d dist -C module.type=commonjs -s",
     "prepack": "yarn build"
   },
   "peerDependencies": {
@@ -64,5 +71,5 @@
     "prettier": "^2.3.2",
     "typescript": "^4.4.2"
   },
-  "packageManager": "yarn@3.0.1"
+  "packageManager": "yarn@3.0.2"
 }
