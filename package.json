@@ -1,12 +1,17 @@
 {
   "name": "@danielwii/asuna-helper",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/es/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "clean": "rm -rf dist tsconfig.tsbuildinfo .tsbuildinfo",
     "build:legacy": "yarn clean && tsc",
-    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && tsc --emitDeclarationOnly --declarationDir dist/es && swc src -d dist -C module.type=commonjs -s && swc src -d dist/es -C module.type=es6 -s"
+    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && tsc --emitDeclarationOnly --declarationDir dist/es && swc src -d dist -C module.type=commonjs -s && swc src -d dist/es -C module.type=es6 -s",
+    "prepack": "yarn build"
   },
   "peerDependencies": {
     "@nestjs/common": "*",
