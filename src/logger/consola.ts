@@ -1,6 +1,5 @@
-import { noop } from 'react-use/lib/misc/util';
-
-import type { Consola, ConsolaLogObject } from 'consola';
+import consola, { Consola, ConsolaLogObject } from 'consola';
+import { noop } from 'react-use/esm/misc/util.js';
 
 export const getLogger = (scope: string) => {
   if (process.env.NODE_ENV === 'production') {
@@ -13,7 +12,6 @@ export const getLogger = (scope: string) => {
 export class ConsolaLogger {
   private logger: Consola;
   public constructor(scope?: string) {
-    const consola = require('consola');
     this.logger = scope ? consola.withScope(scope) : consola;
   }
 
