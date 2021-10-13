@@ -18,7 +18,7 @@ export async function download(url: string, to: string): Promise<AxiosResponse> 
 
   const response = await axios({ url, method: 'GET', responseType: 'stream', timeout: 60000 });
 
-  response.data.pipe(writer);
+  (response.data as any).pipe(writer);
   return new Bluebird.Promise((resolve, reject) => {
     writer.on('finish', resolve);
     writer.on('error', reject);
