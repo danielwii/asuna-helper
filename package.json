@@ -1,23 +1,9 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.0.5",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./*": {
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*.d.ts"
-      ]
-    }
-  },
+  "version": "0.0.6",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -42,8 +28,8 @@
     "typeorm": "*"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.11",
-    "@nestjs/platform-express": "^8.0.11",
+    "@nestjs/common": "^8.1.1",
+    "@nestjs/platform-express": "^8.1.1",
     "axios": "^0.23.0",
     "bluebird": "^3.7.2",
     "bull": "^3.29.3",
@@ -71,7 +57,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.1.51",
-    "@swc/core": "^1.2.95",
+    "@swc/core": "^1.2.99",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",
     "@types/bull": "^3",
