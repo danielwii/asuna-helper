@@ -1,5 +1,5 @@
 import consola, { Consola, ConsolaLogObject } from 'consola';
-import { noop } from 'react-use/esm/misc/util.js';
+import { noop } from 'react-use/lib/misc/util.js';
 
 export const getLogger = (scope: string) => {
   if (process.env.NODE_ENV === 'production') {

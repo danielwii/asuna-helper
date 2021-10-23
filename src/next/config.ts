@@ -88,6 +88,8 @@ export const createNextConfig = (
     fp.merge(config),
   )({
     env: { PROXY_MODE: process.env.PROXY_MODE },
+    // experimental.esmExternals: 'loose'
+    experimental: { esmExternals: 'loose' },
     // next11 enabled webpack5 by default
     // webpack5: true,
     // future: { webpack5: true },
@@ -180,9 +182,7 @@ export const createNextConfig = (
           wsEndpoint
             ? { source: '/socket.io/:slug*', destination: new URL('/socket.io/:slug*', wsEndpoint).href }
             : undefined,
-          wsEndpoint
-            ? { source: '/ws/:slug*', destination: new URL('/ws/:slug*', wsEndpoint).href }
-            : undefined,
+          wsEndpoint ? { source: '/ws/:slug*', destination: new URL('/ws/:slug*', wsEndpoint).href } : undefined,
           apiEndpoint
             ? { source: '/graphql/:slug*', destination: new URL('/graphql/:slug*', apiEndpoint).href }
             : undefined,
