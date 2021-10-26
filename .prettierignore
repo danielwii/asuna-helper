@@ -1,2 +1,5 @@
 .yarn
 .yarnrc.yml
+dist
+node_modules
+yarn.lock
