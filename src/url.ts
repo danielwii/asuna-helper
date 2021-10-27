@@ -2,11 +2,13 @@ export function resolveUrl(from: string, to: string = '', defaultUrl = '/'): str
   // if (typeof window !== undefined) {
   //   return resolve(from ?? '', to ?? '') ?? defaultUrl;
   // }
-  const resolvedUrl = new URL(to || '', new URL(from || '', 'resolve://'));
-  if (resolvedUrl.protocol === 'resolve:') {
+  // resolve:// as base will throw exception in browser
+  const base = new URL(from ?? '', 'ftp://base');
+  const resolvedUrl = new URL(to ?? '', base);
+  if (resolvedUrl.protocol === 'ftp:') {
     // `from` is a relative URL.
     const { pathname, search, hash } = resolvedUrl;
-    return pathname + search + hash || defaultUrl;
+    return pathname + search + hash ?? defaultUrl;
   }
   return resolvedUrl.toString();
 }

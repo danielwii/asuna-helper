@@ -26,7 +26,7 @@ export const createNextConfig = (
   requestPipes: RequestPipes,
   preprocessors: any[] = [],
   { enableAdmin }: { enableAdmin?: boolean } = {},
-): void => {
+) => {
   consola.info(`Using next: ${require('next/package.json').version}`);
 
   if (process.env.PROXY_API)
@@ -88,10 +88,13 @@ export const createNextConfig = (
     fp.merge(config),
   )({
     env: { PROXY_MODE: process.env.PROXY_MODE },
-    // experimental.esmExternals: 'loose'
-    experimental: { esmExternals: 'loose' },
+    swcMinify: true,
+    experimental: {
+      esmExternals: 'loose',
+      // concurrentFeatures: true,
+      // serverComponents: true,
+    },
     // next11 enabled webpack5 by default
-    // webpack5: true,
     // future: { webpack5: true },
     // @ts-ignore
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -102,8 +105,9 @@ export const createNextConfig = (
     },
     reactStrictMode: false,
     poweredByHeader: false,
-    productionBrowserSourceMaps: true,
+    // productionBrowserSourceMaps: true,
     images: {
+      formats: ['image/avif', 'image/webp'],
       domains: flow(
         uniq,
         compact,
