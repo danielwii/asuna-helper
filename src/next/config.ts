@@ -6,6 +6,8 @@ import { inspect } from 'util';
 
 import { Endpoints, EndpointsUtil } from '../env';
 
+import type { NextConfig } from 'next';
+
 const logger = consola.withScope('next');
 
 type Redirects = { source: string; destination: string; permanent?: boolean }[];
@@ -24,10 +26,10 @@ export interface NextConfigProps {
 export const createNextConfig = (
   config: NextConfigProps,
   requestPipes: RequestPipes,
-  preprocessors: any[] = [],
+  preprocessors: NextConfig[] = [],
   { enableAdmin }: { enableAdmin?: boolean } = {},
 ) => {
-  consola.info(`Using next: ${require('next/package.json').version}`);
+  consola.info(`Next version: ${require('next/package.json').version}`);
 
   if (process.env.PROXY_API)
     logger.error(
@@ -84,7 +86,7 @@ export const createNextConfig = (
   // process.exit(1);
 
   const configs = flow(
-    ...preprocessors,
+    ...(preprocessors as any),
     fp.merge(config),
   )({
     env: { PROXY_MODE: process.env.PROXY_MODE },
