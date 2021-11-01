@@ -45,6 +45,7 @@ export class LoggerFactory {
       fp.replace(root, ''),
       (path) => join('/', path).slice(1), // //a/b/c -> a/b/c
       fp.replace(/\//g, '.'), // a/b/c -> a.b.c
+      (path: string) => (path.includes('@') ? path.slice(path.indexOf('@')) : path),
     )(path);
 
     const ConsoleLogger = require('@nestjs/common').ConsoleLogger;
