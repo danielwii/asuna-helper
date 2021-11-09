@@ -1,6 +1,6 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -20,15 +20,16 @@
     "prepack": "yarn build"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8.1.2",
-    "@nestjs/core": "^8.1.2",
-    "@nestjs/platform-express": "^8.1.2",
-    "redis": "^3.1.2",
-    "typeorm": "^0.2.38"
+    "@nestjs/common": ">=8",
+    "@nestjs/core": ">=8",
+    "@nestjs/platform-express": ">=8",
+    "next": ">=12",
+    "redis": ">=3",
+    "typeorm": ">=0"
   },
   "dependencies": {
-    "@nestjs/common": "^8.1.2",
-    "@nestjs/platform-express": "^8.1.2",
+    "@nestjs/common": "^8.2.0",
+    "@nestjs/platform-express": "^8.2.0",
     "axios": "^0.24.0",
     "bluebird": "^3.7.2",
     "bull": "^4.1.0",
@@ -42,6 +43,7 @@
     "ismobilejs": "^1.1.1",
     "json5": "^2.2.0",
     "lodash": "^4.17.21",
+    "next": "^12.0.3",
     "node-buffs": "^0.8.17",
     "ow": "^0.28.1",
     "query-string": "^7.0.1",
@@ -55,7 +57,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.1.51",
-    "@swc/core": "^1.2.106",
+    "@swc/core": "^1.2.107",
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",
@@ -71,7 +73,7 @@
     "prettier": "^2.4.1",
     "typescript": "^4.4.4"
   },
-  "packageManager": "yarn@3.0.2",
+  "packageManager": "yarn@3.1.0",
   "volta": {
     "node": "16.12.0"
   }
