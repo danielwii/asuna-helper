@@ -1,4 +1,4 @@
-import { Expose, plainToClass, Transform } from 'class-transformer';
+import { Expose, plainToInstance, Transform } from 'class-transformer';
 import * as Redis from 'redis';
 
 import { AppEnv } from '../../app.env';
@@ -40,7 +40,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
 
   public constructor(o: Partial<RedisConfigObject>) {
     super();
-    Object.assign(this, plainToClass(RedisConfigObject, o, { enableImplicitConversion: true }));
+    Object.assign(this, plainToInstance(RedisConfigObject, o, { enableImplicitConversion: true }));
   }
 
   public static load(redisPrefix = ''): RedisConfigObject {

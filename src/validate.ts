@@ -1,4 +1,4 @@
-import { ClassTransformOptions, deserialize, plainToClass } from 'class-transformer';
+import { ClassTransformOptions, deserialize, plainToInstance } from 'class-transformer';
 import {
   validate,
   validateSync,
@@ -56,7 +56,7 @@ export function deserializeSafely<T>(
 
   let o;
   if (_.isPlainObject(json)) {
-    o = plainToClass(cls, json as JSON, options);
+    o = plainToInstance(cls, json as JSON, options);
   } else if (_.isString(json)) {
     o = deserialize(cls, json as string, options);
   }

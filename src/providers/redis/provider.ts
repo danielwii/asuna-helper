@@ -1,6 +1,6 @@
 // target es5 for ie11 support
 import * as Bluebird from 'bluebird';
-import { Expose, plainToClass, Transform } from 'class-transformer';
+import { Expose, plainToInstance, Transform } from 'class-transformer';
 import { ClientOpts, createClient, RedisClient } from 'redis';
 
 import { LoggerFactory } from '../../logger';
@@ -43,7 +43,7 @@ export class RedisProvider {
     logger.log(
       `init redis provider: ${r({ configObject, redisOptions }, { transform: true })} with ${r({ prefix, db })}`,
     );
-    const redisClientObject = plainToClass(
+    const redisClientObject = plainToInstance(
       RedisClientObject,
       { client: undefined, isHealthy: false, isEnabled: configObject.enable, redisOptions },
       { enableImplicitConversion: true },

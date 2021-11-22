@@ -1,4 +1,4 @@
-import { classToPlain } from 'class-transformer';
+import { instanceToPlain } from 'class-transformer';
 import * as JSON5 from 'json5';
 import _ from 'lodash';
 import util from 'util';
@@ -28,7 +28,7 @@ export function r(
   if (!_.isObjectLike(o)) {
     return o;
   }
-  const value = transform || stringify ? classToPlain(o) : o;
+  const value = transform || stringify ? instanceToPlain(o) : o;
   return isProductionEnv || stringify ? safeStringify(value, 0) : inspect(value, { colors: true, depth: depth ?? 5 });
 }
 
