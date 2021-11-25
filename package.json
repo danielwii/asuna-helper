@@ -1,6 +1,6 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -28,12 +28,12 @@
     "typeorm": ">=0"
   },
   "dependencies": {
-    "@nestjs/common": "^8.2.2",
-    "@nestjs/platform-express": "^8.2.2",
+    "@nestjs/common": "^8.2.3",
+    "@nestjs/platform-express": "^8.2.3",
     "axios": "^0.24.0",
     "bluebird": "^3.7.2",
     "bull": "^4.1.1",
-    "class-transformer": "^0.5.0",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "classnames": "^2.3.1",
     "common-tags": "^1.8.2",
@@ -56,8 +56,8 @@
     "ua-parser-js": "^0.7.31"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.51",
-    "@swc/core": "^1.2.111",
+    "@swc/cli": "^0.1.52",
+    "@swc/core": "^1.2.112",
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",
