@@ -1,8 +1,7 @@
 // target es5 for ie11 support
 import * as Bluebird from 'bluebird';
 import _ from 'lodash';
-import { RedisClient } from 'redis';
-import RedLock from 'redlock';
+import RedLock, { Lock } from 'redlock';
 
 import { AppEnv } from '../../app.env';
 import { LoggerFactory } from '../../logger';
@@ -15,10 +14,10 @@ import { RedisProvider } from './provider';
 const logger = LoggerFactory.getLogger('RedisLockProvider');
 
 export class RedisLockProvider {
-  public readonly client: RedisClient | undefined;
+  public readonly client: any | undefined;
   public readonly redLock: RedLock | undefined;
 
-  public static locks: Record<string, RedLock.Lock> = {};
+  public static locks: Record<string, Lock> = {};
   public static instance: RedisLockProvider;
 
   constructor() {
@@ -28,8 +27,7 @@ export class RedisLockProvider {
       this.client = redisClientObject.client;
       if (!this.redLock && this.client) {
         this.redLock = new RedLock(
-          // you should have one client for each independent redis node
-          // or cluster
+          // you should have one client for each independent redis node or cluster
           [this.client],
           {
             // the expected clock drift; for more details
@@ -57,7 +55,7 @@ export class RedisLockProvider {
         await Bluebird.Promise.all(
           _.map(RedisLockProvider.locks, (lock, resource) =>
             lock
-              .unlock()
+              .release()
               .catch((err) => logger.error(`unlock [${resource}] error: ${err}`))
               .finally(() => logger.verbose(`unlock [${resource}]`)),
           ),
@@ -119,7 +117,7 @@ export class RedisLockProvider {
     }
 
     // eslint-disable-next-line consistent-return
-    return this.redLock.lock(resource, ttl).then(
+    return this.redLock.acquire([resource], ttl).then(
       async (lock) => {
         RedisLockProvider.locks[resource] = lock;
         logger.verbose(`lock [${resource}]: ${r(_.omit(lock, 'redlock', 'unlock', 'extend'))} ttl: ${ttl}ms`);
@@ -131,7 +129,7 @@ export class RedisLockProvider {
           .catch((reason) => logger.error(`execute [${resource}] handler: ${handler} error: ${reason} ${r(options)}`))
           .finally(() =>
             lock
-              .unlock()
+              .release()
               .catch((err) => {
                 logger.error(`unlock [${resource}] error: ${err} ${r(options)}`);
               })
