@@ -1,7 +1,5 @@
-// target es5 for ie11 support
-import * as Bluebird from 'bluebird';
 import { Expose, plainToInstance, Transform } from 'class-transformer';
-import { ClientOpts, createClient, RedisClient } from 'redis';
+import * as Redis from 'redis';
 
 import { LoggerFactory } from '../../logger';
 import { LifecycleRegister } from '../../register';
@@ -13,39 +11,46 @@ const logger = LoggerFactory.getLogger('RedisProvider');
 export class RedisClientObject {
   @Expose({ name: 'created-client', toPlainOnly: true })
   @Transform(({ value }) => !!value, { toPlainOnly: true })
-  public client: RedisClient | undefined;
+  public client: Redis.RedisClientType | undefined;
 
   public isEnabled: boolean | undefined;
-  public isHealthy: boolean | undefined;
-  public redisOptions: ClientOpts | undefined;
+  // public isHealthy: boolean | undefined;
+  public redisOptions: Redis.RedisClientOptions | undefined;
+
+  public get isOpen(): boolean {
+    return !!(this.isEnabled && this.client?.isOpen);
+  }
 }
 
 export class RedisProvider {
-  public clients: { [key: string]: RedisClientObject } = {};
+  public static clients: { [key: string]: RedisClientObject } = {};
 
-  public static instance: RedisProvider;
+  // public static instance: RedisProvider;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  // private constructor() {}
 
+  /*
   public static async init(): Promise<void> {
     if (!this.instance) this.instance = new RedisProvider();
   }
+*/
 
-  public getRedisClient(prefix = 'default', db = 0): RedisClientObject {
+  public static getRedisClient(prefix = 'default', db = 0, legacyMode = false): RedisClientObject {
     const key = `${prefix}-${db}`;
     if (this.clients[key] /* && this.clients[key].isHealthy */) {
       return this.clients[key];
     }
 
     const configObject = RedisConfigObject.loadOr(prefix);
-    const redisOptions = configObject.getOptions(db);
+    const redisOptions = configObject.getOptionsV4(db);
+    redisOptions.legacyMode = legacyMode;
     logger.log(
       `init redis provider: ${r({ configObject, redisOptions }, { transform: true })} with ${r({ prefix, db })}`,
     );
     const redisClientObject = plainToInstance(
       RedisClientObject,
-      { client: undefined, isHealthy: false, isEnabled: configObject.enable, redisOptions },
+      { client: undefined, isEnabled: configObject.enable, redisOptions },
       { enableImplicitConversion: true },
     );
 
@@ -55,36 +60,29 @@ export class RedisProvider {
       return redisClientObject;
     }
 
-    const client = createClient(redisOptions);
-    redisClientObject.client = client;
+    const client = Redis.createClient(redisOptions);
+    redisClientObject.client = client as any;
     client.on('connect', () => {
-      redisClientObject.isHealthy = true;
+      // redisClientObject.isHealthy = true;
       logger.log(`Redis ${key} connection open to ${r({ redisClientObject, prefix, key }, { transform: true })}`);
     });
 
     client.on('error', (err) => {
-      redisClientObject.isHealthy = false;
+      // redisClientObject.isHealthy = false;
       logger.error(`Redis ${key} connection error ${r(err)}`);
     });
 
-    LifecycleRegister.regExitProcessor(
-      `Redis(${key})`,
-      async () =>
-        new Bluebird.Promise((resolve) => {
-          client.quit((err, reply) => {
-            redisClientObject.isHealthy = false;
-            logger.log(`signal: SIGINT. Redis ${key} connection disconnected ${r({ err, reply })}`);
-            resolve();
-          });
-        }),
-    );
+    LifecycleRegister.regExitProcessor(`Redis(${key})`, async () => {
+      await client.quit();
+      // redisClientObject.isHealthy = false;
+      logger.log(`signal: SIGINT. Redis ${key} connection disconnected.`);
+    });
 
-    process.on('beforeExit', () =>
-      client.quit((err, reply) => {
-        redisClientObject.isHealthy = false;
-        logger.log(`beforeExit. Redis ${key} connection disconnected ${r({ err, reply })}`);
-      }),
-    );
+    process.on('beforeExit', async () => {
+      await client.quit();
+      // redisClientObject.isHealthy = false;
+      logger.log(`beforeExit. Redis ${key} connection disconnected`);
+    });
 
     /*
     process.on('removeListener', () => {
@@ -94,6 +92,11 @@ export class RedisProvider {
       });
     });
 */
+
+    client.connect().catch((reason) => {
+      logger.log(`connect redis error: ${r(reason)}`);
+      process.exit(1);
+    });
 
     return redisClientObject;
   }

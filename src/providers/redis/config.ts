@@ -75,14 +75,14 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     return RedisConfigObject.load();
   }
 
-  public get options(): Redis.ClientOpts {
+  public get options() {
     return {
       host: this.host,
       port: this.port,
       ...(this.password ? { password: this.password } : {}),
       db: this.db,
       // connect_timeout: 10_000,
-      retry_strategy: (options) => {
+      retry_strategy: (options: any) => {
         if (options) {
           logger.warn(`retry_strategy ${r({ db: this.db, host: this.host, port: this.port })} ${r(options)}`);
           if (options.error && options.error.code === 'ECONNREFUSED') {
@@ -115,7 +115,21 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     };
   }
 
-  public getOptions(db?: number): Redis.ClientOpts {
+  public getOptions(db?: number) {
     return { ...this.options, db: db ?? this.db };
+  }
+
+  public getOptionsV4(db?: number): Redis.RedisClientOptions {
+    return {
+      database: db,
+      password: this.options.password,
+      // redis[s]://[[username][:password]@][host][:port][/db-number]
+      // url: `redis://${this.options.host}:${this.options.port}`,
+      socket: {
+        host: this.options.host,
+        port: this.options.port,
+        reconnectStrategy: (retries) => Math.min(retries * 50, 500),
+      },
+    };
   }
 }

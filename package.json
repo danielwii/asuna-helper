@@ -24,7 +24,7 @@
     "@nestjs/core": ">=8",
     "@nestjs/platform-express": ">=8",
     "next": ">=12",
-    "redis": ">=3",
+    "redis": ">=4",
     "typeorm": ">=0"
   },
   "dependencies": {
@@ -48,9 +48,10 @@
     "ow": "^0.28.1",
     "query-string": "^7.1.1",
     "react-use": "^17.3.2",
+    "redis": "^4",
     "redlock": "^5.0.0-beta.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.3",
+    "rxjs": "^7.5.4",
     "shortid": "^2.2.16",
     "typeorm": "^0.2.41",
     "ua-parser-js": "^1.0.2"
@@ -66,7 +67,6 @@
     "@types/fs-extra": "^9",
     "@types/lodash": "^4",
     "@types/node": "^16",
-    "@types/redis": "^2",
     "@types/redlock": "^4",
     "@types/shortid": "^0",
     "@types/ua-parser-js": "^0",

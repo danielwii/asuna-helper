@@ -5,30 +5,32 @@ import RedLock, { Lock } from 'redlock';
 
 import { AppEnv } from '../../app.env';
 import { LoggerFactory } from '../../logger';
-import { promisify, waitUtil } from '../../promise';
+import { waitUtil } from '../../promise';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigKeys } from './config';
 import { RedisProvider } from './provider';
 
+import type { RedisClientType } from 'redis';
+
 const logger = LoggerFactory.getLogger('RedisLockProvider');
 
 export class RedisLockProvider {
-  public readonly client: any | undefined;
-  public readonly redLock: RedLock | undefined;
+  public readonly client?: RedisClientType;
+  public readonly redLock?: RedLock;
 
   public static locks: Record<string, Lock> = {};
   public static instance: RedisLockProvider;
 
   constructor() {
-    const redisClientObject = RedisProvider.instance.getRedisClient('lock');
+    const redisClientObject = RedisProvider.getRedisClient('lock', 0, true);
     logger.log(`init ${r(redisClientObject, { transform: true })}`);
     if (redisClientObject.isEnabled) {
       this.client = redisClientObject.client;
       if (!this.redLock && this.client) {
         this.redLock = new RedLock(
           // you should have one client for each independent redis node or cluster
-          [this.client],
+          [this.client as any],
           {
             // the expected clock drift; for more details
             // see http://redis.io/topics/distlock
@@ -79,8 +81,8 @@ export class RedisLockProvider {
 
   isEnabled = (): boolean | null => AppEnv.configLoader.loadBoolConfig(RedisConfigKeys.REDIS_ENABLE);
 
-  async checkLock(resource: string): Promise<string> {
-    return (await promisify(this.client!.get, this.client)(resource)) as string;
+  async checkLock(resource: string): Promise<string | null> {
+    return this.client!.get(resource);
   }
 
   async lockProcess<T>(
@@ -138,8 +140,9 @@ export class RedisLockProvider {
         delete RedisLockProvider.locks[resource];
         return { exists: false, results };
       },
-      (err) => {
-        logger.error(`get [${resource}] lock error: ${err} ${r(options)}`);
+      (reason) => {
+        // TODO lock error handler needed
+        logger.error(`get [${resource}] lock error: ${reason}`);
         return { exists: false, results: undefined };
       },
     );
