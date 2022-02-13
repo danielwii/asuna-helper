@@ -1,5 +1,6 @@
 // target es5 for ie11 support
 import * as Bluebird from 'bluebird';
+import Redis from 'ioredis';
 import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
 
@@ -8,29 +9,26 @@ import { LoggerFactory } from '../../logger';
 import { waitUtil } from '../../promise';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
-import { RedisConfigKeys } from './config';
-import { RedisProvider } from './provider';
-
-import type { RedisClientType } from 'redis';
+import { RedisConfigKeys, RedisConfigObject } from './config';
 
 const logger = LoggerFactory.getLogger('RedisLockProvider');
 
 export class RedisLockProvider {
-  public readonly client?: RedisClientType;
+  public readonly client?: Redis.Redis;
   public readonly redLock?: RedLock;
 
   public static locks: Record<string, Lock> = {};
   public static instance: RedisLockProvider;
 
   constructor() {
-    const redisClientObject = RedisProvider.getRedisClient('lock', 0, true);
-    logger.log(`init ${r(redisClientObject, { transform: true })}`);
-    if (redisClientObject.isEnabled) {
-      this.client = redisClientObject.client;
+    const redisConfig = RedisConfigObject.loadOr('lock');
+    logger.log(`init ${r(redisConfig, { transform: true })}`);
+    if (redisConfig.enable) {
+      this.client = new Redis(redisConfig.getOptions());
       if (!this.redLock && this.client) {
         this.redLock = new RedLock(
           // you should have one client for each independent redis node or cluster
-          [this.client as any],
+          [this.client],
           {
             // the expected clock drift; for more details
             // see http://redis.io/topics/distlock
@@ -71,7 +69,7 @@ export class RedisLockProvider {
         this.redLock?.removeAllListeners();
       });
     } else {
-      logger.log(`skip setup redis, REDIS_ENABLE is ${redisClientObject.isEnabled}`);
+      logger.log(`skip setup redis, REDIS_ENABLE is ${redisConfig.enable}`);
     }
   }
 

@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.1.55",
-    "@swc/core": "^1.2.138",
+    "@swc/core": "^1.2.139",
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",
