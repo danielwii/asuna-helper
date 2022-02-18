@@ -43,6 +43,7 @@
     "ismobilejs": "^1.1.1",
     "json5": "^2.2.0",
     "lodash": "^4.17.21",
+    "nanoid": "^3.3.1",
     "next": "^12.1.0",
     "node-buffs": "^0.8.18",
     "ow": "^0.28.1",
@@ -52,7 +53,6 @@
     "redlock": "^5.0.0-beta.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.4",
-    "shortid": "^2.2.16",
     "typeorm": "^0.2.43",
     "ua-parser-js": "^1.0.2"
   },
@@ -68,7 +68,6 @@
     "@types/lodash": "^4",
     "@types/node": "^16",
     "@types/redlock": "^4",
-    "@types/shortid": "^0",
     "@types/ua-parser-js": "^0",
     "prettier": "^2.5.1",
     "typescript": "^4.5.5"

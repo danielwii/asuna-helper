@@ -309,7 +309,6 @@ __metadata:
     "@types/lodash": ^4
     "@types/node": ^16
     "@types/redlock": ^4
-    "@types/shortid": ^0
     "@types/ua-parser-js": ^0
     axios: ^0.26.0
     bluebird: ^3.7.2
@@ -324,6 +323,7 @@ __metadata:
     ismobilejs: ^1.1.1
     json5: ^2.2.0
     lodash: ^4.17.21
+    nanoid: ^3.3.1
     next: ^12.1.0
     node-buffs: ^0.8.18
     ow: ^0.28.1
@@ -334,7 +334,6 @@ __metadata:
     redlock: ^5.0.0-beta.1
     reflect-metadata: ^0.1.13
     rxjs: ^7.5.4
-    shortid: ^2.2.16
     typeorm: ^0.2.43
     typescript: ^4.5.5
     ua-parser-js: ^1.0.2
@@ -883,13 +882,6 @@ __metadata:
     "@types/bluebird": "*"
     "@types/redis": ^2.8.0
   checksum: f2fab630e2cc949505213f248034f6bbc1854c09209042318f2d787bf1e93952efa11fd7a8883c6c1cbeb0de1d7b81121a01369952d97a9f2bcf4d105d2cc4a4
-  languageName: node
-  linkType: hard
-
-"@types/shortid@npm:^0":
-  version: 0.0.29
-  resolution: "@types/shortid@npm:0.0.29"
-  checksum: 06d940fabc5774ff2221da6ba3496cef97ae7c2f7f0fee4740144a68cf2b630b109db2f934133096daa58045e4e7aaffba687934166bb0b2b0d5c52679b10d08
   languageName: node
   linkType: hard
 
@@ -2620,14 +2612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^2.1.0":
-  version: 2.1.11
-  resolution: "nanoid@npm:2.1.11"
-  checksum: 18cd14386816873849787eb4e65667021bfdeb019a8f14c74287c23594c67b7c0e8f42c7d69f6aedf05cd3d100f1ddc41184f9f9b6b17fbaea1c3ee3f0704eec
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.1.30":
+"nanoid@npm:^3.1.30, nanoid@npm:^3.3.1":
   version: 3.3.1
   resolution: "nanoid@npm:3.3.1"
   bin:
@@ -3330,15 +3315,6 @@ __metadata:
   bin:
     sha.js: ./bin.js
   checksum: ebd3f59d4b799000699097dadb831c8e3da3eb579144fd7eb7a19484cbcbb7aca3c68ba2bb362242eb09e33217de3b4ea56e4678184c334323eca24a58e3ad07
-  languageName: node
-  linkType: hard
-
-"shortid@npm:^2.2.16":
-  version: 2.2.16
-  resolution: "shortid@npm:2.2.16"
-  dependencies:
-    nanoid: ^2.1.0
-  checksum: 0790ce22fe20aacc226915160da178b5a6af7814d1796404684f6699b60f77e291d39ad3b6b2b4c6efcf5553e1deeee7e29a48b8f46955de1425e67ab934e309
   languageName: node
   linkType: hard
 
