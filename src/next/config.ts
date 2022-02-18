@@ -93,6 +93,7 @@ export const createNextConfig = (
     swcMinify: true,
     experimental: {
       esmExternals: 'loose',
+      outputStandalone: true,
       // concurrentFeatures: true,
       // serverComponents: true,
     },
