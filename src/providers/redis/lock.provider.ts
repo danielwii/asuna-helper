@@ -25,6 +25,9 @@ export class RedisLockProvider {
     logger.log(`init ${r(redisConfig, { transform: true })}`);
     if (redisConfig.enable) {
       this.client = new Redis(redisConfig.getOptions());
+      this.client.on('error', (reason) => {
+        logger.error(`ioredis connection error ${r(reason)}`);
+      });
       if (!this.redLock && this.client) {
         this.redLock = new RedLock(
           // you should have one client for each independent redis node or cluster

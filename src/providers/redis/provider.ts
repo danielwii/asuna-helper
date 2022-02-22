@@ -94,7 +94,7 @@ export class RedisProvider {
 */
 
     client.connect().catch((reason) => {
-      logger.log(`connect redis error: ${r(reason)}`);
+      logger.error(`connect redis error: ${r(reason)}`);
       process.exit(1);
     });
 
