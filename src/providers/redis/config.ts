@@ -7,6 +7,8 @@ import { LoggerFactory } from '../../logger';
 import { r } from '../../serializer';
 import { withP, withP2 } from '../../utils';
 
+import type { RedisOptions } from 'ioredis';
+
 const logger = LoggerFactory.getLogger('RedisConfig');
 
 export const RedisConfigKeys = {
@@ -115,7 +117,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     };
   }
 
-  public getOptions(db?: number) {
+  public getOptions(db?: number): RedisOptions {
     return { ...this.options, db: db ?? this.db };
   }
 

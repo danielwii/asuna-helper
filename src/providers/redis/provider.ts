@@ -93,6 +93,7 @@ export class RedisProvider {
     });
 */
 
+    logger.debug(`connect to redis ${r({ prefix, db, legacyMode, socket: redisOptions.socket })}`);
     client.connect().catch((reason) => {
       logger.error(`connect redis error: ${r(reason)}`);
       process.exit(1);

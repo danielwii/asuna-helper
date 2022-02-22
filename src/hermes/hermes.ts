@@ -12,6 +12,7 @@ import { RedisConfigObject } from '../providers/redis/config';
 import { random } from '../random';
 import { r } from '../serializer';
 
+import type { RedisOptions } from 'ioredis';
 import type { IAsunaAction, IAsunaCommand, IAsunaEvent, IAsunaJob, IAsunaObserver, IAsunaRule } from './interfaces';
 
 const logger = LoggerFactory.getLogger('Hermes');
@@ -121,7 +122,7 @@ export class Hermes {
       const db = AppEnv.configLoader.loadNumericConfig(ConfigKeys.JOB_REDIS_DB, 1) as number;
       logger.log(`init job with redis db: ${db}`);
       // redis.ClientOpts have to convert to ioredis.RedisOptions
-      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as any });
+      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as RedisOptions });
 
       logger.log('sync status with redis.');
     }
