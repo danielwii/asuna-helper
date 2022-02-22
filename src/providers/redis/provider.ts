@@ -1,4 +1,5 @@
 import { Expose, plainToInstance, Transform } from 'class-transformer';
+import consola from 'consola';
 import * as Redis from 'redis';
 
 import { LoggerFactory } from '../../logger';
@@ -67,12 +68,12 @@ export class RedisProvider {
     redisClientObject.client = client as any;
     client.on('connect', () => {
       // redisClientObject.isHealthy = true;
-      logger.log(`Redis ${key} connection open to ${r({ redisClientObject, prefix, key }, { transform: true })}`);
+      logger.log(`Redis ${key} connection open to ${r({ prefix, key }, { transform: true })}`);
     });
 
     client.on('error', (err) => {
       // redisClientObject.isHealthy = false;
-      logger.error(`Redis ${key} connection error ${r(err)}`);
+      logger.error(`Redis ${key} to ${r({ prefix, redisClientObject })} connection error ${r(err)}`);
     });
 
     LifecycleRegister.regExitProcessor(`Redis(${key})`, async () => {
@@ -98,8 +99,9 @@ export class RedisProvider {
 
     // logger.debug(`connect to redis ${r({ prefix, db, legacyMode, socket: redisOptions.socket })}`);
     client.connect().catch((reason) => {
-      logger.error(`connect redis error: ${r({ redisClientObject, reason })}`);
-      process.exit(1);
+      logger.error(`connect redis error: ${r({ prefix, key, redisClientObject, reason })}`);
+      consola.error(reason);
+      // process.exit(1);
     });
 
     return redisClientObject;
