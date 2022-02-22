@@ -6,6 +6,8 @@ import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigObject } from './config';
 
+import type { RedisOptions } from 'ioredis';
+
 const logger = LoggerFactory.getLogger('RedisProvider');
 
 export class RedisClientObject {
@@ -15,7 +17,8 @@ export class RedisClientObject {
 
   public isEnabled: boolean | undefined;
   // public isHealthy: boolean | undefined;
-  public redisOptions: Redis.RedisClientOptions | undefined;
+  public redisOptions: RedisOptions | undefined;
+  public redisOptionsV4: Redis.RedisClientOptions | undefined;
 
   public get isOpen(): boolean {
     return !!(this.isEnabled && this.client?.isOpen);
@@ -43,14 +46,14 @@ export class RedisProvider {
     }
 
     const configObject = RedisConfigObject.loadOr(prefix);
-    const redisOptions = configObject.getOptionsV4(db);
-    redisOptions.legacyMode = legacyMode;
+    const redisOptionsV4 = configObject.getOptionsV4(db);
+    redisOptionsV4.legacyMode = legacyMode;
     logger.log(
-      `init redis provider: ${r({ configObject, redisOptions }, { transform: true })} with ${r({ prefix, db })}`,
+      `init redis provider: ${r({ configObject, redisOptionsV4 }, { transform: true })} with ${r({ prefix, db })}`,
     );
     const redisClientObject = plainToInstance(
       RedisClientObject,
-      { client: undefined, isEnabled: configObject.enable, redisOptions },
+      { client: undefined, isEnabled: configObject.enable, redisOptionsV4, redisOptions: configObject.getOptions(db) },
       { enableImplicitConversion: true },
     );
 
@@ -60,7 +63,7 @@ export class RedisProvider {
       return redisClientObject;
     }
 
-    const client = Redis.createClient(redisOptions);
+    const client = Redis.createClient(redisOptionsV4);
     redisClientObject.client = client as any;
     client.on('connect', () => {
       // redisClientObject.isHealthy = true;
@@ -93,9 +96,9 @@ export class RedisProvider {
     });
 */
 
-    logger.debug(`connect to redis ${r({ prefix, db, legacyMode, socket: redisOptions.socket })}`);
+    // logger.debug(`connect to redis ${r({ prefix, db, legacyMode, socket: redisOptions.socket })}`);
     client.connect().catch((reason) => {
-      logger.error(`connect redis error: ${r(reason)}`);
+      logger.error(`connect redis error: ${r({ redisClientObject, reason })}`);
       process.exit(1);
     });
 
