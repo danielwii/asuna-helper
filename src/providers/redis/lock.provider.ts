@@ -123,7 +123,9 @@ export class RedisLockProvider {
     return this.redLock.acquire([resource], ttl).then(
       async (lock) => {
         RedisLockProvider.locks[resource] = lock;
-        logger.verbose(`lock [${resource}]: ${r(_.omit(lock, 'redlock', 'unlock', 'extend'))} ttl: ${ttl}ms`);
+        logger.verbose(
+          `lock [${resource}]: ${r(_.omit(lock, 'redlock', 'unlock', 'extend', 'attempts'))} ttl: ${ttl}ms`,
+        );
         const results = await handler()
           .then((value) => {
             logger.verbose(`release lock [${resource}], result is ${r(value)}`);

@@ -67,7 +67,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     const appendPrefix = (prefix.length > 0 ? `${prefix}_` : '').toUpperCase();
     const key = `${appendPrefix}${RedisConfigKeys.REDIS_ENABLE}`;
     const enable = AppEnv.configLoader.loadBoolConfig(key);
-    logger.verbose(`try loadOr env: ${key} ${enable ? 'fallback to default' : ''}`);
+    // logger.verbose(`try loadOr env: ${key} ${enable ? 'fallback to default' : ''}`);
     if (enable === true) {
       return RedisConfigObject.load(prefix);
     }
@@ -77,48 +77,61 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     return RedisConfigObject.load();
   }
 
-  public get options() {
+  public get options(): RedisOptions {
+    /*
+    const retryStrategy = (options: any) => {
+      logger.log(`retryStrategy ${r(options)}`);
+      if (options) {
+        logger.warn(`retry_strategy ${r({ db: this.db, host: this.host, port: this.port })} ${r(options)}`);
+        if (options.error && options.error.code === 'ECONNREFUSED') {
+          // End reconnecting on a specific error and flush all commands with
+          // a individual error
+          logger.error(`The server refused the connection, wait for 10s.`);
+          // return new Error('The server refused the connection');
+          return 10_000;
+        }
+        if (options.total_retry_time > 1000 * 60 * 60) {
+          // End reconnecting after a specific timeout and flush all commands
+          // with a individual error
+          logger.error(`Retry time exhausted, wait for 10s.`);
+          // return new Error('Retry time exhausted');
+          return 10_000;
+        }
+        if (options.attempt > 10) {
+          logger.error(`Reach to 10 times, wait for 30s.`);
+          // End reconnecting with built in error
+          return 30_000;
+        }
+        // reconnect after
+        const waitFor = Math.min(options.attempt * 100, 3000);
+        logger.error(`Reconnect after ${waitFor / 1000}s`);
+        return waitFor;
+      }
+      logger.verbose(`Connect in 3s...`);
+      return 3_000;
+    };
+*/
     return {
       host: this.host,
       port: this.port,
       ...(this.password ? { password: this.password } : {}),
       db: this.db,
       // connect_timeout: 10_000,
-      retry_strategy: (options: any) => {
-        if (options) {
-          logger.warn(`retry_strategy ${r({ db: this.db, host: this.host, port: this.port })} ${r(options)}`);
-          if (options.error && options.error.code === 'ECONNREFUSED') {
-            // End reconnecting on a specific error and flush all commands with
-            // a individual error
-            logger.error(`The server refused the connection, wait for 10s.`);
-            // return new Error('The server refused the connection');
-            return 10_000;
-          }
-          if (options.total_retry_time > 1000 * 60 * 60) {
-            // End reconnecting after a specific timeout and flush all commands
-            // with a individual error
-            logger.error(`Retry time exhausted, wait for 10s.`);
-            // return new Error('Retry time exhausted');
-            return 10_000;
-          }
-          if (options.attempt > 10) {
-            logger.error(`Reach to 10 times, wait for 30s.`);
-            // End reconnecting with built in error
-            return 30_000;
-          }
-          // reconnect after
-          const waitFor = Math.min(options.attempt * 100, 3000);
-          logger.error(`Reconnect after ${waitFor / 1000}s`);
-          return waitFor;
-        }
-        logger.verbose(`Connect in 3s...`);
-        return 3_000;
+      // retry_strategy: retryStrategy,
+      retryStrategy: (retries: number) => {
+        const delay = Math.min((retries ?? 0) * 1000, 5_000);
+        logger.log(`retryStrategy ${r({ retries, delay })}`);
+        return delay;
       },
     };
   }
 
-  public getOptions(db?: number): RedisOptions {
+  public getIoOptions(db?: number): RedisOptions {
     return { ...this.options, db: db ?? this.db };
+  }
+
+  public getOptions(db?: number): Redis.RedisClientOptions {
+    return { ...this.options, database: db ?? this.db };
   }
 
   public getOptionsV4(db?: number): Redis.RedisClientOptions {
@@ -130,7 +143,11 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       socket: {
         host: this.options.host,
         port: this.options.port,
-        reconnectStrategy: (retries) => Math.min(retries * 50, 500),
+        reconnectStrategy: (retries) => {
+          const delay = Math.min((retries ?? 1) * 1000, 5_000);
+          logger.log(`reconnectStrategy ${r({ retries, delay })}`);
+          return delay;
+        },
       },
     };
   }
