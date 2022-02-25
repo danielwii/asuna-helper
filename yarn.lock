@@ -299,7 +299,7 @@ __metadata:
     "@nestjs/common": ^8.3.1
     "@nestjs/platform-express": ^8.3.1
     "@swc/cli": ^0.1.55
-    "@swc/core": ^1.2.141
+    "@swc/core": ^1.2.144
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main"
     "@tsconfig/recommended": ^1.0.1
     "@types/bluebird": ^3
@@ -312,14 +312,14 @@ __metadata:
     "@types/ua-parser-js": ^0
     axios: ^0.26.0
     bluebird: ^3.7.2
-    bull: ^4.5.5
+    bull: ^4.6.2
     class-transformer: ^0.5.1
     class-validator: ^0.13.2
     classnames: ^2.3.1
     common-tags: ^1.8.2
     consola: ^2.15.3
     date-fns: ^2.28.0
-    fs-extra: ^10.0.0
+    fs-extra: ^10.0.1
     ismobilejs: ^1.1.1
     json5: ^2.2.0
     lodash: ^4.17.21
@@ -330,11 +330,11 @@ __metadata:
     prettier: ^2.5.1
     query-string: ^7.1.1
     react-use: ^17.3.2
-    redis: ^4.0.3
+    redis: ^4.0.4
     redlock: ^5.0.0-beta.1
     reflect-metadata: ^0.1.13
     rxjs: ^7.5.4
-    typeorm: ^0.2.43
+    typeorm: ^0.2.44
     typescript: ^4.5.5
     ua-parser-js: ^1.0.2
   peerDependencies:
@@ -488,15 +488,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@node-redis/client@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@node-redis/client@npm:1.0.3"
+"@node-redis/client@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@node-redis/client@npm:1.0.4"
   dependencies:
     cluster-key-slot: 1.1.0
     generic-pool: 3.8.2
     redis-parser: 3.0.0
     yallist: 4.0.0
-  checksum: b3d7ff4ec8b39a25865dcbd38cb9c1db93fa0b7c483cb04e2764fee8958fbf144e64401c458ca6a1fd99daeaa8feacf117726defefccaf00da0b8790bd8b79f2
+  checksum: 80c2665e86b24c704c502b673884551ad7e5f4a94d2337d1b2c24a3194841be12b4c493ae3d447eb4a0bc3fc7ec1449a591c7b792f053b185338b2000b20a84d
   languageName: node
   linkType: hard
 
@@ -518,21 +518,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@node-redis/search@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@node-redis/search@npm:1.0.2"
+"@node-redis/search@npm:1.0.3":
+  version: 1.0.3
+  resolution: "@node-redis/search@npm:1.0.3"
   peerDependencies:
     "@node-redis/client": ^1.0.0
-  checksum: fee626f62b90abcb6b8376ab1a94d3ed6c0aa9cd181aa30107ed32528d0bbf011302ad8c46b3fff7723887c18686b06ec1d1c1c76b49ad526900b5f695914eea
+  checksum: 5ad7ff7849728aec4bda2af51a3f5fc263420c812b4af4f2ac6e47cbe18f245e4c440de7aacf18db40bd209e088f448f2801ccfb3b0e3475b77c9aea507686a0
   languageName: node
   linkType: hard
 
-"@node-redis/time-series@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@node-redis/time-series@npm:1.0.1"
+"@node-redis/time-series@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@node-redis/time-series@npm:1.0.2"
   peerDependencies:
     "@node-redis/client": ^1.0.0
-  checksum: 52e06437c6573b9c1c5c09ea51c6b1095d40e75938dd705b5fa2eacc2839104c8a2eb381e79f0ecb7c75899214e6da89926b29da219dd0202aa0d9f7475972c2
+  checksum: 70787aa22a81d274bc6a97a9e25db150b5c76603597fc00c8980d2c416b157f42c7e47947ea75cadea3a114802b0a93094aedd7d4f5977054d10f10fcbdf946c
   languageName: node
   linkType: hard
 
@@ -618,114 +618,140 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-android-arm-eabi@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-android-arm-eabi@npm:1.2.141"
+"@swc/core-android-arm-eabi@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-android-arm-eabi@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-android-arm64@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-android-arm64@npm:1.2.141"
+"@swc/core-android-arm64@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-android-arm64@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-darwin-arm64@npm:1.2.141"
+"@swc/core-darwin-arm64@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-darwin-arm64@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-darwin-x64@npm:1.2.141"
+"@swc/core-darwin-x64@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-darwin-x64@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-freebsd-x64@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-freebsd-x64@npm:1.2.141"
+"@swc/core-freebsd-x64@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-freebsd-x64@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.141"
+"@swc/core-linux-arm-gnueabihf@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.141"
+"@swc/core-linux-arm64-gnu@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-linux-arm64-musl@npm:1.2.141"
+"@swc/core-linux-arm64-musl@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-linux-arm64-musl@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-linux-x64-gnu@npm:1.2.141"
+"@swc/core-linux-x64-gnu@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-linux-x64-gnu@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-linux-x64-musl@npm:1.2.141"
+"@swc/core-linux-x64-musl@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-linux-x64-musl@npm:1.2.145"
+  bin:
+    swcx: swc
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.141"
+"@swc/core-win32-arm64-msvc@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.145"
+  bin:
+    swcx: swc.exe
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.141"
+"@swc/core-win32-ia32-msvc@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.145"
+  bin:
+    swcx: swc.exe
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core-win32-x64-msvc@npm:1.2.141"
+"@swc/core-win32-x64-msvc@npm:1.2.145":
+  version: 1.2.145
+  resolution: "@swc/core-win32-x64-msvc@npm:1.2.145"
+  bin:
+    swcx: swc.exe
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.2.141":
-  version: 1.2.141
-  resolution: "@swc/core@npm:1.2.141"
+"@swc/core@npm:^1.2.144":
+  version: 1.2.145
+  resolution: "@swc/core@npm:1.2.145"
   dependencies:
-    "@swc/core-android-arm-eabi": 1.2.141
-    "@swc/core-android-arm64": 1.2.141
-    "@swc/core-darwin-arm64": 1.2.141
-    "@swc/core-darwin-x64": 1.2.141
-    "@swc/core-freebsd-x64": 1.2.141
-    "@swc/core-linux-arm-gnueabihf": 1.2.141
-    "@swc/core-linux-arm64-gnu": 1.2.141
-    "@swc/core-linux-arm64-musl": 1.2.141
-    "@swc/core-linux-x64-gnu": 1.2.141
-    "@swc/core-linux-x64-musl": 1.2.141
-    "@swc/core-win32-arm64-msvc": 1.2.141
-    "@swc/core-win32-ia32-msvc": 1.2.141
-    "@swc/core-win32-x64-msvc": 1.2.141
+    "@swc/core-android-arm-eabi": 1.2.145
+    "@swc/core-android-arm64": 1.2.145
+    "@swc/core-darwin-arm64": 1.2.145
+    "@swc/core-darwin-x64": 1.2.145
+    "@swc/core-freebsd-x64": 1.2.145
+    "@swc/core-linux-arm-gnueabihf": 1.2.145
+    "@swc/core-linux-arm64-gnu": 1.2.145
+    "@swc/core-linux-arm64-musl": 1.2.145
+    "@swc/core-linux-x64-gnu": 1.2.145
+    "@swc/core-linux-x64-musl": 1.2.145
+    "@swc/core-win32-arm64-msvc": 1.2.145
+    "@swc/core-win32-ia32-msvc": 1.2.145
+    "@swc/core-win32-x64-msvc": 1.2.145
   dependenciesMeta:
     "@swc/core-android-arm-eabi":
       optional: true
@@ -753,7 +779,7 @@ __metadata:
       optional: true
     "@swc/core-win32-x64-msvc":
       optional: true
-  checksum: b4795e397bca0d896b8a6b7341ee425b84518c53d9ef560eba33fdea564c1144bb356421d2e5505fa4f27e99139e205c3e0038c62fa0a6879ce0f51d2162c36d
+  checksum: c34ff054cb4af53966c9607ba60180e2c653cc7a093f3511174462e072ebc41b4bd698f522330cc1de84f05f3f20e21152cef3d661a3361a3a49ff8cf84f357e
   languageName: node
   linkType: hard
 
@@ -1122,20 +1148,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bull@npm:^4.5.5":
-  version: 4.5.5
-  resolution: "bull@npm:4.5.5"
+"bull@npm:^4.6.2":
+  version: 4.6.2
+  resolution: "bull@npm:4.6.2"
   dependencies:
     cron-parser: ^4.2.1
     debuglog: ^1.0.0
     get-port: ^5.1.1
-    ioredis: ^4.27.0
+    ioredis: ^4.28.5
     lodash: ^4.17.21
     msgpackr: ^1.5.2
     p-timeout: ^3.2.0
     semver: ^7.3.2
     uuid: ^8.3.0
-  checksum: 6cdb110870c33730975f93b150f2554bf18fd636e4e21ca7ed1020545fc946ca80aca564f5944911c59d2981b5e178fed9bb75a92b8a19d6f7bd5b7b48bcd4bc
+  checksum: a154719b24ac5de0bfbc1b8b0fc17724f3aaa838c548ec051fcd5396762581933c7ef5501569a4112239805e8e5bd516b823d9cf01ca8893d7b60c8d2a468d3e
   languageName: node
   linkType: hard
 
@@ -1805,14 +1831,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "fs-extra@npm:10.0.0"
+"fs-extra@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "fs-extra@npm:10.0.1"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: 5285a3d8f34b917cf2b66af8c231a40c1623626e9d701a20051d3337be16c6d7cac94441c8b3732d47a92a2a027886ca93c69b6a4ae6aee3c89650d2a8880c0a
+  checksum: c1faaa5eb9e1c5c7c7ff09f966e93922ecb068ae1b04801cfc983ef05fcc1f66bfbb8d8d0b745c910014c7a2e7317fb6cf3bfe7390450c1157e3cc1a218f221d
   languageName: node
   linkType: hard
 
@@ -2071,7 +2097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^4.27.0":
+"ioredis@npm:^4.28.5":
   version: 4.28.5
   resolution: "ioredis@npm:4.28.5"
   dependencies:
@@ -3094,17 +3120,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "redis@npm:4.0.3"
+"redis@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "redis@npm:4.0.4"
   dependencies:
     "@node-redis/bloom": 1.0.1
-    "@node-redis/client": 1.0.3
+    "@node-redis/client": 1.0.4
     "@node-redis/graph": 1.0.0
     "@node-redis/json": 1.0.2
-    "@node-redis/search": 1.0.2
-    "@node-redis/time-series": 1.0.1
-  checksum: d5aa500d387f454feb6e70d8591eb6f8acfaec4814c7167865903069b640c253054592ab38eddfaf78f6df28f594412f8af67efaaf7c8d7fd2dd2222b3cfbc6a
+    "@node-redis/search": 1.0.3
+    "@node-redis/time-series": 1.0.2
+  checksum: bed4ded396646d128843a97ff01202d802729c83234ba755701ef693e526e2d858b30c566e8830c7c70793ffbf3f91f6e316bfe61ddff3d1c11120ba292ce98a
   languageName: node
   linkType: hard
 
@@ -3674,9 +3700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typeorm@npm:^0.2.43":
-  version: 0.2.43
-  resolution: "typeorm@npm:0.2.43"
+"typeorm@npm:^0.2.44":
+  version: 0.2.44
+  resolution: "typeorm@npm:0.2.44"
   dependencies:
     "@sqltools/formatter": ^1.2.2
     app-root-path: ^3.0.0
@@ -3744,7 +3770,7 @@ __metadata:
       optional: true
   bin:
     typeorm: cli.js
-  checksum: cd9dd1f5804ac2b56f8b913d5fe58cb371d27f28fe31297c2588d875927de92ad3dbb00b10e0cd8ed638e570ddc0e6813e69cf9251aefc97406f1f3578cbfa81
+  checksum: f89deb1f0e9451964ab7c2d5d16ac902079f0eb061d7d0663fe94180f86c42dc2150ee9bf433389e67b4e55e9581836084419a6bbacdc393f44b8ae7b4e9f5da
   languageName: node
   linkType: hard
 
