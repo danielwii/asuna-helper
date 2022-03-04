@@ -1,4 +1,5 @@
 import { Expose, plainToInstance, Transform } from 'class-transformer';
+import _ from 'lodash';
 import * as Redis from 'redis';
 
 import { AppEnv } from '../../app.env';
@@ -78,7 +79,6 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
   }
 
   public get options(): RedisOptions {
-    /*
     const retryStrategy = (options: any) => {
       logger.log(`retryStrategy ${r(options)}`);
       if (options) {
@@ -110,7 +110,6 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       logger.verbose(`Connect in 3s...`);
       return 3_000;
     };
-*/
     return {
       host: this.host,
       port: this.port,
@@ -119,9 +118,16 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       // connect_timeout: 10_000,
       // retry_strategy: retryStrategy,
       retryStrategy: (retries: number) => {
-        const delay = Math.min((retries ?? 0) * 1000, 5_000);
-        logger.log(`retryStrategy ${r({ retries, delay })}`);
-        return delay;
+        if (_.isNumber(retries)) {
+          if (retries > 10) {
+            logger.error('cannot connect to redis, exit.');
+            process.exit(1);
+          }
+          const delay = Math.min((retries ?? 0) * 1000, 5_000);
+          logger.log(`retryStrategy ${r({ retries, delay })}`);
+          return delay;
+        }
+        return retryStrategy(retries);
       },
     };
   }

@@ -73,7 +73,7 @@ export class RedisProvider {
 
     client.on('error', (err) => {
       // redisClientObject.isHealthy = false;
-      logger.error(`Redis ${key} to ${r({ prefix, redisClientObject })} connection error ${r(err)}`);
+      logger.error(`Redis ${key} to ${r({ prefix, configObject })} connection error ${r(err)}`);
     });
 
     LifecycleRegister.regExitProcessor(`Redis(${key})`, async () => {
