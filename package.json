@@ -30,7 +30,7 @@
   "dependencies": {
     "@nestjs/common": "^8.4.0",
     "@nestjs/platform-express": "^8.4.0",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "bluebird": "^3.7.2",
     "bull": "^4.7.0",
     "class-transformer": "^0.5.1",
@@ -52,13 +52,13 @@
     "redis": "^4.0.4",
     "redlock": "5.0.0-beta.2",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.4",
+    "rxjs": "^7.5.5",
     "typeorm": "^0.2.45",
     "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.55",
-    "@swc/core": "^1.2.150",
+    "@swc/cli": "^0",
+    "@swc/core": "^1",
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bluebird": "^3",

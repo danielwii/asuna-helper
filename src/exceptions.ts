@@ -111,6 +111,7 @@ export enum AsunaExceptionTypes {
   InvalidAccount = 'InvalidAccount',
   AccountExists = 'AccountExists',
   BadRequest = 'BadRequest',
+  Unprocessable = 'Unprocessable',
   InvalidToken = 'InvalidToken',
   FormatError = 'FormatError',
   Upload = 'Upload',
@@ -198,6 +199,12 @@ export class AsunaExceptionHelper {
       nameValue: AsunaErrorCode.InvalidToken,
       message: (message: string) => `invalid token: ${message}`,
       localMessage: (message: string) => `无效的参数：${message}`,
+    },
+    [AsunaExceptionTypes.Unprocessable]: {
+      code: 'E05001',
+      nameValue: AsunaErrorCode.Unprocessable,
+      message: () => `unprocessable`,
+      localMessage: () => `参数或后台异常，无法处理`,
     },
   };
 
