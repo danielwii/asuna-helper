@@ -90,7 +90,7 @@ export const createNextConfig = (
     fp.merge(config),
   )({
     env: { PROXY_MODE: process.env.PROXY_MODE },
-    swcMinify: true,
+    // swcMinify: true,
     experimental: {
       esmExternals: 'loose',
       outputStandalone: true,
