@@ -1,6 +1,5 @@
 import consola from 'consola';
-import { compact, flow, isNaN, isNumber, last, omit, split, uniq } from 'lodash';
-import fp from 'lodash/fp';
+import { compact, flow, isNaN, isNumber, last, merge, omit, split, uniq } from 'lodash';
 import { URL } from 'url';
 import { inspect } from 'util';
 
@@ -21,6 +20,7 @@ export interface RequestPipes {
 
 export interface NextConfigProps {
   i18n?: { locales: string[]; defaultLocale: string; localeDetection: boolean };
+  swcMinify?: boolean;
 }
 
 export const createNextConfig = (
@@ -85,20 +85,15 @@ export const createNextConfig = (
   logger.success('uploads request mode', uploadsRequestMode);
   // process.exit(1);
 
-  const configs = flow(
-    ...(preprocessors as any),
-    fp.merge(config),
-  )({
+  const configs = flow(...(preprocessors as any), (dest) => merge(dest, config))({
     env: { PROXY_MODE: process.env.PROXY_MODE },
-    // swcMinify: true,
+    swcMinify: true,
     experimental: {
       esmExternals: 'loose',
       outputStandalone: true,
       // concurrentFeatures: true,
       // serverComponents: true,
     },
-    // next11 enabled webpack5 by default
-    // future: { webpack5: true },
     // @ts-ignore
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       if (!isServer) {
