@@ -1,6 +1,6 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -50,7 +50,7 @@
     "query-string": "^7.1.1",
     "react-use": "^17.3.2",
     "redis": "^4.0.4",
-    "redlock": "5.0.0-beta.2",
+    "redlock": "5.0.0-beta2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "typeorm": "^0.2.45",
