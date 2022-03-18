@@ -88,16 +88,19 @@ export const createNextConfig = (
   const configs = flow(...(preprocessors as any), (dest) => merge(dest, config))({
     env: { PROXY_MODE: process.env.PROXY_MODE },
     swcMinify: true,
+    /*
     experimental: {
       esmExternals: 'loose',
       outputStandalone: true,
       // concurrentFeatures: true,
       // serverComponents: true,
-    },
+    },*/
     // @ts-ignore
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       if (!isServer) {
-        config.resolve.fallback = { fs: false, crypto: false, window: false };
+        config.resolve.fallback.fs = false;
+        config.resolve.fallback.crypto = false;
+        config.resolve.fallback.window = false;
       }
       return config;
     },
