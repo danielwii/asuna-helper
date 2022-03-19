@@ -1,9 +1,10 @@
 import consola from 'consola';
 import { compact, flow, isNaN, isNumber, last, merge, omit, split, uniq } from 'lodash';
+import getConfig from 'next/config';
 import { URL } from 'url';
 import { inspect } from 'util';
 
-import { Endpoints, EndpointsUtil } from '../env';
+import { EndpointsUtil } from '../env';
 
 import type { NextConfig } from 'next';
 
@@ -23,13 +24,35 @@ export interface NextConfigProps {
   swcMinify?: boolean;
 }
 
+export const getPublicRuntimeConfig = (): PublicRuntimeConfig => {
+  const config = getConfig().publicRuntimeConfig;
+  const proxy = process.env.PROXY_MODE;
+  return proxy
+    ? {
+        ...config,
+        GRAPHQL_ENDPOINT: '/proxy',
+      }
+    : config;
+};
+
+export type PublicRuntimeConfig = {
+  API_ENDPOINT: string;
+  STATIC_ENDPOINT: string;
+  WS_ENDPOINT: string;
+  GRAPHQL_ENDPOINT: string;
+  ENABLE_MOBILE_COMPATIBILITY: string;
+};
+
+/**
+ * @type {import('next').NextConfig}
+ **/
 export const createNextConfig = (
   config: NextConfigProps,
   requestPipes: RequestPipes,
   preprocessors: NextConfig[] = [],
   { enableAdmin }: { enableAdmin?: boolean } = {},
 ) => {
-  consola.info(`Next version: ${require('next/package.json').version}`);
+  consola.info(`Next version: ${require('next/package.json').version}. NODE_ENV: ${process.env.NODE_ENV}`);
 
   if (process.env.PROXY_API)
     logger.error(
@@ -80,13 +103,13 @@ export const createNextConfig = (
     EXTRA_DOMAINS: process.env.EXTRA_DOMAINS,
   });
 
-  printEndpoints();
+  // printEndpoints();
   const uploadsRequestMode = detectUploadsRequestMode();
   logger.success('uploads request mode', uploadsRequestMode);
   // process.exit(1);
 
-  const configs = flow(...(preprocessors as any), (dest) => merge(dest, config))({
-    env: { PROXY_MODE: process.env.PROXY_MODE },
+  const nextConfig: NextConfig = {
+    env: { PROXY_MODE: process.env.PROXY_MODE ?? '' },
     swcMinify: true,
     /*
     experimental: {
@@ -126,11 +149,12 @@ export const createNextConfig = (
       ),
     },
     publicRuntimeConfig: {
-      API_ENDPOINT: process.env.API_ENDPOINT,
+      API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT ?? process.env.API_ENDPOINT,
       STATIC_ENDPOINT: process.env.STATIC_ENDPOINT,
       WS_ENDPOINT: process.env.WS_ENDPOINT,
       ENABLE_MOBILE_COMPATIBILITY: process.env.ENABLE_MOBILE_COMPATIBILITY,
-    },
+      GRAPHQL_ENDPOINT: `${process.env.NEXT_PUBLIC_API_ENDPOINT ?? process.env.API_ENDPOINT}/graphql`,
+    } as PublicRuntimeConfig,
     async headers() {
       return compact([
         {
@@ -150,7 +174,7 @@ export const createNextConfig = (
         ...(requestPipes?.headers ?? []),
       ]);
     },
-    async redirects(): Promise<Redirects> {
+    async redirects() {
       return compact([
         uploadsRequestMode.redirect
           ? {
@@ -161,10 +185,12 @@ export const createNextConfig = (
           : undefined,
       ]);
     },
-    async rewrites(): Promise<Rewrites> {
+    async rewrites() {
       const apiEndpoint = process.env.API_ENDPOINT || process.env.NEXT_PUBLIC_API_ENDPOINT;
       const wsEndpoint = process.env.WS_ENDPOINT || process.env.NEXT_PUBLIC_WS_ENDPOINT;
       return {
+        afterFiles: [],
+        fallback: [],
         beforeFiles: compact([
           !uploadsRequestMode.redirect
             ? process.env.UPLOADS_FOLLOW_INTERNAL
@@ -195,7 +221,8 @@ export const createNextConfig = (
         ]),
       };
     },
-  });
+  };
+  const configs = flow(...(preprocessors as any), (dest) => merge(dest, config))(nextConfig);
 
   logger.success(omit(configs, 'redirects', 'rewrites', 'headers'));
   (async () => {
@@ -242,6 +269,7 @@ const detectUploadsRequestMode = () => {
   };
 };
 
+/*
 const printEndpoints = () => {
   logger.info({ api: Endpoints.api, graphql: Endpoints.graphql, ws: Endpoints.ws });
   logger.info('Api', {
@@ -255,3 +283,4 @@ const printEndpoints = () => {
     clientDirect: EndpointsUtil.resolvePath(true, false, '/graphql'),
   });
 };
+*/
