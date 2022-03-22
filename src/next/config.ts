@@ -30,7 +30,7 @@ export const getPublicRuntimeConfig = (): PublicRuntimeConfig => {
   return proxy
     ? {
         ...config,
-        GRAPHQL_ENDPOINT: '/proxy',
+        GRAPHQL_ENDPOINT: '/proxy/graphql',
       }
     : config;
 };

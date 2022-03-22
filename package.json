@@ -50,7 +50,7 @@
     "query-string": "^7.1.1",
     "react-use": "^17.3.2",
     "redis": "^4.0.4",
-    "redlock": "5.0.0-beta.2",
+    "redlock": "^5.0.0-beta.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
     "typeorm": "^0.2.45",
