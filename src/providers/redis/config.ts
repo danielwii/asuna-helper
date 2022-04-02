@@ -115,6 +115,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       port: this.port,
       ...(this.password ? { password: this.password } : {}),
       db: this.db,
+      connectTimeout: 2e3,
       // connect_timeout: 10_000,
       // retry_strategy: retryStrategy,
       retryStrategy: (retries: number) => {
@@ -149,6 +150,8 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       socket: {
         host: this.options.host,
         port: this.options.port,
+        connectTimeout: 3e3,
+        timeout: 6e3,
         reconnectStrategy: (retries) => {
           const delay = Math.min((retries ?? 1) * 1000, 5_000);
           logger.log(`reconnectStrategy ${r({ retries, delay })}`);
