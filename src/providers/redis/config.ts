@@ -138,7 +138,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
   }
 
   public getOptions(db?: number): Redis.RedisClientOptions {
-    return { ...this.options, database: db ?? this.db };
+    return { ...(this.options as any), database: db ?? this.db };
   }
 
   public getOptionsV4(db?: number): Redis.RedisClientOptions {

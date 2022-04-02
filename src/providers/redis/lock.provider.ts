@@ -14,7 +14,7 @@ import { RedisConfigKeys, RedisConfigObject } from './config';
 const logger = LoggerFactory.getLogger('RedisLockProvider');
 
 export class RedisLockProvider {
-  public readonly client?: Redis.Redis;
+  public readonly client?: Redis;
   public readonly redLock?: RedLock;
 
   public static locks: Record<string, Lock> = {};
