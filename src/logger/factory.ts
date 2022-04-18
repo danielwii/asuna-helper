@@ -2,12 +2,12 @@ import _ from 'lodash';
 import * as fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
 
-import type { ConsoleLogger } from '@nestjs/common';
+import type { Logger } from '@nestjs/common';
 
 const root = dirname(require.main?.filename ?? '.');
 
 export class LoggerFactory {
-  public static getLogger(name: string): ConsoleLogger {
+  public static getLogger(name: string): Logger {
     // --------------------------------------------------------------
     // get caller function from stack
     // --------------------------------------------------------------
@@ -48,7 +48,7 @@ export class LoggerFactory {
       (path: string) => (path.includes('@') ? path.slice(path.indexOf('@')) : path),
     )(path);
 
-    const ConsoleLogger = require('@nestjs/common').ConsoleLogger;
-    return new ConsoleLogger(context);
+    const Logger = require('@nestjs/common').Logger;
+    return new Logger(context);
   }
 }
