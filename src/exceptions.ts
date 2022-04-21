@@ -30,7 +30,7 @@ export const AsunaErrorCode = {
 
   InsufficientPermissions: new NameValue('Insufficient Permissions', 403),
   InvalidCsrfToken: new NameValue('Invalid CSRF Token', 403),
-  // InvalidVerifyToken: new NameValue('Invalid Verify Token', 403),
+  InvalidAuthToken: new NameValue('Invalid Auth Token', 401),
   InvalidToken: new NameValue('Invalid Token', 403),
 
   NotFound: new NameValue('Not Found', 404),
