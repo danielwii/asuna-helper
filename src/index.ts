@@ -4,7 +4,6 @@ export * from './axios';
 export * from './css';
 export * from './app.env';
 export * from './config';
-export * from './db';
 export * from './downloader';
 export * from './exceptions';
 export * from './env';
