@@ -28,12 +28,14 @@ export function r(
   if (!_.isObjectLike(o)) {
     return o;
   }
+  const colors = !process.env.NO_COLOR;
   const value = transform || stringify ? instanceToPlain(o) : o;
-  return isProductionEnv || stringify ? safeStringify(value, 0) : inspect(value, { colors: true, depth: depth ?? 5 });
+  return isProductionEnv || stringify ? safeStringify(value, 0) : inspect(value, { colors, depth: depth ?? 5 });
 }
 
 export function inspect(o: any, options: util.InspectOptions = {}): string {
+  const colors = !process.env.NO_COLOR;
   return isProductionEnv
-    ? util.inspect(o, { breakLength: Infinity, colors: true, ...options })
-    : util.inspect(o, { colors: true, ...options });
+    ? util.inspect(o, { breakLength: Infinity, colors, ...options })
+    : util.inspect(o, { colors, ...options });
 }
