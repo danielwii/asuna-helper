@@ -24,7 +24,7 @@ export class RedisLockProvider {
     const redisConfig = RedisConfigObject.loadOr('lock');
     logger.log(`init ${r(redisConfig, { transform: true })}`);
     if (redisConfig.enable) {
-      this.client = new Redis(redisConfig.getOptions());
+      this.client = new Redis(redisConfig.getIoOptions());
       this.client.on('error', (reason) => {
         logger.error(`ioredis connection error ${r(reason)}`);
       });
