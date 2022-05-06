@@ -12,6 +12,7 @@ export abstract class InitContainer {
       clearTimeout(timer);
     } catch (reason) {
       console.error(`[InitContainer] init... <<${this.constructor.name}>> error!`);
+      console.error(reason);
       process.exit(2);
     }
   }
