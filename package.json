@@ -49,7 +49,7 @@
     "node-buffs": "^0.8.20",
     "ow": "^0.28.1",
     "query-string": "^7.1.1",
-    "react-use": "^17.3.2",
+    "react-use": "^17.4.0",
     "redis": "^4.1.0",
     "redlock": "^5.0.0-beta.2",
     "reflect-metadata": "^0.1.13",
@@ -71,7 +71,7 @@
     "@types/redlock": "^4",
     "@types/ua-parser-js": "^0",
     "prettier": "^2.6.2",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.2"
   },
   "packageManager": "yarn@3.2.1"
 }
