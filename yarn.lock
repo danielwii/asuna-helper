@@ -296,8 +296,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@danielwii/asuna-helper@workspace:."
   dependencies:
-    "@nestjs/common": ^8.4.5
-    "@nestjs/platform-express": ^8.4.5
+    "@nestjs/common": ^8.4.6
+    "@nestjs/platform-express": ^8.4.6
     "@swc/cli": ^0
     "@swc/core": ^1
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main"
@@ -320,7 +320,7 @@ __metadata:
     consola: ^2.15.3
     date-fns: ^2.28.0
     fs-extra: ^10.1.0
-    ioredis: ^5.0.5
+    ioredis: ^5.0.6
     ismobilejs: ^1.1.1
     json5: ^2.2.1
     lodash: ^4.17.21
@@ -362,9 +362,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^8.4.5":
-  version: 8.4.5
-  resolution: "@nestjs/common@npm:8.4.5"
+"@nestjs/common@npm:^8.4.6":
+  version: 8.4.6
+  resolution: "@nestjs/common@npm:8.4.6"
   dependencies:
     axios: 0.27.2
     iterare: 1.2.1
@@ -383,13 +383,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: d0a6a48649bf9c93a7aea4435916d4ee2fca0aa220e8a1a3d9e88591403a82945258d092ea47efe1f0fca380acd1c67292fb81fcd947ed7c5aee974c89f8ba1f
+  checksum: db95e4195cd666c5a8feca1da90f4246ddabe0770c6c51f43d0b827bcea98e1019ee58a068ac1012adc3ac91314942a611869d04d44d480c486a0b482eddfaf3
   languageName: node
   linkType: hard
 
-"@nestjs/platform-express@npm:^8.4.5":
-  version: 8.4.5
-  resolution: "@nestjs/platform-express@npm:8.4.5"
+"@nestjs/platform-express@npm:^8.4.6":
+  version: 8.4.6
+  resolution: "@nestjs/platform-express@npm:8.4.6"
   dependencies:
     body-parser: 1.20.0
     cors: 2.8.5
@@ -399,7 +399,7 @@ __metadata:
   peerDependencies:
     "@nestjs/common": ^8.0.0
     "@nestjs/core": ^8.0.0
-  checksum: ac118645e96a965d8fb27907393bc666b67bb3f3194adc3b15bc70b8e904a1818c0f94e6ac22d9aee363f23e87acb8a5e13ff646cf62f1c377ee4f32bdc0abcc
+  checksum: 1006b2255947a30d91deab9327ec94d33d1097531bbc758b7ddf6390a45f1bd5cc5f5d8004b902fd81c4f2320fedb4f3518abf6d474898b0e9df6d4cbef61763
   languageName: node
   linkType: hard
 
@@ -2195,9 +2195,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.0.5":
-  version: 5.0.5
-  resolution: "ioredis@npm:5.0.5"
+"ioredis@npm:^5.0.6":
+  version: 5.0.6
+  resolution: "ioredis@npm:5.0.6"
   dependencies:
     "@ioredis/commands": ^1.1.1
     cluster-key-slot: ^1.1.0
@@ -2208,7 +2208,7 @@ __metadata:
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
     standard-as-callback: ^2.1.0
-  checksum: a5dafe330165cc3c06ee7595e49247653f7a3d38995aa3ed40c816a04010e8d649e88239780cba271c2be59d42f255a6059bd305ef1a642358500adde8b8c361
+  checksum: 24ae1fecec197e9e5d3e73e81e12134ace56a76b5e972a01cb9fa7f3853940f5a679bbd9f4aea2fd9848be9e035d996229cdadf5c5f997f21cf2a322edf1406e
   languageName: node
   linkType: hard
 

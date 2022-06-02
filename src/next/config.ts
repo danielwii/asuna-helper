@@ -1,6 +1,5 @@
 import consola from 'consola';
 import { compact, flow, isNaN, isNumber, last, merge, omit, split, uniq } from 'lodash';
-import getConfig from 'next/config';
 import { URL } from 'url';
 import { inspect } from 'util';
 
@@ -24,15 +23,13 @@ export interface NextConfigProps {
   swcMinify?: boolean;
 }
 
-export const getPublicRuntimeConfig = (): PublicRuntimeConfig => {
-  const config = getConfig().publicRuntimeConfig;
+export const getPublicRuntimeConfig = (config: Record<string, any>): PublicRuntimeConfig => {
   const proxy = process.env.PROXY_MODE;
   return proxy
-    ? {
-        ...config,
+    ? { ...config,
         GRAPHQL_ENDPOINT: '/proxy/graphql',
       }
-    : config;
+    : { config } as any;
 };
 
 export type PublicRuntimeConfig = {
