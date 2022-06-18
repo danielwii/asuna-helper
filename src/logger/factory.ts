@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
 
-import type { Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 
 const root = dirname(require.main?.filename ?? '.');
 
@@ -48,7 +48,6 @@ export class LoggerFactory {
       (path: string) => (path.includes('@') ? path.slice(path.indexOf('@')) : path),
     )(path);
 
-    const Logger = require('@nestjs/common').Logger;
     return new Logger(context);
   }
 }
