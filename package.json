@@ -1,6 +1,6 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -44,7 +44,7 @@
     "ismobilejs": "^1.1.1",
     "json5": "^2.2.1",
     "lodash": "^4.17.21",
-    "nanoid": "^4.0.0",
+    "nanoid": "^3.3.4",
     "next": "^12.1.6",
     "node-buffs": "^0.8.20",
     "ow": "^0.28.1",
@@ -58,20 +58,20 @@
     "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
-    "@swc/cli": "^0",
-    "@swc/core": "^1",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.2.204",
     "@trivago/prettier-plugin-sort-imports": "git+https://github.com/danielwii/prettier-plugin-sort-imports.git#main",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/bluebird": "^3",
-    "@types/bull": "^3",
-    "@types/common-tags": "^1",
-    "@types/fs-extra": "^9",
-    "@types/lodash": "^4",
-    "@types/node": "^16",
-    "@types/redlock": "^4",
-    "@types/ua-parser-js": "^0",
+    "@types/bluebird": "^3.5.36",
+    "@types/bull": "^3.15.8",
+    "@types/common-tags": "^1.8.1",
+    "@types/fs-extra": "^9.0.13",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^16.11.41",
+    "@types/redlock": "^4.0.3",
+    "@types/ua-parser-js": "^0.7.36",
     "prettier": "^2.7.1",
-    "typescript": "^4.7.3"
+    "typescript": "^4.7.4"
   },
   "packageManager": "yarn@3.2.1"
 }
