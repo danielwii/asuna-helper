@@ -1,3 +1,5 @@
+import { Logger } from '@nestjs/common';
+
 import axios, { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
 import _ from 'lodash';
@@ -5,10 +7,10 @@ import querystring from 'query-string';
 
 import { handleAxiosResponseError } from './axios';
 import { Hermes, InMemoryAsunaQueue } from './hermes';
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
-const logger = LoggerFactory.getLogger('Uploader');
+const logger = new Logger(resolveModule(__filename));
 
 export class Uploader {
   private asunaQueue: InMemoryAsunaQueue | undefined;

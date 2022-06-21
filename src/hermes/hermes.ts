@@ -1,13 +1,15 @@
+import { Logger } from '@nestjs/common';
+
 import BullQueue from 'bull';
 import { validate } from 'class-validator';
 import _ from 'lodash';
 import ow from 'ow';
-import { defer, Observable, of, Subject, throwError, from } from 'rxjs';
+import { defer, from, Observable, of, Subject, throwError } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
 
 import { AppEnv } from '../app.env';
 import { ConfigKeys } from '../config';
-import { LoggerFactory } from '../logger';
+import { resolveModule } from '../logger';
 import { RedisConfigObject } from '../providers/redis/config';
 import { random } from '../random';
 import { r } from '../serializer';
@@ -15,7 +17,7 @@ import { r } from '../serializer';
 import type { RedisOptions } from 'ioredis';
 import type { IAsunaAction, IAsunaCommand, IAsunaEvent, IAsunaJob, IAsunaObserver, IAsunaRule } from './interfaces';
 
-const logger = LoggerFactory.getLogger('Hermes');
+const logger = new Logger(resolveModule(__filename));
 
 export const AsunaSystemQueue = {
   UPLOAD: 'UPLOAD',

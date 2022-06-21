@@ -1,9 +1,11 @@
+import { Logger } from '@nestjs/common';
+
 import _ from 'lodash';
 
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
-const logger = LoggerFactory.getLogger('axios');
+const logger = new Logger(resolveModule(__filename));
 
 export function handleAxiosResponseError(endpoint: string, reason: any): Promise<string> {
   if (reason.response) {

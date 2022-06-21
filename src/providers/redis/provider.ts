@@ -1,15 +1,17 @@
+import { Logger } from '@nestjs/common';
+
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import consola from 'consola';
 import * as Redis from 'redis';
 
-import { LoggerFactory } from '../../logger';
+import { resolveModule } from '../../logger';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigObject } from './config';
 
 import type { RedisOptions } from 'ioredis';
 
-const logger = LoggerFactory.getLogger('RedisProvider');
+const logger = new Logger(resolveModule(__filename));
 
 export class RedisClientObject {
   @Expose({ name: 'created-client', toPlainOnly: true })

@@ -1,3 +1,5 @@
+import { Logger } from '@nestjs/common';
+
 // target es5 for ie11 support
 import * as Bluebird from 'bluebird';
 import Redis from 'ioredis';
@@ -5,13 +7,13 @@ import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
 
 import { AppEnv } from '../../app.env';
-import { LoggerFactory } from '../../logger';
+import { resolveModule } from '../../logger';
 import { waitUtil } from '../../promise';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigKeys, RedisConfigObject } from './config';
 
-const logger = LoggerFactory.getLogger('RedisLockProvider');
+const logger = new Logger(resolveModule(__filename));
 
 export class RedisLockProvider {
   public readonly client?: Redis;

@@ -1,3 +1,5 @@
+import { Logger } from '@nestjs/common';
+
 import { ClassTransformOptions, deserialize, plainToInstance } from 'class-transformer';
 import {
   validate,
@@ -9,12 +11,12 @@ import {
 import _ from 'lodash';
 
 import { AsunaErrorCode, AsunaException, ValidationException } from './exceptions';
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
 import type { ClassType } from './interface';
 
-const logger = LoggerFactory.getLogger('Validator');
+const logger = new Logger(resolveModule(__filename));
 
 @ValidatorConstraint({ name: 'exclusiveConstraint', async: false })
 export class ExclusiveConstraintValidator implements ValidatorConstraintInterface {

@@ -1,10 +1,15 @@
+import { Logger } from '@nestjs/common';
+
 import _ from 'lodash';
 import * as fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
 
-import { Logger } from '@nestjs/common';
-
 const root = dirname(require.main?.filename ?? '.');
+
+export const resolveModule = (path: string, name?: string) => {
+  const diff = _.difference(path.split('/'), root.split('/'));
+  return name ? `${diff.join('/')}::${name}` : diff.join('/');
+};
 
 export class LoggerFactory {
   public static getLogger(name: string): Logger {

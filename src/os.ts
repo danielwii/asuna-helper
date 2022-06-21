@@ -1,9 +1,10 @@
+import { Logger } from '@nestjs/common';
 import * as os from 'os';
 
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
-const logger = LoggerFactory.getLogger('OS');
+const logger = new Logger(resolveModule(__filename));
 
 export function getLocalIP(): string {
   const osType = os.type();

@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import axios, { AxiosResponse } from 'axios';
 // target es5 for ie11 support
 import * as Bluebird from 'bluebird';
@@ -5,10 +6,10 @@ import * as fs from 'fs-extra';
 import path, { join } from 'path';
 
 import { handleAxiosResponseError } from './axios';
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
-const logger = LoggerFactory.getLogger('Downloader');
+const logger = new Logger(resolveModule(__filename));
 
 export async function download(url: string, to: string): Promise<AxiosResponse> {
   fs.ensureDirSync(path.dirname(to));

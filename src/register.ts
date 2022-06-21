@@ -1,11 +1,13 @@
+import { Logger } from '@nestjs/common';
+
 import _ from 'lodash';
 
-import { LoggerFactory } from './logger';
+import { resolveModule } from './logger';
 import { r } from './serializer';
 
 import type { NestExpressApplication } from '@nestjs/platform-express';
 
-const logger = LoggerFactory.getLogger('LifecycleRegister');
+const logger = new Logger(resolveModule(__filename));
 
 export interface AppLifecycleType {
   beforeBootstrap?: (app: NestExpressApplication) => Promise<void>;

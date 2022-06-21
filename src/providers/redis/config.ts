@@ -1,16 +1,18 @@
+import { Logger } from '@nestjs/common';
+
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import _ from 'lodash';
 import * as Redis from 'redis';
 
 import { AppEnv } from '../../app.env';
 import { AbstractConfigLoader, YamlConfigKeys } from '../../config';
-import { LoggerFactory } from '../../logger';
+import { resolveModule } from '../../logger';
 import { r } from '../../serializer';
 import { withP, withP2 } from '../../utils';
 
 import type { RedisOptions } from 'ioredis';
 
-const logger = LoggerFactory.getLogger('RedisConfig');
+const logger = new Logger(resolveModule(__filename));
 
 export const RedisConfigKeys = {
   REDIS_ENABLE: 'REDIS_ENABLE',
