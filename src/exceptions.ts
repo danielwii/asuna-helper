@@ -2,11 +2,8 @@ import { HttpStatus, Logger } from '@nestjs/common';
 
 import _ from 'lodash';
 
-import { resolveModule } from './logger';
 import { NameValue } from './normal';
 import { r } from './serializer';
-
-const logger = new Logger(resolveModule(__filename));
 
 /**
  * 400  invalidParameter          Indicates that a request parameter has an invalid value.
@@ -232,7 +229,7 @@ export class AsunaExceptionHelper {
       );
     }
 
-    logger.error(`not found '${type}' in asuna exception registers.`);
+    Logger.error(`not found '${type}' in asuna exception registers.`);
     return new AsunaException(AsunaErrorCode.Unexpected__do_not_use_it, errors, errors);
   }
 }

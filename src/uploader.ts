@@ -7,10 +7,7 @@ import querystring from 'query-string';
 
 import { handleAxiosResponseError } from './axios';
 import { Hermes, InMemoryAsunaQueue } from './hermes';
-import { resolveModule } from './logger';
 import { r } from './serializer';
-
-const logger = new Logger(resolveModule(__filename));
 
 export class Uploader {
   private asunaQueue: InMemoryAsunaQueue | undefined;
@@ -22,7 +19,7 @@ export class Uploader {
     Hermes.initialize().then(() => {
       this.asunaQueue = Hermes.regInMemoryQueue(this.queueName);
       Hermes.setupJobProcessor(this.queueName, (payload) => {
-        logger.log(`queue(${this.queueName}): ${r(payload)}`);
+        Logger.log(`queue(${this.queueName}): ${r(payload)}`);
         return payload;
       });
     });
@@ -51,7 +48,7 @@ export class Uploader {
     const limit = process.env.APP_PAYLOAD_LIMIT ?? '100mb';
     const stat = await fs.stat(path);
     const maxBodyLength = 1000 * 1000 * Number(limit.slice(0, -2));
-    logger.log(`upload: ${r({ endpoint, path, bucket, prefix, filename, stat, maxBodyLength })}`);
+    Logger.log(`upload: ${r({ endpoint, path, bucket, prefix, filename, stat, maxBodyLength })}`);
 
     if (stat.size > maxBodyLength) {
       throw new Error(`file size is ${stat.size} large than maxBodyLength ${maxBodyLength}`);

@@ -2,16 +2,13 @@ import { Logger } from '@nestjs/common';
 
 import _ from 'lodash';
 
-import { resolveModule } from './logger';
 import { r } from './serializer';
-
-const logger = new Logger(resolveModule(__filename));
 
 export function handleAxiosResponseError(endpoint: string, reason: any): Promise<string> {
   if (reason.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
-    logger.error(
+    Logger.error(
       `Error response for request ${endpoint}: ${r({
         // data: reason.response.data,
         status: reason.response.status,
@@ -24,11 +21,11 @@ export function handleAxiosResponseError(endpoint: string, reason: any): Promise
     // The request was made but no response was received
     // `reason.request` is an instance of XMLHttpRequest in the browser and an instance of
     // http.ClientRequest in node.js
-    logger.error(`No response for request ${endpoint}: ${r(reason.message)}`);
+    Logger.error(`No response for request ${endpoint}: ${r(reason.message)}`);
   } else {
     // Something happened in setting up the request that triggered an Error
-    logger.error(`Error for request ${endpoint} ${reason.message}`);
+    Logger.error(`Error for request ${endpoint} ${reason.message}`);
   }
-  logger.error(`request to ${endpoint} error: ${r(_.omit(reason.config, 'data'))}`);
+  Logger.error(`request to ${endpoint} error: ${r(_.omit(reason.config, 'data'))}`);
   throw reason.message;
 }

@@ -2,10 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import { ConfigLoader } from 'node-buffs';
 
-import { resolveModule } from './logger';
 import { r } from './serializer';
-
-const logger = new Logger(resolveModule(__filename));
 
 export class AppEnv {
   public static readonly instance = new AppEnv();
@@ -25,7 +22,7 @@ export class AppEnv {
   };
 
   private constructor() {
-    logger.log(`initialized. ${r(this.state)}`);
+    Logger.log(`initialized. ${r(this.state)}`);
   }
 
   get version() {

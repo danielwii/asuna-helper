@@ -9,15 +9,12 @@ import { concatAll, map } from 'rxjs/operators';
 
 import { AppEnv } from '../app.env';
 import { ConfigKeys } from '../config';
-import { resolveModule } from '../logger';
 import { RedisConfigObject } from '../providers/redis/config';
 import { random } from '../random';
 import { r } from '../serializer';
 
 import type { RedisOptions } from 'ioredis';
 import type { IAsunaAction, IAsunaCommand, IAsunaEvent, IAsunaJob, IAsunaObserver, IAsunaRule } from './interfaces';
-
-const logger = new Logger(resolveModule(__filename));
 
 export const AsunaSystemQueue = {
   UPLOAD: 'UPLOAD',
@@ -100,7 +97,7 @@ export class Hermes {
 
     Hermes.instance = new Hermes();
 
-    logger.log('init ...');
+    Logger.log('init ...');
     Hermes.observers = [];
     Hermes.queues = {};
     Hermes.inMemoryQueues = {};
@@ -114,31 +111,31 @@ export class Hermes {
           observer.next?.(event);
         });
       },
-      (error) => logger.error(`error occurred: ${error}`, error.trace),
-      () => logger.log('Hermes completed'),
+      (error) => Logger.error(`error occurred: ${error}`, error.trace),
+      () => Logger.log('Hermes completed'),
     );
 
     const configObject = RedisConfigObject.loadOr('job');
-    logger.log(`init queues with redis: ${r(configObject, { transform: true })}`);
+    Logger.log(`init queues with redis: ${r(configObject, { transform: true })}`);
     if (configObject.enable) {
       const db = AppEnv.configLoader.loadNumericConfig(ConfigKeys.JOB_REDIS_DB, 1) as number;
-      logger.log(`init job with redis db: ${db}`);
+      Logger.log(`init job with redis db: ${db}`);
       // redis.ClientOpts have to convert to ioredis.RedisOptions
       Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as RedisOptions });
 
-      logger.log('sync status with redis.');
+      Logger.log('sync status with redis.');
     }
 
     Hermes.regInMemoryQueue(AsunaSystemQueue.IN_MEMORY_UPLOAD);
   }
 
   static emitEvents(source: string, events: IAsunaEvent[]) {
-    logger.log(`emit events from [${source}]: ${r(events)}`);
+    Logger.log(`emit events from [${source}]: ${r(events)}`);
     if (events && events.length > 0) {
       events.forEach(async (event) => {
         const errors = await validate(event);
         if (errors && errors.length > 0) {
-          return logger.warn(`validate error. event: ${r(event)}, errors: ${r(errors)}`);
+          return Logger.warn(`validate error. event: ${r(event)}, errors: ${r(errors)}`);
         }
         return event && this.subject.next(event);
       });
@@ -151,7 +148,7 @@ export class Hermes {
     payload: Payload,
     extras: { identifier?: any; user?: User; type?: string } = {},
   ) {
-    logger.log(`emit events from [${source}: ${event}]`);
+    Logger.log(`emit events from [${source}: ${event}]`);
     this.subject.next(
       new AsunaEvent({
         name: event,
@@ -171,24 +168,24 @@ export class Hermes {
       return Hermes.inMemoryQueues[queueName];
     }
 
-    logger.log(`reg in-memory queue: ${queueName}`);
+    Logger.log(`reg in-memory queue: ${queueName}`);
     const subject = new Subject();
     subject
       .pipe(
         map<{ jobId: string; data: any }, any>(({ jobId, data }) => {
-          logger.log(`job(${jobId}) call func in map ... data: ${r(data)}`);
+          Logger.log(`job(${jobId}) call func in map ... data: ${r(data)}`);
           const inMemoryQueue = Hermes.getInMemoryQueue(queueName);
           const status = inMemoryQueue.status[jobId];
           if (typeof inMemoryQueue.handle !== 'function') {
             const message = `no handler registered for ${queueName}`;
-            logger.error(message);
+            Logger.error(message);
             status.state = 'UN_READY';
             status.events.push({ state: 'UN_READY', at: new Date().toUTCString(), message });
             return of({ jobId, data, result: { error: message } });
           }
 
           return defer(() => {
-            logger.log(`job(${jobId}) call func in defer ...`);
+            Logger.log(`job(${jobId}) call func in defer ...`);
             status.state = 'RUNNING';
             status.events.push({ state: 'RUNNING', at: new Date().toUTCString() });
             // execute the function and then examine the returned value.
@@ -196,7 +193,7 @@ export class Hermes {
             // wrap it using Observable.return
             const result = inMemoryQueue.handle!(data);
             const isPromise = typeof result.then === 'function';
-            logger.log(`job(${jobId}) call func in defer ... result is ${r(result)} ${typeof result}`);
+            Logger.log(`job(${jobId}) call func in defer ... result is ${r(result)} ${typeof result}`);
             if (isPromise) {
               return from<any>(result.then((value) => ({ result: value, jobId, data })));
             }
@@ -207,7 +204,7 @@ export class Hermes {
       )
       .subscribe(
         ({ jobId, data, result }: any) => {
-          logger.log(`job(${jobId}) queue(${queueName}) run ${r(data)} with result ${r(result)}`);
+          Logger.log(`job(${jobId}) queue(${queueName}) run ${r(data)} with result ${r(result)}`);
 
           const status = this.getInMemoryQueue(queueName).status[jobId];
           if (result.error) {
@@ -218,12 +215,12 @@ export class Hermes {
             status.state = 'DONE';
             status.events.push({ state: 'DONE', at: new Date().toUTCString() });
           } else {
-            logger.warn(`no status found in queue ${r({ queueName, jobId })}`);
+            Logger.warn(`no status found in queue ${r({ queueName, jobId })}`);
           }
         },
         (error) => {
           const { jobId, data } = error;
-          logger.warn(`job(${jobId}) error occurred in ${queueName}: ${r(error)}`);
+          Logger.warn(`job(${jobId}) error occurred in ${queueName}: ${r(error)}`);
           if (jobId && this.getInMemoryQueue(queueName).status[jobId]) {
             const status = this.getInMemoryQueue(queueName).status[jobId];
             if (status) {
@@ -246,7 +243,7 @@ export class Hermes {
           events: [{ state: 'PENDING', at: new Date().toUTCString() }],
         });
         // this.status[jobId] = { state: 'PENDING', events: [{ state: 'PENDING', at: new Date().toUTCString() }] };
-        logger.log(`job(${jobId}) pending ... ${r({ data, status: this.status[jobId] })}`);
+        Logger.log(`job(${jobId}) pending ... ${r({ data, status: this.status[jobId] })}`);
         subject.next({ jobId, data });
         return { jobId };
       },
@@ -267,7 +264,7 @@ export class Hermes {
 
     const queue = new BullQueue(queueName, opts);
     queue.process((job: BullQueue.Job, done) => {
-      logger.log(`queue(${queueName}) run job ${job.name} with ${r(job.data)}`);
+      Logger.log(`queue(${queueName}) run job ${job.name} with ${r(job.data)}`);
       return this.getQueue(queueName).handle
         ? this.getQueue(queueName).handle?.(job)
         : done(new Error(`no processor registered for ${queueName}`));
@@ -290,14 +287,14 @@ export class Hermes {
 
     const queue = queueName.startsWith('IN_MEMORY_') ? this.getInMemoryQueue(queueName) : this.getQueue(queueName);
     if (!queue) {
-      logger.error(`queue(${queueName}) not found`);
+      Logger.error(`queue(${queueName}) not found`);
       return;
     }
     queue.handle = handle;
   }
 
   static subscribe(source: string, routePattern: 'fanout' | RegExp, next?: (event: IAsunaEvent) => void): void {
-    logger.log(`subscribe from [${source}] ... total: ${this.observers.length + 1}`);
+    Logger.log(`subscribe from [${source}] ... total: ${this.observers.length + 1}`);
     this.observers.push({ source, routePattern, next });
     // this.subject.subscribe(observer);
   }
@@ -312,10 +309,10 @@ export class HermesProcessManager {
     if (!this.initialized) {
       this.initialized = true;
 
-      logger.log('initialize process manager');
+      Logger.log('initialize process manager');
       this.queue = Hermes.regInMemoryQueue(AsunaSystemQueue.IN_MEMORY_JOB);
       Hermes.setupJobProcessor(AsunaSystemQueue.IN_MEMORY_JOB, (job: IAsunaJob) => {
-        logger.log(`jobProcessor job: ${r(job)}`);
+        Logger.log(`jobProcessor job: ${r(job)}`);
         if (!job) {
           throw new Error(`no job received in processor at queue: ${AsunaSystemQueue.IN_MEMORY_JOB}`);
         }
@@ -326,16 +323,16 @@ export class HermesProcessManager {
 
   static handleCommand(command: IAsunaCommand<any>) {
     _.forEach(HermesExchange.resolvers, (resolver: CommandResolver<any>) => {
-      logger.log(`check command ${r(command)} with resolver: ${r(resolver.identifier)}`);
+      Logger.log(`check command ${r(command)} with resolver: ${r(resolver.identifier)}`);
       if (_.isMatch(command, resolver.identifier)) {
-        logger.log(`matched command with identifier ${r(resolver.identifier)}`);
+        Logger.log(`matched command with identifier ${r(resolver.identifier)}`);
         const events = resolver.resolve(command);
         if (!events) {
-          logger.warn(`no events parsed from command: ${r(command)}`);
+          Logger.warn(`no events parsed from command: ${r(command)}`);
           return;
         }
         events.forEach((event) => {
-          logger.log(`handle event: ${r(event)}`);
+          Logger.log(`handle event: ${r(event)}`);
           this.dispatch(event);
         });
         // eslint-disable-next-line no-param-reassign
@@ -347,13 +344,13 @@ export class HermesProcessManager {
   static dispatch(event: IAsunaEvent) {
     if (event.rules && event.rules.length > 0) {
       event.rules.forEach((rule) => {
-        logger.log(`handle rule ${r(rule)}`);
+        Logger.log(`handle rule ${r(rule)}`);
         if (rule.actions && rule.actions.length > 0) {
           rule.actions.forEach((action) => {
-            logger.log(`add jobs to queue in action: ${r(action)}`);
+            Logger.log(`add jobs to queue in action: ${r(action)}`);
             if (action.jobs && action.jobs.length > 0) {
               action.jobs.forEach((job) => {
-                logger.log(`send ${r(job)} to queue ${this.queue.name}`);
+                Logger.log(`send ${r(job)} to queue ${this.queue.name}`);
                 // this.queue.queue.next(job);
                 // eslint-disable-next-line no-param-reassign
                 job.state = 'OPEN';

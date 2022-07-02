@@ -1,17 +1,15 @@
 import { Logger } from '@nestjs/common';
+
 import * as os from 'os';
 
-import { resolveModule } from './logger';
 import { r } from './serializer';
-
-const logger = new Logger(resolveModule(__filename));
 
 export function getLocalIP(): string {
   const osType = os.type();
-  logger.log(`osType: ${osType}`);
+  Logger.log(`osType: ${osType}`);
   const netInfo = os.networkInterfaces();
   let ip = '';
-  logger.verbose(`netInfo: ${r(netInfo)}`);
+  Logger.verbose(`netInfo: ${r(netInfo)}`);
   if (osType === 'Windows_NT') {
     for (const dev in netInfo) {
       if (dev === '本地连接') {

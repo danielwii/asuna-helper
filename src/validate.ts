@@ -11,12 +11,9 @@ import {
 import _ from 'lodash';
 
 import { AsunaErrorCode, AsunaException, ValidationException } from './exceptions';
-import { resolveModule } from './logger';
 import { r } from './serializer';
 
 import type { ClassType } from './interface';
-
-const logger = new Logger(resolveModule(__filename));
 
 @ValidatorConstraint({ name: 'exclusiveConstraint', async: false })
 export class ExclusiveConstraintValidator implements ValidatorConstraintInterface {
@@ -31,7 +28,7 @@ export async function validateObject(object: any): Promise<void> {
   if (!object) return;
   const errors = await validate(object);
   if (errors.length > 0) {
-    logger.warn(`async validate ${r(object)} error: ${r(errors)}`);
+    Logger.warn(`async validate ${r(object)} error: ${r(errors)}`);
     throw new ValidationException(errors.map((error) => error.property).join(','), errors);
   }
 }
@@ -40,7 +37,7 @@ export function validateObjectSync(object: any): void {
   if (!object) return;
   const errors = validateSync(object);
   if (errors.length > 0) {
-    logger.warn(`sync validate ${r(object)} error: ${r(errors)}`);
+    Logger.warn(`sync validate ${r(object)} error: ${r(errors)}`);
     throw new AsunaException(AsunaErrorCode.Unprocessable, `invalid object ${r(object, { stringify: true })}`, errors);
   }
 }
