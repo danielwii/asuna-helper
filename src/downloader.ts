@@ -33,6 +33,6 @@ export function fetchFile(url: string, to: string): Promise<string | AxiosRespon
     // `${host}${fixedPath}?internal=1`
     endpoint = new URL(`${fixedPath}?internal=1`, host).href;
   }
-  Logger.log(`fetch file: ${r({ endpoint, url, to })}`);
+  Logger.log(`#fetchFile fetch file: ${r({ endpoint, url, to })}`);
   return download(endpoint, to).catch((error) => handleAxiosResponseError(endpoint, error));
 }

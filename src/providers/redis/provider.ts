@@ -4,6 +4,7 @@ import { Expose, plainToInstance, Transform } from 'class-transformer';
 import consola from 'consola';
 import * as Redis from 'redis';
 
+import { resolveModule } from '../../logger/factory';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigObject } from './config';
@@ -26,6 +27,7 @@ export class RedisClientObject {
 }
 
 export class RedisProvider {
+  private static readonly logger = new Logger(resolveModule(__filename, RedisProvider.name));
   public static clients: { [key: string]: RedisClientObject } = {};
 
   // public static instance: RedisProvider;
@@ -48,7 +50,7 @@ export class RedisProvider {
     const configObject = RedisConfigObject.loadOr(prefix);
     const redisOptionsV4 = configObject.getOptionsV4(db);
     redisOptionsV4.legacyMode = legacyMode;
-    Logger.log(
+    RedisProvider.logger.log(
       `init redis provider: ${r({ configObject, redisOptionsV4 }, { transform: true })} with ${r({ prefix, db })}`,
     );
     const redisClientObject = plainToInstance(
@@ -67,38 +69,38 @@ export class RedisProvider {
     redisClientObject.client = client as any;
     client.on('connect', () => {
       // redisClientObject.isHealthy = true;
-      Logger.log(`Redis ${key} connection open to ${r({ prefix, key }, { transform: true })}`);
+      RedisProvider.logger.log(`Redis ${key} connection open to ${r({ prefix, key }, { transform: true })}`);
     });
 
     client.on('error', (err) => {
       // redisClientObject.isHealthy = false;
-      Logger.error(`Redis ${key} to ${r({ prefix, configObject })} connection error ${r(err)}`);
+      RedisProvider.logger.error(`Redis ${key} to ${r({ prefix, configObject })} connection error ${r(err)}`);
     });
 
     LifecycleRegister.regExitProcessor(`Redis(${key})`, async () => {
       await client.quit();
       // redisClientObject.isHealthy = false;
-      Logger.log(`signal: SIGINT. Redis ${key} connection disconnected.`);
+      RedisProvider.logger.log(`signal: SIGINT. Redis ${key} connection disconnected.`);
     });
 
     process.on('beforeExit', async () => {
       await client.quit();
       // redisClientObject.isHealthy = false;
-      Logger.log(`beforeExit. Redis ${key} connection disconnected`);
+      RedisProvider.logger.log(`beforeExit. Redis ${key} connection disconnected`);
     });
 
     /*
     process.on('removeListener', () => {
       client.quit((err: Error, res: string) => {
         redisClientObject.isHealthy = false;
-        Logger.log(`removeListener. Redis default connection disconnected ${r({ err, res })}`);
+        RedisProvider.logger.log(`removeListener. Redis default connection disconnected ${r({ err, res })}`);
       });
     });
 */
 
-    Logger.debug(`connect to redis ${r({ prefix, db, legacyMode, host: configObject.host })}`);
+    RedisProvider.logger.debug(`connect to redis ${r({ prefix, db, legacyMode, host: configObject.host })}`);
     client.connect().catch((reason) => {
-      Logger.error(`connect to redis error: ${r({ prefix, key, configObject, reason })}`);
+      RedisProvider.logger.error(`connect to redis error: ${r({ prefix, key, configObject, reason })}`);
       consola.error(reason);
       process.exit(1);
     });

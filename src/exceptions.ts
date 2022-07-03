@@ -2,6 +2,7 @@ import { HttpStatus, Logger } from '@nestjs/common';
 
 import _ from 'lodash';
 
+import { resolveModule } from './logger/factory';
 import { NameValue } from './normal';
 import { r } from './serializer';
 
@@ -122,6 +123,7 @@ interface AsunaExceptionOpts {
 }
 
 export class AsunaExceptionHelper {
+  private static readonly logger = new Logger(resolveModule(__filename, AsunaExceptionHelper.name));
   private static registers = {
     [AsunaExceptionTypes.ElementExists]: {
       code: 'E01001',
@@ -229,7 +231,7 @@ export class AsunaExceptionHelper {
       );
     }
 
-    Logger.error(`not found '${type}' in asuna exception registers.`);
+    AsunaExceptionHelper.logger.error(`not found '${type}' in asuna exception registers.`);
     return new AsunaException(AsunaErrorCode.Unexpected__do_not_use_it, errors, errors);
   }
 }

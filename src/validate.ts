@@ -37,7 +37,7 @@ export function validateObjectSync(object: any): void {
   if (!object) return;
   const errors = validateSync(object);
   if (errors.length > 0) {
-    Logger.warn(`sync validate ${r(object)} error: ${r(errors)}`);
+    Logger.warn(`#validateObjectSync sync validate ${r(object)} error: ${r(errors)}`);
     throw new AsunaException(AsunaErrorCode.Unprocessable, `invalid object ${r(object, { stringify: true })}`, errors);
   }
 }

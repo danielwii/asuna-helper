@@ -6,10 +6,10 @@ import { r } from './serializer';
 
 export function getLocalIP(): string {
   const osType = os.type();
-  Logger.log(`osType: ${osType}`);
+  Logger.log(`#getLocalIP osType: ${osType}`);
   const netInfo = os.networkInterfaces();
   let ip = '';
-  Logger.verbose(`netInfo: ${r(netInfo)}`);
+  Logger.verbose(`#getLocalIP netInfo: ${r(netInfo)}`);
   if (osType === 'Windows_NT') {
     for (const dev in netInfo) {
       if (dev === '本地连接') {

@@ -6,6 +6,7 @@ import * as Redis from 'redis';
 
 import { AppEnv } from '../../app.env';
 import { AbstractConfigLoader, YamlConfigKeys } from '../../config';
+import { resolveModule } from '../../logger/factory';
 import { r } from '../../serializer';
 import { withP, withP2 } from '../../utils';
 
@@ -28,6 +29,7 @@ export enum RedisConfigKeys2 {
 }
 
 export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
+  private static readonly logger = new Logger(resolveModule(__filename, RedisConfigObject.name));
   private static key = YamlConfigKeys.redis;
   private static prefix = `${RedisConfigObject.key}_`;
 
@@ -47,7 +49,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
 
   public static load(redisPrefix = ''): RedisConfigObject {
     const appendPrefix = `${this.prefix}${redisPrefix ? `${redisPrefix}_`.toUpperCase() : ''}`;
-    Logger.verbose(`try load env: ${appendPrefix}${RedisConfigKeys2.enable}`);
+    RedisConfigObject.logger.verbose(`try load env: ${appendPrefix}${RedisConfigKeys2.enable}`);
     return withP2(
       (p: string): any => AppEnv.configLoader.loadConfig2(RedisConfigObject.key, p),
       RedisConfigKeys2,
@@ -67,7 +69,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     const appendPrefix = (prefix.length > 0 ? `${prefix}_` : '').toUpperCase();
     const key = `${appendPrefix}${RedisConfigKeys.REDIS_ENABLE}`;
     const enable = AppEnv.configLoader.loadBoolConfig(key);
-    // Logger.verbose(`try loadOr env: ${key} ${enable ? 'fallback to default' : ''}`);
+    // RedisConfigObject.logger.verbose(`try loadOr env: ${key} ${enable ? 'fallback to default' : ''}`);
     if (enable === true) {
       return RedisConfigObject.load(prefix);
     }
@@ -79,34 +81,36 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
 
   public get options(): RedisOptions {
     const retryStrategy = (options: any) => {
-      Logger.log(`retryStrategy ${r(options)}`);
+      RedisConfigObject.logger.log(`retryStrategy ${r(options)}`);
       if (options) {
-        Logger.warn(`retry_strategy ${r({ db: this.db, host: this.host, port: this.port })} ${r(options)}`);
+        RedisConfigObject.logger.warn(
+          `retry_strategy ${r({ db: this.db, host: this.host, port: this.port })} ${r(options)}`,
+        );
         if (options.error && options.error.code === 'ECONNREFUSED') {
           // End reconnecting on a specific error and flush all commands with
           // a individual error
-          Logger.error(`The server refused the connection, wait for 10s.`);
+          RedisConfigObject.logger.error(`The server refused the connection, wait for 10s.`);
           // return new Error('The server refused the connection');
           return 10_000;
         }
         if (options.total_retry_time > 1000 * 60 * 60) {
           // End reconnecting after a specific timeout and flush all commands
           // with a individual error
-          Logger.error(`Retry time exhausted, wait for 10s.`);
+          RedisConfigObject.logger.error(`Retry time exhausted, wait for 10s.`);
           // return new Error('Retry time exhausted');
           return 10_000;
         }
         if (options.attempt > 10) {
-          Logger.error(`Reach to 10 times, wait for 30s.`);
+          RedisConfigObject.logger.error(`Reach to 10 times, wait for 30s.`);
           // End reconnecting with built in error
           return 30_000;
         }
         // reconnect after
         const waitFor = Math.min(options.attempt * 100, 3000);
-        Logger.error(`Reconnect after ${waitFor / 1000}s`);
+        RedisConfigObject.logger.error(`Reconnect after ${waitFor / 1000}s`);
         return waitFor;
       }
-      Logger.verbose(`Connect in 3s...`);
+      RedisConfigObject.logger.verbose(`Connect in 3s...`);
       return 3_000;
     };
     return {
@@ -120,11 +124,11 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
       retryStrategy: (retries: number) => {
         if (_.isNumber(retries)) {
           if (retries > 10) {
-            Logger.error('cannot connect to redis, exit.');
+            RedisConfigObject.logger.error('cannot connect to redis, exit.');
             process.exit(1);
           }
           const delay = Math.min((retries ?? 0) * 1000, 5_000);
-          Logger.log(`retryStrategy ${r({ retries, delay })}`);
+          RedisConfigObject.logger.log(`retryStrategy ${r({ retries, delay })}`);
           return delay;
         }
         return retryStrategy(retries);
@@ -153,7 +157,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
         timeout: 6e3,
         reconnectStrategy: (retries) => {
           const delay = Math.min((retries ?? 1) * 1000, 5_000);
-          Logger.log(`reconnectStrategy ${r({ retries, delay })}`);
+          RedisConfigObject.logger.log(`reconnectStrategy ${r({ retries, delay })}`);
           return delay;
         },
       },

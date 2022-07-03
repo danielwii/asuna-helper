@@ -7,12 +7,14 @@ import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
 
 import { AppEnv } from '../../app.env';
+import { resolveModule } from '../../logger/factory';
 import { waitUtil } from '../../promise';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigKeys, RedisConfigObject } from './config';
 
 export class RedisLockProvider {
+  private readonly logger = new Logger(resolveModule(__filename, RedisLockProvider.name));
   public readonly client?: Redis;
   public readonly redLock?: RedLock;
 
@@ -21,11 +23,11 @@ export class RedisLockProvider {
 
   constructor() {
     const redisConfig = RedisConfigObject.loadOr('lock');
-    Logger.log(`init ${r(redisConfig, { transform: true })}`);
+    this.logger.log(`init ${r(redisConfig, { transform: true })}`);
     if (redisConfig.enable) {
       this.client = new Redis(redisConfig.getIoOptions());
       this.client.on('error', (reason) => {
-        Logger.error(`ioredis connection error ${r(reason)}`);
+        this.logger.error(`ioredis connection error ${r(reason)}`);
       });
       if (!this.redLock && this.client) {
         this.redLock = new RedLock(
@@ -49,29 +51,29 @@ export class RedisLockProvider {
             retryJitter: 200, // time in ms
           },
         );
-        this.redLock.on('clientError', (err) => Logger.error('A redis error has occurred:', err));
+        this.redLock.on('clientError', (err) => this.logger.error('A redis error has occurred:', err));
       }
 
       LifecycleRegister.regExitProcessor('RedisLock', async () => {
-        Logger.log(`signal: SIGINT. Release locks ${r(_.keys(RedisLockProvider.locks))}`);
+        this.logger.log(`signal: SIGINT. Release locks ${r(_.keys(RedisLockProvider.locks))}`);
         await Bluebird.Promise.all(
           _.map(RedisLockProvider.locks, (lock, resource) =>
             lock
               .release()
-              .catch((err) => Logger.error(`unlock [${resource}] error: ${err}`))
-              .finally(() => Logger.verbose(`unlock [${resource}]`)),
+              .catch((err) => this.logger.error(`unlock [${resource}] error: ${err}`))
+              .finally(() => this.logger.verbose(`unlock [${resource}]`)),
           ),
         );
-        Logger.log(`signal: SIGINT. Remove all listeners.`);
+        this.logger.log(`signal: SIGINT. Remove all listeners.`);
         return this.redLock?.removeAllListeners();
       });
 
       process.on('beforeExit', () => {
-        Logger.log(`beforeExit ...`);
+        this.logger.log(`beforeExit ...`);
         this.redLock?.removeAllListeners();
       });
     } else {
-      Logger.log(`skip setup redis, REDIS_ENABLE is ${redisConfig.enable}`);
+      this.logger.log(`skip setup redis, REDIS_ENABLE is ${redisConfig.enable}`);
     }
   }
 
@@ -108,7 +110,7 @@ export class RedisLockProvider {
     // const exists = this.client.get
     const exists = await this.checkLock(resource);
     if (exists) {
-      Logger.verbose(`lock [${resource}] already exists: ${exists}`);
+      this.logger.verbose(`lock [${resource}] already exists: ${exists}`);
 
       if (options.waiting) {
         const exists = await waitUtil(() => this.checkLock(resource));
@@ -122,29 +124,31 @@ export class RedisLockProvider {
     return this.redLock.acquire([resource], ttl).then(
       async (lock) => {
         RedisLockProvider.locks[resource] = lock;
-        Logger.verbose(
+        this.logger.verbose(
           `lock [${resource}]: ${r(_.omit(lock, 'redlock', 'unlock', 'extend', 'attempts'))} ttl: ${ttl}ms`,
         );
         const results = await handler()
           .then((value) => {
-            Logger.verbose(`release lock [${resource}], result is ${r(value)}`);
+            this.logger.verbose(`release lock [${resource}], result is ${r(value)}`);
             return value;
           })
-          .catch((reason) => Logger.error(`execute [${resource}] handler: ${handler} error: ${reason} ${r(options)}`))
+          .catch((reason) =>
+            this.logger.error(`execute [${resource}] handler: ${handler} error: ${reason} ${r(options)}`),
+          )
           .finally(() =>
             lock
               .release()
               .catch((err) => {
-                Logger.error(`unlock [${resource}] error: ${err} ${r(options)}`);
+                this.logger.error(`unlock [${resource}] error: ${err} ${r(options)}`);
               })
-              .finally(() => Logger.verbose(`unlock [${resource}]`)),
+              .finally(() => this.logger.verbose(`unlock [${resource}]`)),
           );
         delete RedisLockProvider.locks[resource];
         return { exists: false, results };
       },
       (reason) => {
         // TODO lock error handler needed
-        Logger.error(`get [${resource}] lock error: ${reason}`);
+        this.logger.error(`get [${resource}] lock error: ${reason}`);
         return { exists: false, results: undefined };
       },
     );
