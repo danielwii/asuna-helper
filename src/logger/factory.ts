@@ -22,7 +22,7 @@ export class LoggerFactory {
       const aRegexResult = new Error().stack?.match(/([^(]+)@|at ([^(]+) \([^)]+/g);
       if (aRegexResult) {
         caller = aRegexResult[1] || aRegexResult[2];
-        [callerPath] = caller.match(/\/.+\//g) ?? [];
+        [callerPath] = caller?.match(/\/.+\//g) ?? [];
       }
     }
 

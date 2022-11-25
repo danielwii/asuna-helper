@@ -41,7 +41,7 @@ export class RedisProvider {
   }
 */
 
-  public static getRedisClient(prefix = 'default', db = 0, legacyMode = false): RedisClientObject {
+  public static getRedisClient(prefix = 'default', db = 0, legacyMode = false): RedisClientObject | undefined {
     const key = `${prefix}-${db}`;
     if (this.clients[key] /* && this.clients[key].isHealthy */) {
       return this.clients[key];

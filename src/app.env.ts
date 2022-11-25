@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-import { ConfigLoader } from 'node-buffs';
+import type { ConfigLoader } from 'node-buffs';
 
 import { resolveModule } from './logger/factory';
 import { r } from './serializer';

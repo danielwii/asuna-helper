@@ -20,7 +20,7 @@ export class ExclusiveConstraintValidator implements ValidatorConstraintInterfac
   public defaultMessage = (validationArguments?: ValidationArguments): string =>
     `Exclusive constraint occurred: ${r(validationArguments, { stringify: true })}.`;
 
-  public validate = (value: any, validationArguments?: ValidationArguments): Promise<boolean> | boolean =>
+  public validate = (_value: any, validationArguments?: ValidationArguments): Promise<boolean> | boolean =>
     _.keys(_.omitBy(validationArguments?.object, _.isNil)).length <= 1;
 }
 

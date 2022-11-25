@@ -1,4 +1,4 @@
-import { ConfigLoader } from 'node-buffs';
+import type { ConfigLoader } from 'node-buffs';
 
 import { deserializeSafely } from './validate';
 

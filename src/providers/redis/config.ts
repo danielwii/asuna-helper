@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import _ from 'lodash';
-import * as Redis from 'redis';
+import type * as Redis from 'redis';
 
 import { AppEnv } from '../../app.env';
 import { AbstractConfigLoader, YamlConfigKeys } from '../../config';
@@ -115,9 +115,9 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     };
     return {
       host: this.host,
-      port: this.port,
+      port: this.port as number,
       ...(this.password ? { password: this.password } : {}),
-      db: this.db,
+      db: this.db as number,
       connectTimeout: 2e3,
       // connect_timeout: 10_000,
       // retry_strategy: retryStrategy,
@@ -137,7 +137,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
   }
 
   public getIoOptions(db?: number): RedisOptions {
-    return { ...this.options, db: db ?? this.db };
+    return { ...this.options, db: db ?? this.db as number };
   }
 
   public getOptions(db?: number): Redis.RedisClientOptions {
@@ -146,8 +146,8 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
 
   public getOptionsV4(db?: number): Redis.RedisClientOptions {
     return {
-      database: db,
-      password: this.options.password,
+      database: db as number,
+      password: this.options.password as string,
       // redis[s]://[[username][:password]@][host][:port][/db-number]
       // url: `redis://${this.options.host}:${this.options.port}`,
       socket: {

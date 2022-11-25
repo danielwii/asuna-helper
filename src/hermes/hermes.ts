@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import BullQueue from 'bull';
 import { validate } from 'class-validator';
 import _ from 'lodash';
-import ow from 'ow';
+import ow from 'ow/dist';
 import { defer, from, Observable, of, Subject, throwError } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
 
@@ -46,9 +46,9 @@ export class AsunaEvent<User> implements IAsunaEvent {
 
 export interface AsunaQueue {
   name: string;
-  opts?: BullQueue.QueueOptions;
+  opts?: BullQueue.QueueOptions | undefined;
   queue: BullQueue.Queue;
-  handle?: (payload: any) => Promise<any>;
+  handle?: ((payload: any) => Promise<any>) | undefined;
 }
 
 export interface EventRuleResolver {
@@ -123,7 +123,7 @@ export class Hermes {
       const db = AppEnv.configLoader.loadNumericConfig(ConfigKeys.JOB_REDIS_DB, 1) as number;
       Hermes.logger.log(`init job with redis db: ${db}`);
       // redis.ClientOpts have to convert to ioredis.RedisOptions
-      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as RedisOptions });
+      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as any/*RedisOptions*/ });
 
       Hermes.logger.log('sync status with redis.');
     }
@@ -152,6 +152,7 @@ export class Hermes {
   ) {
     Hermes.logger.log(`emit events from [${source}: ${event}]`);
     this.subject.next(
+      // @ts-ignore
       new AsunaEvent({
         name: event,
         payload,
@@ -167,6 +168,7 @@ export class Hermes {
     ow(queueName, 'queueName', ow.string.nonEmpty);
 
     if (Hermes.inMemoryQueues[queueName]) {
+      // @ts-ignore
       return Hermes.inMemoryQueues[queueName];
     }
 
@@ -181,14 +183,18 @@ export class Hermes {
           if (typeof inMemoryQueue.handle !== 'function') {
             const message = `no handler registered for ${queueName}`;
             Hermes.logger.error(message);
+            // @ts-ignore
             status.state = 'UN_READY';
+            // @ts-ignore
             status.events.push({ state: 'UN_READY', at: new Date().toUTCString(), message });
             return of({ jobId, data, result: { error: message } });
           }
 
           return defer(() => {
             Hermes.logger.log(`job(${jobId}) call func in defer ...`);
+            // @ts-ignore
             status.state = 'RUNNING';
+            // @ts-ignore
             status.events.push({ state: 'RUNNING', at: new Date().toUTCString() });
             // execute the function and then examine the returned value.
             // if the returned value is *not* an Rx.Observable, then
@@ -205,6 +211,7 @@ export class Hermes {
         concatAll(),
       )
       .subscribe(
+        // @ts-ignore
         ({ jobId, data, result }: any) => {
           Hermes.logger.log(`job(${jobId}) queue(${queueName}) run ${r(data)} with result ${r(result)}`);
 
@@ -254,6 +261,7 @@ export class Hermes {
   }
 
   static getInMemoryQueue(queueName: string): InMemoryAsunaQueue {
+    // @ts-ignore
     return this.inMemoryQueues[queueName];
   }
 
@@ -261,6 +269,7 @@ export class Hermes {
     ow(queueName, 'queueName', ow.string.nonEmpty);
 
     if (this.queues[queueName]) {
+      // @ts-ignore
       return this.queues[queueName];
     }
 
@@ -276,6 +285,7 @@ export class Hermes {
   }
 
   static getQueue(queueName: string): AsunaQueue {
+    // @ts-ignore
     return this.queues[queueName];
   }
 
@@ -297,6 +307,7 @@ export class Hermes {
 
   static subscribe(source: string, routePattern: 'fanout' | RegExp, next?: (event: IAsunaEvent) => void): void {
     Hermes.logger.log(`subscribe from [${source}] ... total: ${this.observers.length + 1}`);
+    // @ts-ignore
     this.observers.push({ source, routePattern, next });
     // this.subject.subscribe(observer);
   }

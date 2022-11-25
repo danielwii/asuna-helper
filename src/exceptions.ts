@@ -59,8 +59,8 @@ export class AsunaBaseException extends Error {
   public constructor(
     public httpStatus: HttpStatus,
     public code: string,
-    public name: string,
-    public message: string,
+    public override name: string,
+    public override message: string,
     public localeMessage: string,
     public errors?: any,
   ) {
