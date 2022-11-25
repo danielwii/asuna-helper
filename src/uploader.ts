@@ -2,16 +2,16 @@ import { Logger } from '@nestjs/common';
 
 import axios, { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
-import _ from 'lodash';
 import querystring from 'query-string';
+import { fileURLToPath } from 'url';
 
 import { handleAxiosResponseError } from './axios';
-import { Hermes, InMemoryAsunaQueue } from './hermes';
+import { Hermes, InMemoryAsunaQueue } from './hermes/index';
 import { resolveModule } from './logger/factory';
 import { r } from './serializer';
 
 export class Uploader {
-  private static readonly logger = new Logger(resolveModule(__filename, Uploader.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), Uploader.name));
   private asunaQueue: InMemoryAsunaQueue | undefined;
   private queueName = 'IN_MEMORY_CHUNKED_UPLOAD';
 
@@ -31,12 +31,13 @@ export class Uploader {
     if (!Uploader.instance) Uploader.instance = new Uploader();
   }
 
+  /*
   // TODO not implemented
   private async fileToChunks(file: File, opts: { chunkSize?: number } = {}): Promise<any> {
     // eslint-disable-next-line no-bitwise
     const chunkSize = _.get(opts, 'chunkSize', (2 * 1024) ^ 2);
     const totalChunks = Math.ceil(file.size / chunkSize);
-  }
+  }*/
 
   public static async upload(
     bucket: string,

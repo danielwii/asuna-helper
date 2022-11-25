@@ -1,13 +1,16 @@
 import { Logger } from '@nestjs/common';
 
 import _ from 'lodash';
-import * as fp from 'lodash/fp';
+import fp from 'lodash/fp';
 import { dirname, join, resolve } from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
 
-const root = dirname(require.main?.filename ?? '.');
+const __entrance = pathToFileURL(process.argv[1] as any).href;
+const __rootPath = dirname(dirname(fileURLToPath(__entrance)));
+// const root = dirname(require.main?.filename ?? '.');
 
 export const resolveModule = (path: string, name?: string) => {
-  const diff = _.difference(path.split('/'), root.split('/'));
+  const diff = _.difference(path.split('/'), __rootPath.split('/'));
   return name ? `${diff.join('/')}::${name}` : diff.join('/');
 };
 
@@ -27,11 +30,11 @@ export class LoggerFactory {
     }
 
     const flows = [];
-    if (!_.isEmpty(root)) {
+    if (!_.isEmpty(__rootPath)) {
       flows.push(
-        fp.replace(resolve(root, '../dist'), ''),
-        fp.replace(resolve(root, '../src'), ''),
-        fp.replace(root, ''),
+        fp.replace(resolve(__rootPath, '../dist'), ''),
+        fp.replace(resolve(__rootPath, '../src'), ''),
+        fp.replace(__rootPath, ''),
       );
     }
     if (callerPath && require.main?.path) {
@@ -47,7 +50,7 @@ export class LoggerFactory {
     const path = join(callerPath ?? '.', name);
     const context = _.flow(
       ...flows,
-      fp.replace(root, ''),
+      fp.replace(__rootPath, ''),
       (path) => join('/', path).slice(1), // //a/b/c -> a/b/c
       fp.replace(/\//g, '.'), // a/b/c -> a.b.c
       (path: string) => (path.includes('@') ? path.slice(path.indexOf('@')) : path),

@@ -1,6 +1,7 @@
 import { Logger } from '@nestjs/common';
 
 import _ from 'lodash';
+import { fileURLToPath } from 'url';
 
 import { resolveModule } from './logger/factory';
 import { r } from './serializer';
@@ -13,7 +14,7 @@ export interface AppLifecycleType {
 }
 
 export class LifecycleRegister {
-  private static readonly logger = new Logger(resolveModule(__filename, LifecycleRegister.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), LifecycleRegister.name));
   public static handlers: AppLifecycleType[] = [];
   public static exitProcessors: Record<string, () => Promise<any>> = {};
 

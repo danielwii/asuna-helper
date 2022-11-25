@@ -1,6 +1,7 @@
 import { HttpStatus, Logger } from '@nestjs/common';
 
 import _ from 'lodash';
+import { fileURLToPath } from 'url';
 
 import { resolveModule } from './logger/factory';
 import { NameValue } from './normal';
@@ -123,7 +124,7 @@ interface AsunaExceptionOpts {
 }
 
 export class AsunaExceptionHelper {
-  private static readonly logger = new Logger(resolveModule(__filename, AsunaExceptionHelper.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), AsunaExceptionHelper.name));
   private static registers = {
     [AsunaExceptionTypes.ElementExists]: {
       code: 'E01001',

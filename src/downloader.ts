@@ -1,13 +1,14 @@
 import { Logger } from '@nestjs/common';
 
 import axios, { AxiosResponse } from 'axios';
-// target es5 for ie11 support
-import * as Bluebird from 'bluebird';
+import bluebird from 'bluebird';
 import * as fs from 'fs-extra';
 import path, { join } from 'path';
 
 import { handleAxiosResponseError } from './axios';
 import { r } from './serializer';
+
+const { Promise } = bluebird;
 
 export async function download(url: string, to: string): Promise<AxiosResponse> {
   fs.ensureDirSync(path.dirname(to));
@@ -18,7 +19,7 @@ export async function download(url: string, to: string): Promise<AxiosResponse> 
   const response = await axios({ url, method: 'GET', responseType: 'stream', timeout: 60000 });
 
   (response.data as any).pipe(writer);
-  return new Bluebird.Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     writer.on('finish', resolve);
     writer.on('error', reject);
   });

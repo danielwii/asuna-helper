@@ -3,9 +3,11 @@ import { Logger } from '@nestjs/common';
 import BullQueue from 'bull';
 import { validate } from 'class-validator';
 import _ from 'lodash';
-import ow from 'ow/dist';
+// @ts-ignore
+import ow from 'ow';
 import { defer, from, Observable, of, Subject, throwError } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
+import { fileURLToPath } from 'url';
 
 import { AppEnv } from '../app.env';
 import { ConfigKeys } from '../config';
@@ -82,7 +84,7 @@ export class HermesExchange {
 }
 
 export class Hermes {
-  private static readonly logger = new Logger(resolveModule(__filename, Hermes.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), Hermes.name));
   private static subject = new Subject<IAsunaEvent>();
   private static observers: IAsunaObserver[];
   private static initialized: boolean;
@@ -123,7 +125,7 @@ export class Hermes {
       const db = AppEnv.configLoader.loadNumericConfig(ConfigKeys.JOB_REDIS_DB, 1) as number;
       Hermes.logger.log(`init job with redis db: ${db}`);
       // redis.ClientOpts have to convert to ioredis.RedisOptions
-      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as any/*RedisOptions*/ });
+      Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as any /*RedisOptions*/ });
 
       Hermes.logger.log('sync status with redis.');
     }
@@ -314,7 +316,7 @@ export class Hermes {
 }
 
 export class HermesProcessManager {
-  private static readonly logger = new Logger(resolveModule(__filename, HermesProcessManager.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), HermesProcessManager.name));
   static initialized: boolean;
 
   static queue: InMemoryAsunaQueue;

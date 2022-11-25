@@ -1,12 +1,14 @@
 import { Logger } from '@nestjs/common';
 
-import type { ConfigLoader } from 'node-buffs';
+import { fileURLToPath } from 'url';
 
 import { resolveModule } from './logger/factory';
 import { r } from './serializer';
 
+import type { ConfigLoader } from 'node-buffs';
+
 export class AppEnv {
-  private static readonly logger = new Logger(resolveModule(__filename, AppEnv.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), AppEnv.name));
   public static readonly instance = new AppEnv();
   private static _configLoader: ConfigLoader;
 

@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import _ from 'lodash';
-import type * as Redis from 'redis';
+import { fileURLToPath } from 'url';
 
 import { AppEnv } from '../../app.env';
 import { AbstractConfigLoader, YamlConfigKeys } from '../../config';
@@ -10,6 +10,7 @@ import { resolveModule } from '../../logger/factory';
 import { r } from '../../serializer';
 import { withP, withP2 } from '../../utils';
 
+import type * as Redis from 'redis';
 import type { RedisOptions } from 'ioredis';
 
 export const RedisConfigKeys = {
@@ -29,7 +30,7 @@ export enum RedisConfigKeys2 {
 }
 
 export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
-  private static readonly logger = new Logger(resolveModule(__filename, RedisConfigObject.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), RedisConfigObject.name));
   private static key = YamlConfigKeys.redis;
   private static prefix = `${RedisConfigObject.key}_`;
 
@@ -137,7 +138,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
   }
 
   public getIoOptions(db?: number): RedisOptions {
-    return { ...this.options, db: db ?? this.db as number };
+    return { ...this.options, db: db ?? (this.db as number) };
   }
 
   public getOptions(db?: number): Redis.RedisClientOptions {

@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import consola from 'consola';
 import * as Redis from 'redis';
+import { fileURLToPath } from 'url';
 
 import { resolveModule } from '../../logger/factory';
 import { LifecycleRegister } from '../../register';
@@ -27,7 +28,7 @@ export class RedisClientObject {
 }
 
 export class RedisProvider {
-  private static readonly logger = new Logger(resolveModule(__filename, RedisProvider.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), RedisProvider.name));
   public static clients: { [key: string]: RedisClientObject } = {};
 
   // public static instance: RedisProvider;

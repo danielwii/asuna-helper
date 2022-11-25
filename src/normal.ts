@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import * as fp from 'lodash/fp';
+import fp from 'lodash/fp';
 
 export class NameValue {
   constructor(public readonly name: string, public readonly value: any) {}

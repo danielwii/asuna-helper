@@ -1,10 +1,10 @@
 import { Logger } from '@nestjs/common';
 
-// target es5 for ie11 support
-import * as Bluebird from 'bluebird';
+import bluebird from 'bluebird';
 import Redis from 'ioredis';
 import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
+import { fileURLToPath } from 'url';
 
 import { AppEnv } from '../../app.env';
 import { resolveModule } from '../../logger/factory';
@@ -13,8 +13,10 @@ import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigKeys, RedisConfigObject } from './config';
 
+const { Promise } = bluebird;
+
 export class RedisLockProvider {
-  private readonly logger = new Logger(resolveModule(__filename, RedisLockProvider.name));
+  private readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), RedisLockProvider.name));
   public readonly client?: Redis;
   public readonly redLock?: RedLock;
 
@@ -56,7 +58,7 @@ export class RedisLockProvider {
 
       LifecycleRegister.regExitProcessor('RedisLock', async () => {
         this.logger.log(`signal: SIGINT. Release locks ${r(_.keys(RedisLockProvider.locks))}`);
-        await Bluebird.Promise.all(
+        await Promise.all(
           _.map(RedisLockProvider.locks, (lock, resource) =>
             lock
               .release()
