@@ -1,6 +1,7 @@
 import UaParser from 'ua-parser-js';
 
 export const detectUA = (ua: string) => {
+  if (!ua) return { isMobile: false };
   const parsed = new UaParser(ua);
   let isMobile = false; // initiate as false
   // device detection

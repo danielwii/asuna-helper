@@ -1,13 +1,15 @@
 import type { ConfigLoader } from 'node-buffs';
 
 import { deserializeSafely } from './validate';
+import _ from "lodash";
 
 /**
  * all fields need null as default value to load all keys
+ * @deprecated
  */
 export class AbstractConfigLoader<Config> {
   public constructor(o?: Omit<Config, 'fromConfigurator'>) {
-    Object.assign(this, deserializeSafely(this.constructor as any, o));
+    Object.assign(this, o);
   }
 
   public fromConfigurator(configLoader: ConfigLoader): Config {

@@ -1,5 +1,5 @@
 import { instanceToPlain } from 'class-transformer';
-import * as JSON5 from 'json5';
+import JSON5 from 'json5';
 import _ from 'lodash';
 import util from 'util';
 
