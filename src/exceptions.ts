@@ -1,7 +1,7 @@
 import { HttpStatus, Logger } from '@nestjs/common';
 
 import _ from 'lodash';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { resolveModule } from './logger/factory';
 import { NameValue } from './normal';

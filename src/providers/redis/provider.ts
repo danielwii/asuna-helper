@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import consola from 'consola';
 import * as Redis from 'redis';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { resolveModule } from '../../logger/factory';
 import { LifecycleRegister } from '../../register';

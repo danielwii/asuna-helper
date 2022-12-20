@@ -4,7 +4,7 @@ import bluebird from 'bluebird';
 import Redis from 'ioredis';
 import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { AppEnv } from '../../app.env';
 import { resolveModule } from '../../logger/factory';

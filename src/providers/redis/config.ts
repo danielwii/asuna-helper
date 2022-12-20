@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import { Expose, plainToInstance, Transform } from 'class-transformer';
 import _ from 'lodash';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { AppEnv } from '../../app.env';
 import { AbstractConfigLoader, YamlConfigKeys } from '../../config';

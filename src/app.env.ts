@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { resolveModule } from './logger/factory';
 import { r } from './serializer';

@@ -2,13 +2,16 @@ import { Logger } from '@nestjs/common';
 
 import { ClassTransformOptions, deserialize, plainToInstance } from 'class-transformer';
 import {
+  registerDecorator,
   validate,
   validateSync,
   ValidationArguments,
+  ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
 import _ from 'lodash';
+import moment from 'moment';
 
 import { AsunaErrorCode, AsunaException, ValidationException } from './exceptions';
 import { r } from './serializer';
@@ -62,4 +65,19 @@ export function deserializeSafely<T>(
 
   validateObjectSync(o);
   return o;
+}
+
+export function IsDateTimeString({ format }: { format?: string }, validationOptions?: ValidationOptions) {
+  return (object: Object, propertyName: string) => {
+    registerDecorator({
+      name: 'isDateTimeString',
+      target: object.constructor,
+      propertyName,
+      constraints: [],
+      options: validationOptions || { message: 'error date format' },
+      validator: {
+        validate: (value: any, args: ValidationArguments) => moment(value, format).isValid(),
+      },
+    });
+  };
 }

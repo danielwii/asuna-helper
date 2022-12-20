@@ -7,7 +7,7 @@ import _ from 'lodash';
 import ow from 'ow';
 import { defer, from, Observable, of, Subject, throwError } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { AppEnv } from '../app.env';
 import { ConfigKeys } from '../config';

@@ -1,9 +1,9 @@
 import { Logger } from '@nestjs/common';
 
 import axios, { AxiosResponse } from 'axios';
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import querystring from 'query-string';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 import { handleAxiosResponseError } from './axios';
 import { Hermes, InMemoryAsunaQueue } from './hermes/index';

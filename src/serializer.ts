@@ -1,7 +1,7 @@
 import { instanceToPlain } from 'class-transformer';
 import JSON5 from 'json5';
 import _ from 'lodash';
-import util from 'util';
+import util from 'node:util';
 
 import { isProductionEnv } from './utils';
 

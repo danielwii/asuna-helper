@@ -1,6 +1,6 @@
 import bluebird from 'bluebird';
-import { exec } from 'child_process';
 import _ from 'lodash';
+import { exec } from 'node:child_process';
 
 const { Promise } = bluebird;
 
