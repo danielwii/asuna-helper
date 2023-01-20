@@ -64,7 +64,7 @@
     "@types/bluebird": "^3",
     "@types/bull": "^4",
     "@types/common-tags": "^1",
-    "@types/fs-extra": "^9",
+    "@types/fs-extra": "^11",
     "@types/lodash": "^4",
     "@types/node": "^18",
     "@types/ua-parser-js": "^0",
