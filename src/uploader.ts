@@ -2,8 +2,7 @@ import { Logger } from '@nestjs/common';
 
 import axios, { AxiosResponse } from 'axios';
 import fs from 'fs-extra';
-import querystring from 'query-string';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URLSearchParams } from 'node:url';
 
 import { handleAxiosResponseError } from './axios';
 import { Hermes, InMemoryAsunaQueue } from './hermes/index';
@@ -60,7 +59,7 @@ export class Uploader {
     const readable = fs.createReadStream(path);
 
     return axios
-      .post(`${endpoint}?${querystring.stringify({ bucket, prefix, filename })}`, readable, {
+      .post(`${endpoint}?${new URLSearchParams({ bucket, prefix, filename }).toString()}`, readable, {
         headers: { 'content-type': 'multipart/form-data' },
         maxBodyLength,
       })
