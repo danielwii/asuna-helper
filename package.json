@@ -3,7 +3,6 @@
   "version": "0.1.2",
   "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -14,10 +13,9 @@
     "package.json"
   ],
   "scripts": {
-    "rename": "find dist -depth -name \"*.js\" -exec sh -c 'mv \"$1\" \"${1%.js}.mjs\"' _ \\{\\} \\; && find dist -depth -name \"*.js.map\" -exec sh -c 'mv \"$1\" \"${1%.js.map}.mjs.map\"' _ \\{\\} \\;",
     "clean": "rm -rf dist tsconfig.tsbuildinfo .tsbuildinfo",
     "build:watch": "yarn clean && tsc -w",
-    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && swc src -d dist -C module.type=es6 && yarn rename && swc src -d dist -C module.type=commonjs -s",
+    "build": "yarn clean && tsc --emitDeclarationOnly --declarationDir dist && swc src -d dist",
     "prepack": "yarn build"
   },
   "peerDependencies": {
