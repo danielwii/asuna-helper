@@ -8,7 +8,7 @@ import { r } from './serializer';
 import type { ConfigLoader } from 'node-buffs';
 
 export class AppEnv {
-  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), AppEnv.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), this.constructor.name));
   public static readonly instance = new AppEnv();
   private static _configLoader: ConfigLoader;
 

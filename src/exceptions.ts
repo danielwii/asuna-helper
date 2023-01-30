@@ -124,7 +124,7 @@ interface AsunaExceptionOpts {
 }
 
 export class AsunaExceptionHelper {
-  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), AsunaExceptionHelper.name));
+  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), this.constructor.name));
   private static registers = {
     [AsunaExceptionTypes.ElementExists]: {
       code: 'E01001',
