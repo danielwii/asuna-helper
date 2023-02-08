@@ -84,7 +84,7 @@ export class HermesExchange {
 }
 
 export class Hermes {
-  private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), Hermes.name));
+  public static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), Hermes.name));
   private static subject = new Subject<IAsunaEvent>();
   private static observers: IAsunaObserver[];
   private static initialized: boolean;

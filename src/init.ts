@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 import { fileURLToPath } from 'node:url';
 
 import { resolveModule } from './logger/factory';
+import { r } from './serializer';
 
 const logger = new Logger(resolveModule(fileURLToPath(import.meta.url), 'InitContainer'));
 
@@ -19,8 +20,7 @@ export abstract class InitContainer {
       logger.log(`init... <<${this.constructor.name}>> done in ${Date.now() - timestamp}ms.`);
       clearTimeout(timer);
     } catch (reason) {
-      logger.error(`init... <<${this.constructor.name}>> error!`);
-      logger.error(reason);
+      logger.error(`init... <<${this.constructor.name}>> error! ${r(reason)})}`);
       process.exit(2);
     }
   }
