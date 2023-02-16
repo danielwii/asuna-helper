@@ -1,22 +1,21 @@
 import { Logger } from '@nestjs/common';
 
+import { fileURLToPath } from 'node:url';
+
 import BullQueue from 'bull';
 import { validate } from 'class-validator';
 import _ from 'lodash';
 // @ts-ignore
 import ow from 'ow';
-import { defer, from, Observable, of, Subject, throwError } from 'rxjs';
+import { Observable, Subject, defer, from, of, throwError } from 'rxjs';
 import { concatAll, map } from 'rxjs/operators';
-import { fileURLToPath } from 'node:url';
 
 import { AppEnv } from '../app.env';
-import { ConfigKeys } from '../config';
 import { resolveModule } from '../logger';
 import { RedisConfigObject } from '../providers/redis/config';
 import { random } from '../random';
 import { r } from '../serializer';
 
-import type { RedisOptions } from 'ioredis';
 import type { IAsunaAction, IAsunaCommand, IAsunaEvent, IAsunaJob, IAsunaObserver, IAsunaRule } from './interfaces';
 
 export const AsunaSystemQueue = {
@@ -122,7 +121,7 @@ export class Hermes {
     const configObject = RedisConfigObject.loadOr('job');
     Hermes.logger.log(`init queues with redis: ${r(configObject, { transform: true })}`);
     if (configObject.enable) {
-      const db = AppEnv.configLoader.loadNumericConfig(ConfigKeys.JOB_REDIS_DB, 1) as number;
+      const db = AppEnv.configLoader.loadNumericConfig('JOB_REDIS_DB', 1) as number;
       Hermes.logger.log(`init job with redis db: ${db}`);
       // redis.ClientOpts have to convert to ioredis.RedisOptions
       Hermes.regQueue(AsunaSystemQueue.UPLOAD, { redis: configObject.getOptions(db) as any /*RedisOptions*/ });

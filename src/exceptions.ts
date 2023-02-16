@@ -217,7 +217,7 @@ export class AsunaExceptionHelper {
 
   public static genericException<T extends keyof typeof AsunaExceptionHelper.registers>(
     type: T,
-    params?: Parameters<typeof AsunaExceptionHelper.registers[T]['message']>,
+    params?: Parameters<(typeof AsunaExceptionHelper.registers)[T]['message']>,
     errors?: any,
   ): AsunaException {
     if (this.registers[type]) {

@@ -1,17 +1,18 @@
 import { Logger } from '@nestjs/common';
 
-import { Expose, plainToInstance, Transform } from 'class-transformer';
-import _ from 'lodash';
 import { fileURLToPath } from 'node:url';
 
+import { Expose, Transform, plainToInstance } from 'class-transformer';
+import _ from 'lodash';
+
 import { AppEnv } from '../../app.env';
-import { AbstractConfigLoader, YamlConfigKeys } from '../../config';
 import { resolveModule } from '../../logger/factory';
 import { r } from '../../serializer';
 import { withP, withP2 } from '../../utils';
 
-import type * as Redis from 'redis';
 import type { RedisOptions } from 'ioredis';
+import type { ConfigLoader } from 'node-buffs';
+import type * as Redis from 'redis';
 
 export const RedisConfigKeys = {
   REDIS_ENABLE: 'REDIS_ENABLE',
@@ -29,9 +30,28 @@ export enum RedisConfigKeys2 {
   db = 'db',
 }
 
+/**
+ * all fields need null as default value to load all keys
+ * @deprecated
+ */
+export class AbstractConfigLoader<Config> {
+  public constructor(o?: Omit<Config, 'fromConfigurator'>) {
+    Object.assign(this, o);
+  }
+
+  public fromConfigurator(configLoader: ConfigLoader): Config {
+    Object.keys(this).forEach((key) => {
+      // @ts-ignore
+      this[key] = configLoader.loadConfig(key, undefined, true);
+      // logger.log(`load ${r({ key, value: this[key] })}`);
+    });
+    return this as any;
+  }
+}
+
 export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
   private static readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), RedisConfigObject.name));
-  private static key = YamlConfigKeys.redis;
+  private static key = 'redis';
   private static prefix = `${RedisConfigObject.key}_`;
 
   public host?: string;
