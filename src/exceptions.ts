@@ -1,7 +1,8 @@
 import { HttpStatus, Logger } from '@nestjs/common';
 
-import _ from 'lodash';
 import { fileURLToPath } from 'node:url';
+
+import _ from 'lodash';
 
 import { resolveModule } from './logger/factory';
 import { NameValue } from './normal';
@@ -62,7 +63,7 @@ export class AsunaBaseException extends Error {
     public code: string,
     public override name: string,
     public override message: string,
-    public localeMessage: string,
+    public localeMessage?: string,
     public errors?: any,
   ) {
     super(message);
@@ -85,6 +86,16 @@ export class AsunaException extends AsunaBaseException {
     exception.code = code ?? '';
     exception.localeMessage = localeMessage ?? '';
     return exception;
+  }
+}
+
+export class UnprocessableException extends AsunaBaseException {
+  public constructor(code: string, message: string, details?: any) {
+    super(AsunaErrorCode.Unprocessable.value, code, AsunaErrorCode.Unprocessable.name, message);
+  }
+
+  public static of(message: string) {
+    return new UnprocessableException('unset', message);
   }
 }
 

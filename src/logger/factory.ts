@@ -1,9 +1,10 @@
 import { Logger } from '@nestjs/common';
 
-import _ from 'lodash';
-import fp from 'lodash/fp';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+
+import _ from 'lodash';
+import fp from 'lodash/fp';
 
 const __entrance = pathToFileURL(process.argv[1] as any).href;
 const __rootPath = dirname(dirname(fileURLToPath(__entrance)));
