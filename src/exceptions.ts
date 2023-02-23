@@ -64,15 +64,15 @@ export class AsunaBaseException extends Error {
     public override name: string,
     public override message: string,
     public localeMessage?: string,
-    public errors?: any,
+    public details?: any,
   ) {
     super(message);
   }
 }
 
 export class AsunaException extends AsunaBaseException {
-  public constructor(nameValue: NameValue, message?: string, errors?: any) {
-    super(nameValue.value, '', nameValue.name, message ?? '', '', errors);
+  public constructor(nameValue: NameValue, message?: string, details?: any) {
+    super(nameValue.value, '', nameValue.name, message ?? '', '', details);
   }
 
   public static of(
@@ -80,9 +80,9 @@ export class AsunaException extends AsunaBaseException {
     code?: string,
     message?: string,
     localeMessage?: string,
-    errors?: any,
+    details?: any,
   ): AsunaException {
-    const exception = new AsunaException(nameValue, message, errors);
+    const exception = new AsunaException(nameValue, message, details);
     exception.code = code ?? '';
     exception.localeMessage = localeMessage ?? '';
     return exception;
@@ -90,12 +90,12 @@ export class AsunaException extends AsunaBaseException {
 }
 
 export class UnprocessableException extends AsunaBaseException {
-  public constructor(code: string, message: string, details?: any) {
-    super(AsunaErrorCode.Unprocessable.value, code, AsunaErrorCode.Unprocessable.name, message);
+  public constructor(code: string, message: string, details?: any[]) {
+    super(AsunaErrorCode.Unprocessable.value, code, AsunaErrorCode.Unprocessable.name, message, '', details);
   }
 
-  public static of(message: string) {
-    return new UnprocessableException('unset', message);
+  public static of(message: string, details?: any[]) {
+    return new UnprocessableException('', message, details);
   }
 }
 
