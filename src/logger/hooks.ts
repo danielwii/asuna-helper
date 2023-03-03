@@ -7,13 +7,16 @@ export const useLogger = (componentName: string, ...rest: any[]): void => {
   const logger = consola.withScope(componentName);
 
   useEffectOnce(() => {
-    !isProd && logger.log(`mounted`, ...rest);
-    return () => !isProd && logger.log(`unmounted`);
+    !isProd && logger.info(`mounted`, ...rest);
+    return () => {
+      !isProd && logger.success(`unmounted`);
+    };
   });
 
   useUpdateEffect(() => {
-    !isProd && logger.log(`updated`, ...rest);
+    !isProd && logger.info(`updated`, ...rest);
   });
+
 };
 
 export default useLogger;
