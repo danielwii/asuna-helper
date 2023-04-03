@@ -7,7 +7,7 @@ export const detectUA = (ua: string) => {
   const isMobile = detectMobile({ ua }); // initiate as false
   return {
     isMobile,
-    isBrowser: isMobile && !!parsed.getBrowser().name,
+    isBrowser: !!parsed.getBrowser().name,
     parsed: parsed.getResult(),
     isUnknown: !parsed.getOS().name,
   };
