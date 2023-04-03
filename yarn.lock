@@ -293,7 +293,7 @@ __metadata:
     rxjs: ^7.8.0
     typeorm: ^0.3.12
     typescript: ^5.0.3
-    ua-parser-js: 2.0.0-alpha.2
+    ua-parser-js: ^1.0.35
   peerDependencies:
     "@nestjs/common": ">=9"
     "@nestjs/platform-express": ">=9"
@@ -4330,10 +4330,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:2.0.0-alpha.2":
-  version: 2.0.0-alpha.2
-  resolution: "ua-parser-js@npm:2.0.0-alpha.2"
-  checksum: d9249ce92014b9ae349a3a35697df1cf5323b682c17a48a78112c38716fe4f7a8fc68e42509a86c28728d8c7a3fc69d9c6ff465b8567ff41b350cb22111170b4
+"ua-parser-js@npm:^1.0.35":
+  version: 1.0.35
+  resolution: "ua-parser-js@npm:1.0.35"
+  checksum: 02370d38a0c8b586f2503d1c3bbba5cbc0b97d407282f9023201a99e4c03eae4357a2800fdf50cf80d73ec25c0b0cc5bfbaa03975b0add4043d6e4c86712c9c1
   languageName: node
   linkType: hard
 
