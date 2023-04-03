@@ -254,11 +254,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@danielwii/asuna-helper@workspace:."
   dependencies:
-    "@nestjs/common": ^9.3.10
-    "@nestjs/platform-express": ^9.3.10
+    "@nestjs/common": ^9.3.12
+    "@nestjs/platform-express": ^9.3.12
     "@serverless-guru/prettier-plugin-import-order": ^0.4.1
     "@swc/cli": ^0.1.62
-    "@swc/core": ^1.3.41
+    "@swc/core": ^1.3.44
     "@tsconfig/node18-strictest-esm": ^1.0.1
     "@types/bluebird": ^3
     "@types/bull": ^4
@@ -276,24 +276,24 @@ __metadata:
     common-tags: ^1.8.2
     consola: ^2.15.3
     date-fns: ^2.29.3
-    fs-extra: ^11.1.0
+    fs-extra: ^11.1.1
     ioredis: ^5.3.1
     is-mobile: ^4.0.0
     json5: ^2.2.3
     lodash: ^4.17.21
     moment: ^2.29.4
-    nanoid: ^4.0.1
+    nanoid: ^4.0.2
     node-buffs: ^0.8.25
     ow: ^1.1.1
-    prettier: ^2.8.4
+    prettier: ^2.8.7
     react-use: ^17.4.0
     redis: ^4.6.5
     redlock: ^5.0.0-beta.2
     reflect-metadata: ^0.1.13
     rxjs: ^7.8.0
     typeorm: ^0.3.12
-    typescript: ^5.0.2
-    ua-parser-js: ^1.0.34
+    typescript: ^5.0.3
+    ua-parser-js: 2.0.0-alpha.2
   peerDependencies:
     "@nestjs/common": ">=9"
     "@nestjs/platform-express": ">=9"
@@ -391,9 +391,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/common@npm:^9.3.10":
-  version: 9.3.10
-  resolution: "@nestjs/common@npm:9.3.10"
+"@nestjs/common@npm:^9.3.12":
+  version: 9.3.12
+  resolution: "@nestjs/common@npm:9.3.12"
   dependencies:
     iterare: 1.2.1
     tslib: 2.5.0
@@ -411,13 +411,13 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 5dc840a40ee02bf19abff2bf565910d55585e0bb9a9fa5be8d036323df943b951b6f2213f57758a11bb2291936f48d8c24f045d4f5abce4672cc1cf08e0509b5
+  checksum: c31a3bc16362cc537865c5285161b92113118f0e952d95390525b19f3c999a76ad952ead9db969735afd22ca2cc085b40e1a258fde3351e2b5028d9fdbbf9967
   languageName: node
   linkType: hard
 
-"@nestjs/platform-express@npm:^9.3.10":
-  version: 9.3.10
-  resolution: "@nestjs/platform-express@npm:9.3.10"
+"@nestjs/platform-express@npm:^9.3.12":
+  version: 9.3.12
+  resolution: "@nestjs/platform-express@npm:9.3.12"
   dependencies:
     body-parser: 1.20.2
     cors: 2.8.5
@@ -427,7 +427,7 @@ __metadata:
   peerDependencies:
     "@nestjs/common": ^9.0.0
     "@nestjs/core": ^9.0.0
-  checksum: 68c6258b262632221ecb966109af1a3510f8154f13a33aa1c28e3bd0f560e4d08df514bdcd0f3aa873a29fc5dc75396e95941a2cf88565b615599b8d693f81c4
+  checksum: 6da92591e8c16288e210e577a4a31c433cdcaedfed3ef072be9149e175c1351c29cfeaf4b0adc99a2eb0e3da76e2a9287c7d8a6a8c1c5b22e730f86773b54145
   languageName: node
   linkType: hard
 
@@ -601,90 +601,90 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-darwin-arm64@npm:1.3.41"
+"@swc/core-darwin-arm64@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-darwin-arm64@npm:1.3.44"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-darwin-x64@npm:1.3.41"
+"@swc/core-darwin-x64@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-darwin-x64@npm:1.3.44"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.41"
+"@swc/core-linux-arm-gnueabihf@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.44"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.41"
+"@swc/core-linux-arm64-gnu@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.44"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-linux-arm64-musl@npm:1.3.41"
+"@swc/core-linux-arm64-musl@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-linux-arm64-musl@npm:1.3.44"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-linux-x64-gnu@npm:1.3.41"
+"@swc/core-linux-x64-gnu@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-linux-x64-gnu@npm:1.3.44"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-linux-x64-musl@npm:1.3.41"
+"@swc/core-linux-x64-musl@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-linux-x64-musl@npm:1.3.44"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.41"
+"@swc/core-win32-arm64-msvc@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.44"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.41"
+"@swc/core-win32-ia32-msvc@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.44"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core-win32-x64-msvc@npm:1.3.41"
+"@swc/core-win32-x64-msvc@npm:1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core-win32-x64-msvc@npm:1.3.44"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.3.41":
-  version: 1.3.41
-  resolution: "@swc/core@npm:1.3.41"
+"@swc/core@npm:^1.3.44":
+  version: 1.3.44
+  resolution: "@swc/core@npm:1.3.44"
   dependencies:
-    "@swc/core-darwin-arm64": 1.3.41
-    "@swc/core-darwin-x64": 1.3.41
-    "@swc/core-linux-arm-gnueabihf": 1.3.41
-    "@swc/core-linux-arm64-gnu": 1.3.41
-    "@swc/core-linux-arm64-musl": 1.3.41
-    "@swc/core-linux-x64-gnu": 1.3.41
-    "@swc/core-linux-x64-musl": 1.3.41
-    "@swc/core-win32-arm64-msvc": 1.3.41
-    "@swc/core-win32-ia32-msvc": 1.3.41
-    "@swc/core-win32-x64-msvc": 1.3.41
+    "@swc/core-darwin-arm64": 1.3.44
+    "@swc/core-darwin-x64": 1.3.44
+    "@swc/core-linux-arm-gnueabihf": 1.3.44
+    "@swc/core-linux-arm64-gnu": 1.3.44
+    "@swc/core-linux-arm64-musl": 1.3.44
+    "@swc/core-linux-x64-gnu": 1.3.44
+    "@swc/core-linux-x64-musl": 1.3.44
+    "@swc/core-win32-arm64-msvc": 1.3.44
+    "@swc/core-win32-ia32-msvc": 1.3.44
+    "@swc/core-win32-x64-msvc": 1.3.44
   dependenciesMeta:
     "@swc/core-darwin-arm64":
       optional: true
@@ -706,7 +706,7 @@ __metadata:
       optional: true
     "@swc/core-win32-x64-msvc":
       optional: true
-  checksum: e2d2bd2d1821608bfafab66f7b94d31b4ae3f486ad6d18aa30abca961299431a26ab2dfc04a7e614f8b8f6680d9790f0596f43e18d0b794e2802136c1d5e3376
+  checksum: aa3377769e1d8f02ee01e685f255796e47b8cbc64d7de4ee8a05a8bd8e2286856c1f32958f8bbb45b74bcf0bfaa4dc7b708cd9252cb97769575c29016d698649
   languageName: node
   linkType: hard
 
@@ -2043,14 +2043,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "fs-extra@npm:11.1.0"
+"fs-extra@npm:^11.1.0, fs-extra@npm:^11.1.1":
+  version: 11.1.1
+  resolution: "fs-extra@npm:11.1.1"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: 5ca476103fa1f5ff4a9b3c4f331548f8a3c1881edaae323a4415d3153b5dc11dc6a981c8d1dd93eec8367ceee27b53f8bd27eecbbf66ffcdd04927510c171e7f
+  checksum: fb883c68245b2d777fbc1f2082c9efb084eaa2bbf9fddaa366130d196c03608eebef7fb490541276429ee1ca99f317e2d73e96f5ca0999eefedf5a624ae1edfd
   languageName: node
   linkType: hard
 
@@ -3053,12 +3053,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "nanoid@npm:4.0.1"
+"nanoid@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "nanoid@npm:4.0.2"
   bin:
     nanoid: bin/nanoid.js
-  checksum: 21022a7910aa690cb05872c07f0c4a317dfe2aa79cc2b5e4ab41d17476e23d973d24c683206d6fa7e1b56bf657cf5dfbc0f1cac7d596bcd2dea0f49635316628
+  checksum: 747c399cea4664dd0be1d0ec498ffd1ef8f1f5221676fc8b577e3f46f66d9afcddb9595d63d19a2e78d0bc6cc33984f65e66bf1682c850b9e26288883d96b53f
   languageName: node
   linkType: hard
 
@@ -3347,12 +3347,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.8.4":
-  version: 2.8.4
-  resolution: "prettier@npm:2.8.4"
+"prettier@npm:^2.8.7":
+  version: 2.8.7
+  resolution: "prettier@npm:2.8.7"
   bin:
     prettier: bin-prettier.js
-  checksum: c173064bf3df57b6d93d19aa98753b9b9dd7657212e33b41ada8e2e9f9884066bb9ca0b4005b89b3ab137efffdf8fbe0b462785aba20364798ff4303aadda57e
+  checksum: fdc8f2616f099f5f0d685907f4449a70595a0fc1d081a88919604375989e0d5e9168d6121d8cc6861f21990b31665828e00472544d785d5940ea08a17660c3a6
   languageName: node
   linkType: hard
 
@@ -4310,30 +4310,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "typescript@npm:5.0.2"
+"typescript@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "typescript@npm:5.0.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bef1dcd166acfc6934b2ec4d72f93edb8961a5fab36b8dd2aaf6f4f4cd5c0210f2e0850aef4724f3b4913d5aef203a94a28ded731b370880c8bcff7e4ff91fc1
+  checksum: 3cce0576d218cb4277ff8b6adfef1a706e9114a98b4261a38ad658a7642f1b274a8396394f6cbff8c0ba852996d7ed2e233e9b8431d5d55ac7c2f6fea645af02
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.2#~builtin<compat/typescript>":
-  version: 5.0.2
-  resolution: "typescript@patch:typescript@npm%3A5.0.2#~builtin<compat/typescript>::version=5.0.2&hash=1f5320"
+"typescript@patch:typescript@^5.0.3#~builtin<compat/typescript>":
+  version: 5.0.3
+  resolution: "typescript@patch:typescript@npm%3A5.0.3#~builtin<compat/typescript>::version=5.0.3&hash=85af82"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bdbf3d0aac0d6cf010fbe0536753dc19f278eb4aba88140dcd25487dfe1c56ca8b33abc0dcd42078790a939b08ebc4046f3e9bb961d77d3d2c3cfa9829da4d53
+  checksum: 5580367025ff7ee1f2a61e5affdbddccfe6e893bc662aa33fefdbf12de7e493173fa7d47475e9e15121828691004c4ed13bcd115e57866baed97b54c60954e1c
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^1.0.34":
-  version: 1.0.34
-  resolution: "ua-parser-js@npm:1.0.34"
-  checksum: 78924548870c67b93b4bc6bd3d9736badfca8cc02ea01510fb0ed38e296a8c0713a6bec6226ed2383d5d521bab651a6fcaa75d421f04cafebca0f93250480fb3
+"ua-parser-js@npm:2.0.0-alpha.2":
+  version: 2.0.0-alpha.2
+  resolution: "ua-parser-js@npm:2.0.0-alpha.2"
+  checksum: d9249ce92014b9ae349a3a35697df1cf5323b682c17a48a78112c38716fe4f7a8fc68e42509a86c28728d8c7a3fc69d9c6ff465b8567ff41b350cb22111170b4
   languageName: node
   linkType: hard
 

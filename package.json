@@ -1,6 +1,6 @@
 {
   "name": "@danielwii/asuna-helper",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -51,7 +51,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "typeorm": "^0.3.12",
-    "ua-parser-js": "^1.0.35"
+    "ua-parser-js": "2.0.0-alpha.2"
   },
   "devDependencies": {
     "@serverless-guru/prettier-plugin-import-order": "^0.4.1",
@@ -68,5 +68,5 @@
     "prettier": "^2.8.7",
     "typescript": "^5.0.3"
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.5.0"
 }
