@@ -1,10 +1,11 @@
 import { Logger } from '@nestjs/common';
 
+import { fileURLToPath } from 'node:url';
+
 import bluebird from 'bluebird';
 import Redis from 'ioredis';
 import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
-import { fileURLToPath } from 'node:url';
 
 import { AppEnv } from '../../app.env';
 import { resolveModule } from '../../logger/factory';
@@ -25,13 +26,14 @@ export class RedisLockProvider {
 
   constructor() {
     const redisConfig = RedisConfigObject.loadOr('lock');
-    this.logger.log(`init ${r(redisConfig, { transform: true })}`);
+    this.logger.log(`init redis for redlock ${r(redisConfig, { transform: true })}`);
     if (redisConfig.enable) {
       this.client = new Redis(redisConfig.getIoOptions());
       this.client.on('error', (reason) => {
         this.logger.error(`ioredis connection error ${r(reason)}`);
       });
       if (!this.redLock && this.client) {
+        this.logger.log(`init redlock ...`);
         this.redLock = new RedLock(
           // you should have one client for each independent redis node or cluster
           [this.client],

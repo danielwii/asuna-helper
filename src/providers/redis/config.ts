@@ -72,7 +72,7 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     const appendPrefix = `${this.prefix}${redisPrefix ? `${redisPrefix}_`.toUpperCase() : ''}`;
     RedisConfigObject.logger.verbose(`try load env: ${appendPrefix}${RedisConfigKeys2.enable}`);
     return withP2(
-      (p: string): any => AppEnv.configLoader.loadConfig2(RedisConfigObject.key, p),
+      (p: string): any => AppEnv.configLoader.loadConfig2(redisPrefix || RedisConfigObject.key, p),
       RedisConfigKeys2,
       (loader, keys) =>
         new RedisConfigObject({
@@ -90,14 +90,8 @@ export class RedisConfigObject extends AbstractConfigLoader<RedisConfigObject> {
     const appendPrefix = (prefix.length > 0 ? `${prefix}_` : '').toUpperCase();
     const key = `${appendPrefix}${RedisConfigKeys.REDIS_ENABLE}`;
     const enable = AppEnv.configLoader.loadBoolConfig(key);
-    // RedisConfigObject.logger.verbose(`try loadOr env: ${key} ${enable ? 'fallback to default' : ''}`);
-    if (enable === true) {
-      return RedisConfigObject.load(prefix);
-    }
-    // if (enable === false) {
-    //   return null;
-    // }
-    return RedisConfigObject.load();
+    RedisConfigObject.logger.verbose(`try loadOr env: ${key}, fallback to default.`);
+    return enable ? RedisConfigObject.load(prefix) : RedisConfigObject.load();
   }
 
   public get options(): RedisOptions {
