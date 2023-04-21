@@ -1,14 +1,11 @@
 import { Logger } from '@nestjs/common';
 
 import axios, { AxiosResponse } from 'axios';
-import bluebird from 'bluebird';
 import * as fs from 'fs-extra';
 import path, { join } from 'path';
 
 import { handleAxiosResponseError } from './axios';
 import { r } from './serializer';
-
-const { Promise } = bluebird;
 
 export async function download(url: string, to: string): Promise<AxiosResponse> {
   fs.ensureDirSync(path.dirname(to));

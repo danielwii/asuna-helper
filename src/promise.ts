@@ -1,15 +1,6 @@
-import bluebird from 'bluebird';
-import _ from 'lodash';
 import { exec } from 'node:child_process';
 
-const { Promise } = bluebird;
-
-export function promisify<T extends (...args: any[]) => R, R>(
-  fn: T,
-  bind?: any,
-): (...args: Parameters<T>) => Promise<R> {
-  return Promise.promisify(fn).bind(bind);
-}
+import _ from 'lodash';
 
 export function isPromiseAlike<T>(value: any): value is Promise<T> {
   return !!value.then;
@@ -35,7 +26,7 @@ export async function waitUtil<T>(fn: () => Promise<T>): Promise<T> {
   const exists = await fn();
   if (exists) {
     // logger.debug(`found wait ${r(exists)}, waiting 1s...`);
-    await Promise.delay(1000);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return waitUtil(fn);
   }
   return exists;

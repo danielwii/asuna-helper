@@ -2,7 +2,6 @@ import { Logger } from '@nestjs/common';
 
 import { fileURLToPath } from 'node:url';
 
-import bluebird from 'bluebird';
 import Redis from 'ioredis';
 import _ from 'lodash';
 import RedLock, { Lock } from 'redlock';
@@ -13,8 +12,6 @@ import { waitUtil } from '../../promise';
 import { LifecycleRegister } from '../../register';
 import { r } from '../../serializer';
 import { RedisConfigKeys, RedisConfigObject } from './config';
-
-const { Promise } = bluebird;
 
 export class RedisLockProvider {
   private readonly logger = new Logger(resolveModule(fileURLToPath(import.meta.url), RedisLockProvider.name));
